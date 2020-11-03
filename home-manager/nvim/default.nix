@@ -5,11 +5,11 @@ let
   nvimFiles = [ 
     ./init.vim
     ./coc-settings.vim
+    ./plug.vim
   ];
 
   # Packages loaded form nix packages
   nvimPackages = with pkgs.vimPlugins; [
-    vim-plug
     vim-nix 
     vim-surround
     vim-airline
