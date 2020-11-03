@@ -1,0 +1,25 @@
+{
+      "languageserver": {
+        "elmLS": {
+          "command": "elm-language-server",
+          "filetypes": ["elm"],
+          "rootPatterns": ["elm.json"],
+          "initializationOptions": {
+            "elmAnalyseTrigger": "change",
+            "elmFormatPath": "elm-format", 
+            "elmTestPath": "elm-test"
+          }
+        },
+        "racket": {
+         "command": "racket",
+         "args": ["--lib", "racket-langserver"],
+         "filetypes": ["rkt", "racket"],
+         "trace.server": "verbose",
+         "requireRootPattern": false,
+         "initializationOptions": {},
+         "settings": {}
+        }
+      },
+      "clangd.semanticHighlighting": true,
+      "codeLens.enable": true
+}
