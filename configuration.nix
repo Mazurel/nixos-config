@@ -2,8 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
+{ lib, config, pkgs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -17,63 +16,83 @@
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "Nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
 
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
+  # Change interface if necessary
+  networking.useDHCP = true;
   networking.interfaces.enp1s0.useDHCP = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
+  # Internationalization
   i18n.defaultLocale = "pl_PL.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "pl";
   };
 
-  # Enable the Plasma 5 Desktop Environment.
-  services.xserver.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.pantheon.enable = true;
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    # Override dwm with custom settings
+    # Overrides dwm as wel as dwm-git just to be sure
+    dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
+      name = "dwm-custom";
+    });
+    dwm-git = dwm;
+  };
 
-  # Configure keymap in X11
-  services.xserver.layout = "pl";
-  # services.xserver.xkbOptions = "eurosign:e";
+  #nixpkgs.config.dwm.conf = builtins.readFile ./dwm/config.def.h;
+  nixpkgs.config.dwm.patches = 
+  [
+    dwm/mypatch.diff
+  ];
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  # X11 configuration
+  services.xserver = 
+  {
+    enable = true;
+    layout = "pl";
+    # Disable touchpad
+    libinput.enable = false;
+    displayManager.sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 1280x960";
+    displayManager.lightdm = {
+      enable = true;
+      greeter.enable = true;
+    };
+    windowManager.dwm.enable = true;
+  };
+
+  services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+  };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # User account. Don't forget to set a password with ‘passwd’.
   users.users.mateusz = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" ]; # Enable ‘sudo’ for the user.
   }; 
 
+  # Load home manager
   home-manager.users.mateusz = import ./home-manager;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # $ nix search $pkg
   environment.systemPackages = with pkgs; [
+    alacritty
+    dmenu
+    xorg.libxcb
+    arc-theme
+    nitrogen
+
     # Tools
     wget
     htop
@@ -82,6 +101,7 @@
     git
     gcc
     racket
+    nodejs
 
     # Gui apps
     brave

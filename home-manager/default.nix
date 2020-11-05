@@ -1,5 +1,24 @@
 { lib, config, pkgs, ... }:
 with lib;
+let 
+  # Files to load into neovim
+  nvimFiles = [
+    nvim/init.vim
+    nvim/coc-settings.vim
+  ];
+
+  # Packages loaded form nix packages
+  nvimPackages = with pkgs.vimPlugins; [
+    coc-nvim
+    vim-racket
+    vim-lsp-cxx-highlight
+    vim-nix
+    vim-surround
+    vim-airline
+    vim-airline-themes
+    gruvbox
+  ];
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -9,12 +28,31 @@ with lib;
   home.username = "mateusz";
   home.homeDirectory = "/home/mateusz";
 
+  xdg.configFile."dwm-autostart.sh".text = ''
+  #!/bin/sh
+  '';
+
   home.packages = with pkgs; [
     bat
     ripgrep
+    htop
+    killall
   ];
 
-  programs.neovim = import ./nvim { lib=lib; pkgs=pkgs; };
+  # Installing and setting up proper neovim config
+  xdg.configFile."nvim/coc-settings.json".text = builtins.readFile nvim/coc-settings.json;
+  programs.neovim =
+  {
+    enable = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    configure = {
+      customRC = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = nvimPackages;
+      };
+    };
+  };
 
   programs.zsh = {
     enable = true;
