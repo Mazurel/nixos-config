@@ -17,6 +17,9 @@ let
     vim-airline
     vim-airline-themes
     gruvbox
+    nerdtree
+    vim-nerdtree-syntax-highlight
+    vim-devicons
   ];
 in
 {
@@ -28,9 +31,14 @@ in
   home.username = "mateusz";
   home.homeDirectory = "/home/mateusz";
 
-  xdg.configFile."dwm-autostart.sh".text = ''
-  #!/bin/sh
-  '';
+  xdg.configFile."dwm/autostart.sh" = {
+    executable = true;
+    text = ''
+    #!/bin/sh
+    nitrogen --restore
+    WM_NAME=dwm slstatus &
+    '';
+  };
 
   home.packages = with pkgs; [
     bat

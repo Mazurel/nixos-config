@@ -25,6 +25,7 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
+  location.provider = "geoclue2";
 
   # Change interface if necessary
   networking.useDHCP = true;
@@ -46,11 +47,18 @@
     dwm-git = dwm;
   };
 
-  #nixpkgs.config.dwm.conf = builtins.readFile ./dwm/config.def.h;
+  # :< - for mailspring etc.
+  nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.dwm.conf = builtins.readFile ./dwm/config.def.h;
   nixpkgs.config.dwm.patches = 
   [
-    dwm/mypatch.diff
+    dwm/dwm-autostart-20161205-bb3bd6f.diff
+    dwm/dwm-colorbar-6.2.diff
+    dwm/dwm-sticky-6.1.diff
   ];
+
+  nixpkgs.config.slstatus.conf = builtins.readFile ./slstatus/config.def.h;
 
   # X11 configuration
   services.xserver = 
@@ -59,7 +67,10 @@
     layout = "pl";
     # Disable touchpad
     libinput.enable = false;
-    displayManager.sessionCommands = "${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 1280x960";
+    displayManager.sessionCommands = 
+    ''
+      ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 1280x960
+    '';
     displayManager.lightdm = {
       enable = true;
       greeter.enable = true;
@@ -68,6 +79,7 @@
   };
 
   services.printing.enable = true;
+  services.redshift.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -87,11 +99,13 @@
 
   # $ nix search $pkg
   environment.systemPackages = with pkgs; [
+    # WM etc
     alacritty
-    dmenu
     xorg.libxcb
     arc-theme
     nitrogen
+    slstatus
+    rofi
 
     # Tools
     wget
@@ -102,9 +116,17 @@
     gcc
     racket
     nodejs
+    gtk2
+    gtk3
+    patchutils
 
     # Gui apps
     brave
+    mailspring
+    wine-staging
+
+    # Fonts
+    nerdfonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
