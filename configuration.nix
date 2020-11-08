@@ -50,16 +50,15 @@
   # :< - for mailspring etc.
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.dwm.conf = builtins.readFile ./dwm/config.def.h;
+  nixpkgs.config.dwm.conf = builtins.readFile window-manager/dwm/config.def.h;
   nixpkgs.config.dwm.patches = 
   [
-    dwm/dwm-systray-6.2.diff
-    dwm/dwm-autostart-20161205-bb3bd6f.diff
-    #dwm/dwm-colorbar-6.2.diff
-    dwm/dwm-sticky-6.1.diff
+    window-manager/dwm/dwm-systray-6.2.diff
+    window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
+    window-manager/dwm/dwm-sticky-6.1.diff
   ];
 
-  nixpkgs.config.slstatus.conf = builtins.readFile ./slstatus/config.def.h;
+  nixpkgs.config.slstatus.conf = builtins.readFile window-manager/slstatus/config.def.h;
 
   fonts.fonts = with pkgs; [
     noto-fonts
