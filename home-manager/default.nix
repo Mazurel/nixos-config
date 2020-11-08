@@ -78,6 +78,14 @@ in
     enable = true;
     userName = "Mazurel";
     userEmail = "mateusz.mazur@yahoo.com";
+    aliases = 
+    {
+      st = "status";
+      cm = "commit";
+      cmm = "commit -m";
+      a = "add";
+      rb = "rebase";
+    };
   };
 
   # This value determines the Home Manager release that your

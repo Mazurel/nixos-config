@@ -118,6 +118,9 @@
     slstatus
     rofi
     thunderbird-bin
+
+    # Night colors
+    redshift
     hicolor-icon-theme
 
     # Tools
