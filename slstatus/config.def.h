@@ -65,6 +65,6 @@ static const struct arg args[] = {
 	/* function format          argument */
     { ram_used,       "Used: %s | ",            NULL},
     { kernel_release, "Linux %s | ",            NULL},
-    { hostname, "%s | ",            NULL},
+    //{ hostname, "%s | ",            NULL},
 	{ datetime, "%s",           "%F %T" },
 };

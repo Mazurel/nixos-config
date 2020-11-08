@@ -53,12 +53,22 @@
   nixpkgs.config.dwm.conf = builtins.readFile ./dwm/config.def.h;
   nixpkgs.config.dwm.patches = 
   [
+    dwm/dwm-systray-6.2.diff
     dwm/dwm-autostart-20161205-bb3bd6f.diff
-    dwm/dwm-colorbar-6.2.diff
+    #dwm/dwm-colorbar-6.2.diff
     dwm/dwm-sticky-6.1.diff
   ];
 
   nixpkgs.config.slstatus.conf = builtins.readFile ./slstatus/config.def.h;
+
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-emoji
+    liberation_ttf
+    (nerdfonts.override {
+      fonts = [ "FiraCode" "DroidSansMono"];
+    })
+  ];
 
   # X11 configuration
   services.xserver = 
@@ -70,6 +80,8 @@
     displayManager.sessionCommands = 
     ''
       ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 1280x960
+      eval $(${lib.getBin pkgs.gnome3.gnome-keyring}/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+      export SSH_AUTH_SOCK
     '';
     displayManager.lightdm = {
       enable = true;
@@ -106,6 +118,8 @@
     nitrogen
     slstatus
     rofi
+    thunderbird-bin
+    hicolor-icon-theme
 
     # Tools
     wget
@@ -124,9 +138,6 @@
     brave
     mailspring
     wine-staging
-
-    # Fonts
-    nerdfonts
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

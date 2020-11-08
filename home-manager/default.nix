@@ -37,6 +37,7 @@ in
     #!/bin/sh
     nitrogen --restore
     WM_NAME=dwm slstatus &
+    redshift-gtk &
     '';
   };
 
