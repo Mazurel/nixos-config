@@ -10,8 +10,8 @@ let
   # Packages loaded form nix packages
   nvimPackages = with pkgs.vimPlugins; [
     coc-nvim
-    #vim-racket
-    #vim-lsp-cxx-highlight
+    vim-racket
+    vim-lsp-cxx-highlight
     vim-nix
     vim-surround
     vim-airline

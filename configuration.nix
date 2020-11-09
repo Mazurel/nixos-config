@@ -15,7 +15,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.efiInstallAsRemovable = false;
   boot.loader.grub.extraEntries = ''
   menuentry "Arch" {
     search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
@@ -23,10 +23,10 @@
     }
   '';
 
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/disk/by-uuid/df37e299-5f41-4353-9319-b90768bcca25"; # or "nodev" for efi only
+  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
   networking.hostName = "Nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -49,26 +49,29 @@
   nixpkgs.config.packageOverrides = pkgs: rec {
     # Override dwm with custom settings
     # Overrides dwm as wel as dwm-git just to be sure
-    #dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
-    #  name = "dwm-custom";
-    #});
-    #dwm-git = dwm;
+    dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
+      name = "dwm-custom";
+    });
+    dwm-git = dwm;
   };
 
-  # :< - for mailspring etc.
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.config.dwm.conf = builtins.readFile window-manager/dwm/config.def.h;
-  nixpkgs.config.dwm.patches = 
-  [
-    window-manager/dwm/dwm-systray-6.2.diff
-    window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
-    window-manager/dwm/dwm-sticky-6.1.diff
-  ];
+  nixpkgs.config.dwm = 
+  {
+    conf = builtins.readFile window-manager/dwm/config.def.h;
+    patches = 
+    [
+      window-manager/dwm/dwm-systray-6.2.diff
+      window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
+      window-manager/dwm/dwm-sticky-6.1.diff
+    ];
+  };
 
   nixpkgs.config.slstatus.conf = builtins.readFile window-manager/slstatus/config.def.h;
 
   fonts.fonts = with pkgs; [
+    source-code-pro
     noto-fonts
     noto-fonts-emoji
     liberation_ttf
@@ -88,18 +91,17 @@
     displayManager.sessionCommands = 
     ''
       ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 1280x960
-      eval $(${lib.getBin pkgs.gnome3.gnome-keyring}/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+      #eval $(${lib.getBin pkgs.gnome3.gnome-keyring}/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
       export SSH_AUTH_SOCK
     '';
     displayManager.gdm = {
       enable = true;
-      #greeter.enable = true;
+      greeter.enable = true;
     };
     windowManager.dwm.enable = true;
   };
 
   services.printing.enable = true;
-  services.redshift.enable = true;
 
   # Enable sound.
   sound.enable = true;
