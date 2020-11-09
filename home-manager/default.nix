@@ -72,6 +72,11 @@ in
       enable = true;
       theme = "aussiegeek";
     };
+    shellAliases = {
+      gst = "git status";
+      ".." = "cd ..";
+      "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
+    }
   };
 
   programs.git = {
