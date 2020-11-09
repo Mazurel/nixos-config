@@ -7,18 +7,26 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./filesystems.nix
       <home-manager/nixos>
     ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.extraEntries = ''
+  menuentry "Arch" {
+    search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
+    configfile "($arch)/boot/grub/grub.cfg"
+    }
+  '';
+
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
+  boot.loader.grub.device = "/dev/disk/by-uuid/df37e299-5f41-4353-9319-b90768bcca25"; # or "nodev" for efi only
 
   networking.hostName = "Nixos-desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -41,10 +49,10 @@
   nixpkgs.config.packageOverrides = pkgs: rec {
     # Override dwm with custom settings
     # Overrides dwm as wel as dwm-git just to be sure
-    dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
-      name = "dwm-custom";
-    });
-    dwm-git = dwm;
+    #dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
+    #  name = "dwm-custom";
+    #});
+    #dwm-git = dwm;
   };
 
   # :< - for mailspring etc.
@@ -74,6 +82,7 @@
   {
     enable = true;
     layout = "pl";
+    videoDrivers = [ "nvidia" ];
     # Disable touchpad
     libinput.enable = false;
     displayManager.sessionCommands = 
@@ -82,9 +91,9 @@
       eval $(${lib.getBin pkgs.gnome3.gnome-keyring}/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
       export SSH_AUTH_SOCK
     '';
-    displayManager.lightdm = {
+    displayManager.gdm = {
       enable = true;
-      greeter.enable = true;
+      #greeter.enable = true;
     };
     windowManager.dwm.enable = true;
   };
@@ -132,13 +141,10 @@
     gcc
     racket
     nodejs
-    gtk2
-    gtk3
     patchutils
 
     # Gui apps
     brave
-    mailspring
     wine-staging
   ];
 
@@ -159,7 +165,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
