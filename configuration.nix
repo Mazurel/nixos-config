@@ -8,67 +8,84 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       <home-manager/nixos>
+      <nixos-hardware/common/cpu/intel>
     ];
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = false;
-  boot.loader.grub.extraEntries = ''
-  menuentry "Arch" {
-    search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
-    configfile "($arch)/boot/grub/grub.cfg"
-    }
-  '';
+  boot.loader = {
+    grub = {
+      enable = true;
+      version = 2;
 
-  boot.loader.efi.efiSysMountPoint = "/boot";
+      # Efi config
+      efiSupport = true;
+      efiInstallAsRemovable = false;
+      device = "nodev";
 
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+      # Specific for device
+      extraEntries = ''
+        menuentry "Arch" {
+        search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
+        configfile "($arch)/boot/grub/grub.cfg"
+        }
+      '';
+    };
 
-  networking.hostName = "Nixos-desktop"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    efi.efiSysMountPoint = "/boot";
+  };
 
-  # Set your time zone.
+  # Network settings
+  networking = {
+    hostName = "Nixos-desktop";
+    useDHCP = true;
+
+    interfaces = {
+      # Specific for device
+      eno1.useDHCP = true;
+    };
+
+    wireless.enable = false; # Enables wpa_supplicant
+  };
+
+  # Time zone and location
   time.timeZone = "Europe/Warsaw";
   location.provider = "geoclue2";
 
-  # Change interface if necessary
-  networking.useDHCP = true;
-  networking.interfaces.enp1s0.useDHCP = true;
-
-  # Internationalization
   i18n.defaultLocale = "pl_PL.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = "pl";
   };
 
-  nixpkgs.config.packageOverrides = pkgs: rec {
-    # Override dwm with custom settings
-    # Overrides dwm as wel as dwm-git just to be sure
-    dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
-      name = "dwm-custom";
-    });
-    dwm-git = dwm;
+
+  # Packages settings
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+
+      packageOverrides = pkgs: rec {
+      # Overrides dwm as dwm-git
+      dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
+        name = "dwm-custom";
+        });
+      };
+
+      # Dwm settings
+      dwm = {
+        conf = builtins.readFile window-manager/dwm/config.def.h;
+        patches = 
+        [
+          window-manager/dwm/dwm-systray-6.2.diff
+          window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
+          window-manager/dwm/dwm-sticky-6.1.diff
+        ];
+      };
+      slstatus.conf = builtins.readFile window-manager/slstatus/config.def.h;
+
+    };
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.config.dwm = 
-  {
-    conf = builtins.readFile window-manager/dwm/config.def.h;
-    patches = 
-    [
-      window-manager/dwm/dwm-systray-6.2.diff
-      window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
-      window-manager/dwm/dwm-sticky-6.1.diff
-    ];
-  };
-
-  nixpkgs.config.slstatus.conf = builtins.readFile window-manager/slstatus/config.def.h;
-
+  # Fonts
   fonts.fonts = with pkgs; [
     source-code-pro
     noto-fonts
@@ -85,20 +102,16 @@
     enable = true;
     layout = "pl";
     videoDrivers = [ "nvidia" ];
-    # Disable touchpad
-    libinput.enable = false;
-    displayManager.sessionCommands = 
-    ''
-    '';
+    
+    libinput.enable = false; # Touchpad
+
     displayManager.lightdm = {
       enable = true;
       greeter.enable = true;
     };
+
     windowManager.dwm.enable = true;
   };
-
-  services.printing.enable = true;
-  virtualisation.libvirtd.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -116,14 +129,14 @@
     extraGroups = [ "wheel" "audio" "libvirtd" ]; # Enable ‘sudo’ for the user.
   }; 
 
-  # Load home manager
+  # Load home manager for main user
   home-manager.users.mateusz = import ./home-manager;
 
   environment.sessionVariables = {
+    # Icons for gtk
     GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
   };
 
-  # $ nix search $pkg
   environment.systemPackages = with pkgs; [
     # WM etc
     alacritty
@@ -173,15 +186,8 @@
     dnsmasq
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
+  services.printing.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -192,12 +198,6 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "20.09";
 }
 
