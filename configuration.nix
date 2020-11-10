@@ -7,7 +7,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./filesystems.nix
       <home-manager/nixos>
     ];
 
@@ -90,11 +89,8 @@
     libinput.enable = false;
     displayManager.sessionCommands = 
     ''
-      ${lib.getBin pkgs.xorg.xrandr}/bin/xrandr --output Virtual-1 --mode 1280x960
-      #eval $(${lib.getBin pkgs.gnome3.gnome-keyring}/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-      export SSH_AUTH_SOCK
     '';
-    displayManager.gdm = {
+    displayManager.lightdm = {
       enable = true;
       greeter.enable = true;
     };
@@ -102,33 +98,44 @@
   };
 
   services.printing.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
+    # Custom config for real time noise cancelation
+    # Based on https://askubuntu.com/questions/18958/realtime-noise-removal-with-pulseaudio
+    configFile = configs/default.pa;
   };
 
   # User account. Don't forget to set a password with ‘passwd’.
   users.users.mateusz = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" "libvirtd" ]; # Enable ‘sudo’ for the user.
   }; 
 
   # Load home manager
   home-manager.users.mateusz = import ./home-manager;
 
+  environment.sessionVariables = {
+    GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
+  };
+
   # $ nix search $pkg
   environment.systemPackages = with pkgs; [
     # WM etc
     alacritty
-    xorg.libxcb
-    arc-theme
+    dunst
     nitrogen
     slstatus
     rofi
-    thunderbird-bin
+
+    # Themes and more
+    capitaine-cursors
+    arc-theme
+    lxappearance
 
     # Night colors
     redshift
@@ -145,9 +152,25 @@
     nodejs
     patchutils
 
+    # Wine
+    wineWowPackages.stable
+
     # Gui apps
     brave
-    wine-staging
+    minecraft
+    xournalpp
+    zathura
+    qucs
+    libreoffice-fresh
+    pavucontrol
+    xfce.thunar
+    thunderbird-bin
+    megasync
+
+    # Virtualization
+    virt-manager
+    ebtables
+    dnsmasq
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -167,7 +190,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -176,6 +199,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
-
 }
 

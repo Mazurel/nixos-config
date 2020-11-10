@@ -31,6 +31,8 @@ in
   home.username = "mateusz";
   home.homeDirectory = "/home/mateusz";
 
+  xdg.configFile."dunst/dunstrc".text = builtins.readFile ./dunstrc;
+
   xdg.configFile."dwm/autostart.sh" = {
     executable = true;
     text = ''
@@ -38,14 +40,21 @@ in
     nitrogen --restore
     WM_NAME=dwm slstatus &
     redshift-gtk &
+    dunst &
+    megasync &
     '';
   };
 
   home.packages = with pkgs; [
+    # Command line tools
     bat
     ripgrep
     htop
     killall
+    cmakeCurses
+    
+    # GUI
+    obs-studio
   ];
 
   # Installing and setting up proper neovim config
