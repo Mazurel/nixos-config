@@ -77,6 +77,7 @@
         [
           window-manager/dwm/dwm-systray-6.2.diff
           window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
+          window-manager/dwm/dwm-pertag-6.2.diff
           window-manager/dwm/dwm-sticky-6.1.diff
         ];
       };
@@ -162,10 +163,13 @@
     wget
     htop
     devour
+    libnotify
 
     # Programming
     git
     gcc
+    clang
+    clang-tools
     racket
     nodejs
     patchutils
@@ -173,18 +177,27 @@
     # Wine
     wineWowPackages.stable
 
-    # Gui apps
+    # Browser
     brave
-    minecraft
-    xournalpp
-    zathura
-    qucs
+
+    # Office
     libreoffice-fresh
+    zathura
+    thunderbird-bin
+    xournalpp
+    wxmaxima
+
+    # Other
+    qucs
     pavucontrol
     xfce.thunar
-    thunderbird-bin
     megasync
+    vlc
+    ferdi
+
+    # Games
     steam
+    minecraft
 
     # Virtualization
     virt-manager
@@ -193,6 +206,7 @@
   ];
 
   services.printing.enable = true;
+  services.teamviewer.enable = true;
   virtualisation.libvirtd.enable = true;
 
   # Enable the OpenSSH daemon.

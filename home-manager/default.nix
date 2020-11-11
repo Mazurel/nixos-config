@@ -23,7 +23,7 @@ let
   ];
 
   # Run app 
-  make-devour = name : { "${name}" = "devour ${name}"; };
+  make-devour = name : { ${name} = "devour ${name}"; };
   devour-aliases = 
   [
     "wine"
@@ -56,6 +56,8 @@ in
   };
 
   home.packages = with pkgs; [
+    clang
+
     # WM stuff
     redshift
 
