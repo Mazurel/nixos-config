@@ -21,6 +21,16 @@ let
     vim-nerdtree-syntax-highlight
     vim-devicons
   ];
+
+  # Run app 
+  make-devour = name : { "${name}" = "devour ${name}"; };
+  devour-aliases = 
+  [
+    "wine"
+    "xournalpp"
+    "zathura"
+    "thunar"
+  ];
 in
 {
   # Let Home Manager install and manage itself.
@@ -46,6 +56,9 @@ in
   };
 
   home.packages = with pkgs; [
+    # WM stuff
+    redshift
+
     # Command line tools
     bat
     ripgrep
@@ -81,11 +94,12 @@ in
       enable = true;
       theme = "aussiegeek";
     };
+
     shellAliases = {
       gst = "git status";
       ".." = "cd ..";
       "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
-    };
+    } // lib.fold (x: acc: acc // (make-devour x)) {} devour-aliases;
   };
 
   programs.git = {

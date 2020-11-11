@@ -122,6 +122,10 @@
     configFile = configs/default.pa;
   };
 
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.pulseaudio.support32Bit = true;
+
   # User account. Don't forget to set a password with ‘passwd’.
   users.users.mateusz = {
     shell = pkgs.zsh;
@@ -157,6 +161,7 @@
     # Tools
     wget
     htop
+    devour
 
     # Programming
     git
@@ -179,6 +184,7 @@
     xfce.thunar
     thunderbird-bin
     megasync
+    steam
 
     # Virtualization
     virt-manager
