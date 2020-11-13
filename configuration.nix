@@ -3,6 +3,17 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { lib, config, pkgs, ... }:
+with pkgs;
+let
+  comma-pkg = import ./comma { inherit pkgs; };
+
+  my-python-packages = python-packages: with python-packages; [
+    numpy
+    matplotlib
+    # other python packages you want
+  ]; 
+  python-with-my-packages = python3.withPackages my-python-packages;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -13,6 +24,7 @@
 
   # Use the GRUB 2 boot loader.
   boot.loader = {
+    
     grub = {
       enable = true;
       version = 2;
@@ -32,9 +44,18 @@
     };
 
     efi.efiSysMountPoint = "/boot";
+    efi.canTouchEfiVariables = true;
   };
 
-  # Network settings
+  boot.kernelParams = [ "intel_iommu=on" ];
+  boot.blacklistedKernelModules = [ "nvidia" "nouveau" ];
+  boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" "kvm-intel" ];
+
+  boot.extraModprobeConfig = "options vfio-pci ids=8086:0c01,10de:13c2,10de:0fbb";
+
+  boot.initrd.availableKernelModules = [ "vfio-pci" ];
+
+# Network settings
   networking = {
     hostName = "Nixos-desktop";
     useDHCP = true;
@@ -102,7 +123,8 @@
   {
     enable = true;
     layout = "pl";
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "intel" ];
+    #videoDrivers = [ "nvidia" ];
     
     libinput.enable = false; # Touchpad
 
@@ -131,7 +153,7 @@
   users.users.mateusz = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "libvirtd" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" "libvirtd" ];
   }; 
 
   # Load home manager for main user
@@ -148,6 +170,7 @@
     dunst
     nitrogen
     slstatus
+    dmenu
     rofi
 
     # Themes and more
@@ -161,18 +184,28 @@
 
     # Tools
     wget
+    comma-pkg
     htop
     devour
     libnotify
 
+    # Virtualization
+    udev
+    OVMF
+    pciutils
+    kvm
+
     # Programming
     git
     gcc
+    gnumake
+    pkgconfig
     clang
     clang-tools
     racket
     nodejs
     patchutils
+    python-with-my-packages
 
     # Wine
     wineWowPackages.stable
@@ -183,9 +216,12 @@
     # Office
     libreoffice-fresh
     zathura
+    nomacs
+    gimp
     thunderbird-bin
     xournalpp
     wxmaxima
+    scilab-bin
 
     # Other
     qucs
@@ -193,7 +229,8 @@
     xfce.thunar
     megasync
     vlc
-    ferdi
+    discord
+    teams
 
     # Games
     steam
@@ -208,6 +245,8 @@
   services.printing.enable = true;
   services.teamviewer.enable = true;
   virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.qemuOvmf = true;
+  virtualisation.libvirtd.qemuRunAsRoot = false;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

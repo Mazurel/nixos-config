@@ -47,6 +47,8 @@ in
     executable = true;
     text = ''
     #!/bin/sh
+    xrandr --output HDMI1 --auto --left-of HDMI2
+
     nitrogen --restore
     WM_NAME=dwm slstatus &
     redshift-gtk &
@@ -67,6 +69,7 @@ in
     htop
     killall
     cmakeCurses
+    direnv
     
     # GUI
     obs-studio
@@ -92,6 +95,9 @@ in
     enableAutosuggestions = true;
     autocd = true;
     dotDir = ".config/zsh";
+    initExtra = ''
+    eval "$(direnv hook zsh)"
+    '';
     oh-my-zsh = {
       enable = true;
       theme = "aussiegeek";
