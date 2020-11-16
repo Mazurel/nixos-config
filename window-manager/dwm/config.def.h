@@ -70,6 +70,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "rofi", "-show", "combi", "-combi-modi", "drun,rn", "-modi", "combi"};
 static const char *termcmd[]  = { "alacritty", NULL };
+static const char *screenshot[] = { "maim -s -u | xclip -selection clipboard -t image/png -i" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -90,6 +91,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_p,      spawn, SHCMD(screenshot) },
 	{ MODKEY,                       XK_s,      togglesticky,   {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },

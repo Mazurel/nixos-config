@@ -47,13 +47,14 @@ in
     efi.canTouchEfiVariables = true;
   };
 
-  boot.kernelParams = [ "intel_iommu=on" ];
-  boot.blacklistedKernelModules = [ "nvidia" "nouveau" ];
-  boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" "kvm-intel" ];
-
-  boot.extraModprobeConfig = "options vfio-pci ids=8086:0c01,10de:13c2,10de:0fbb";
-
-  boot.initrd.availableKernelModules = [ "vfio-pci" ];
+  # Virtualization stuff
+#  boot.kernelParams = [ "intel_iommu=on" ];
+#  boot.blacklistedKernelModules = [ "nvidia" "nouveau" ];
+#  boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" "kvm-intel" ];
+#
+#  boot.extraModprobeConfig = "options vfio-pci ids=8086:0c01,10de:13c2,10de:0fbb";
+#
+#  boot.initrd.availableKernelModules = [ "vfio-pci" ];
 
 # Network settings
   networking = {
@@ -83,6 +84,7 @@ in
   nixpkgs = {
     config = {
       allowUnfree = true;
+      allowBroken = true;
 
       packageOverrides = pkgs: rec {
       # Overrides dwm as dwm-git
@@ -123,8 +125,8 @@ in
   {
     enable = true;
     layout = "pl";
-    videoDrivers = [ "intel" ];
-    #videoDrivers = [ "nvidia" ];
+    #videoDrivers = [ "intel" ];
+    videoDrivers = [ "nvidia" ];
     
     libinput.enable = false; # Touchpad
 
@@ -172,6 +174,7 @@ in
     slstatus
     dmenu
     rofi
+    picom
 
     # Themes and more
     capitaine-cursors
@@ -188,6 +191,8 @@ in
     htop
     devour
     libnotify
+    maim
+    xclip
 
     # Virtualization
     udev
@@ -208,7 +213,7 @@ in
     python-with-my-packages
 
     # Wine
-    wineWowPackages.stable
+    wineWowPackages.full
 
     # Browser
     brave
@@ -220,11 +225,12 @@ in
     gimp
     thunderbird-bin
     xournalpp
+    maxima
     wxmaxima
     scilab-bin
 
     # Other
-    qucs
+    qucs-s
     pavucontrol
     xfce.thunar
     megasync
@@ -233,7 +239,8 @@ in
     teams
 
     # Games
-    steam
+    (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib  libstdcxx5 ]; nativeOnly = false; })
+    steam-run-native
     minecraft
 
     # Virtualization

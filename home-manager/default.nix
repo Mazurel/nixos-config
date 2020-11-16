@@ -1,6 +1,8 @@
 { lib, config, pkgs, ... }:
 with lib;
 let 
+  myTerm = "alacritty";
+
   # Files to load into neovim
   nvimFiles = [
     nvim/init.vim
@@ -23,13 +25,14 @@ let
   ];
 
   # Run app 
-  make-devour = name : { ${name} = "devour ${name}"; };
+  make-devour = name : { ${name} = "devour ${name} 2> /dev/null 3> /dev/null"; };
   devour-aliases = 
   [
     "wine"
     "xournalpp"
     "zathura"
     "thunar"
+    "nomacs"
   ];
 in
 {
@@ -54,6 +57,7 @@ in
     redshift-gtk &
     dunst &
     megasync &
+    picom -b
     '';
   };
 
@@ -69,7 +73,7 @@ in
     htop
     killall
     cmakeCurses
-    direnv
+    colorls
     
     # GUI
     obs-studio
@@ -95,18 +99,30 @@ in
     enableAutosuggestions = true;
     autocd = true;
     dotDir = ".config/zsh";
-    initExtra = ''
-    eval "$(direnv hook zsh)"
-    '';
     oh-my-zsh = {
       enable = true;
-      theme = "aussiegeek";
+      theme = "amuse";
     };
+
+    plugins = [
+    {
+      name = "zsh-nix-shell";
+      file = "nix-shell.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "chisui";
+        repo = "zsh-nix-shell";
+        rev = "v0.1.0";
+        sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
+      };
+    }
+    ];
 
     shellAliases = {
       gst = "git status";
       ".." = "cd ..";
       "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
+      "cls" = "colorls";
+      "t" = "nohup ${myTerm} 2> /dev/null 3> /dev/null &";
     } // lib.fold (x: acc: acc // (make-devour x)) {} devour-aliases;
   };
 
