@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { lib, config, pkgs, ... }:
 with pkgs;
 let
@@ -10,17 +6,20 @@ let
   my-python-packages = python-packages: with python-packages; [
     numpy
     matplotlib
-    # other python packages you want
   ]; 
+
   python-with-my-packages = python3.withPackages my-python-packages;
 in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
     ];
+
+  nix.useSandbox = true;
+  nix.maxJobs = 4;
 
   # Use the GRUB 2 boot loader.
   boot.loader = {
@@ -47,16 +46,7 @@ in
     efi.canTouchEfiVariables = true;
   };
 
-  # Virtualization stuff
-#  boot.kernelParams = [ "intel_iommu=on" ];
-#  boot.blacklistedKernelModules = [ "nvidia" "nouveau" ];
-#  boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" "kvm-intel" ];
-#
-#  boot.extraModprobeConfig = "options vfio-pci ids=8086:0c01,10de:13c2,10de:0fbb";
-#
-#  boot.initrd.availableKernelModules = [ "vfio-pci" ];
-
-# Network settings
+  # Network settings
   networking = {
     hostName = "Nixos-desktop";
     useDHCP = true;
@@ -90,22 +80,17 @@ in
       # Overrides dwm as dwm-git
       dwm = pkgs.dwm-git.overrideAttrs (oldAttr: {
         name = "dwm-custom";
+        src = fetchFromGitHub {
+          owner = "Mazurel";
+          repo = "dwm";
+          rev = "519908eafb492e0b9401b75ebfc73f6be1203a78";
+          sha256 = "14fr5ah7jma8avfywpq9a8c9i0h6cnif43y98g5f6bbaxpxxmgbs";
+        };
         });
       };
 
-      # Dwm settings
-      dwm = {
-        conf = builtins.readFile window-manager/dwm/config.def.h;
-        patches = 
-        [
-          window-manager/dwm/dwm-systray-6.2.diff
-          window-manager/dwm/dwm-autostart-20161205-bb3bd6f.diff
-          window-manager/dwm/dwm-pertag-6.2.diff
-          window-manager/dwm/dwm-sticky-6.1.diff
-        ];
-      };
-      slstatus.conf = builtins.readFile window-manager/slstatus/config.def.h;
-
+      dwm.conf = builtins.readFile window-manager/dwm-config.h;
+      slstatus.conf = builtins.readFile window-manager/slstatus-config.h;
     };
   };
 
@@ -212,11 +197,15 @@ in
     patchutils
     python-with-my-packages
 
+    gtk2
+    qt514.full
+
     # Wine
     wineWowPackages.full
 
     # Browser
     brave
+    firefox
 
     # Office
     libreoffice-fresh

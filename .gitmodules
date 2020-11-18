@@ -1,3 +1,6 @@
 [submodule "comma"]
 	path = comma
 	url = https://github.com/Shopify/comma
+[submodule "nix-patchtools"]
+	path = nix-patchtools
+	url = https://github.com/svanderburg/nix-patchtools

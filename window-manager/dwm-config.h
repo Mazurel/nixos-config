@@ -36,7 +36,7 @@ static const Rule rules[] = {
 	 */
     /* class     instance  title           tags mask  isfloating       monitor */
     { "Gimp",              NULL,     NULL,           0,         1,            -1 },
-    { "Firefox",           NULL,     NULL,           1 << 8,    0,            -1 },
+    { "Firefox",           NULL,     NULL,           0,    0,            -1 },
     { "pavucontrol",       NULL,     NULL,           0,         1,            -1 },
     { "alacritty",         NULL,     NULL,           0,         0,            -1 },
     { "megasync",          NULL,     NULL,           0,         1,            -1 },
@@ -70,7 +70,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "rofi", "-show", "combi", "-combi-modi", "drun,rn", "-modi", "combi"};
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *screenshot[] = { "maim -s -u | xclip -selection clipboard -t image/png -i" };
+static const char screenshot[] = "maim -s -u | xclip -selection clipboard -t image/png -i";
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
