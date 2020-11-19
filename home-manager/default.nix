@@ -22,6 +22,7 @@ let
     nerdtree
     vim-nerdtree-syntax-highlight
     vim-devicons
+    ctrlp-vim
   ];
 
   # Run app 

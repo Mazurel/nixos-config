@@ -60,6 +60,8 @@ nmap <leader>bl :ls<CR>
 nnoremap <leader>bo :ls<CR>:b 
 nnoremap <leader>bd :bdelete!<CR> 
 
+inoremap <silent> <c-p> <Esc>:CtrlPMixed<CR>i
+
 " Window manipulations 
 nmap <leader>w <C-w>
 
