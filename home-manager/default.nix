@@ -58,6 +58,7 @@ in
     redshift-gtk &
     dunst &
     megasync &
+    nm-applet &
     picom -b
     '';
   };
@@ -75,6 +76,7 @@ in
     killall
     cmakeCurses
     colorls
+    manix
     
     # GUI
     obs-studio

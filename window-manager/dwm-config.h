@@ -37,9 +37,8 @@ static const Rule rules[] = {
     /* class     instance  title           tags mask  isfloating       monitor */
     { "Gimp",              NULL,     NULL,           0,         1,            -1 },
     { "Firefox",           NULL,     NULL,           0,         0,            -1 },
-    { "pavucontrol",       NULL,     NULL,           0,         1,            -1 },
-    { "alacritty",         NULL,     NULL,           0,         0,            -1 },
-    { "megasync",          NULL,     NULL,           0,         1,            -1 },
+    { "Pavucontrol",       NULL,     NULL,           0,         1,            -1 },
+    { "MEGAsync",          NULL,     NULL,           0,         1,            -1 },
     { NULL,                NULL,     "Event Tester", 0,         0,            -1 }, /* xev */
 };
 

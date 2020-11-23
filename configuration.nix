@@ -49,7 +49,9 @@ in
   # Network settings
   networking = {
     hostName = "Nixos-desktop";
-    useDHCP = true;
+    #useDHCP = true;
+
+    networkmanager.enable = true;
 
     interfaces = {
       # Specific for device
@@ -117,8 +119,13 @@ in
 
     displayManager.lightdm = {
       enable = true;
-      greeter.enable = true;
+      #greeters.mini = {
+      #  enable = true;
+      #  user = "mateusz";
+      #};
     };
+
+    #desktopManager.pantheon.enable = true;
 
     windowManager.dwm.enable = true;
   };
@@ -140,7 +147,7 @@ in
   users.users.mateusz = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "libvirtd" ];
+    extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" ];
   }; 
 
   # Load home manager for main user
@@ -160,6 +167,7 @@ in
     dmenu
     rofi
     picom
+    networkmanagerapplet
 
     # Themes and more
     capitaine-cursors
