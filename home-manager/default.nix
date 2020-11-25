@@ -77,9 +77,11 @@ in
     cmakeCurses
     colorls
     manix
+    dialog
     
     # GUI
     obs-studio
+    ktorrent
   ];
 
   # Installing and setting up proper neovim config

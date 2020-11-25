@@ -125,10 +125,17 @@ in
       #};
     };
 
-    #desktopManager.pantheon.enable = true;
-
     windowManager.dwm.enable = true;
+
+    xserver.xautolock = {
+      enable = true;
+      time = 10; # in minutes
+
+      killtime = 60;
+      killer = "/run/current-system/systemd/bin/systemctl suspend";
+    };
   };
+
 
   # Enable sound.
   sound.enable = true;
@@ -186,6 +193,7 @@ in
     libnotify
     maim
     xclip
+    file
 
     # Virtualization
     udev
@@ -206,10 +214,12 @@ in
     python-with-my-packages
 
     gtk2
+    glade
     qt514.full
 
     # Wine
     wineWowPackages.full
+    winetricks
 
     # Browser
     brave
@@ -222,18 +232,23 @@ in
     gimp
     thunderbird-bin
     xournalpp
+
+    # Science stuff
     maxima
     wxmaxima
     scilab-bin
+    qucs-s
+    ngspice
+
 
     # Other
-    qucs-s
     pavucontrol
     xfce.thunar
     megasync
     vlc
     discord
     teams
+    gparted
 
     # Games
     (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib  libstdcxx5 ]; nativeOnly = false; })
