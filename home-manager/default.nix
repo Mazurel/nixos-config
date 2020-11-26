@@ -110,14 +110,24 @@ in
     };
 
     plugins = [
-    {
+    rec {
       name = "zsh-nix-shell";
       file = "nix-shell.plugin.zsh";
       src = pkgs.fetchFromGitHub {
         owner = "chisui";
-        repo = "zsh-nix-shell";
+        repo = name;
         rev = "v0.1.0";
         sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
+      };
+    }
+    rec {
+      name = "zsh-vim-mode";
+      file = "${name}.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "softmoth";
+        repo = name;
+        rev = "abef0c0c03506009b56bb94260f846163c4f287a";
+        sha256 = "0cnjazclz1kyi13m078ca2v6l8pg4y8jjrry6mkvszd383dx1wib";
       };
     }
     ];

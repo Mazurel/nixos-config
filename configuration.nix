@@ -49,7 +49,6 @@ in
   # Network settings
   networking = {
     hostName = "Nixos-desktop";
-    #useDHCP = true;
 
     networkmanager.enable = true;
 
@@ -126,8 +125,8 @@ in
     };
 
     windowManager.dwm.enable = true;
-
-    xserver.xautolock = {
+    
+    xautolock = {
       enable = true;
       time = 10; # in minutes
 
@@ -163,6 +162,8 @@ in
   environment.sessionVariables = {
     # Icons for gtk
     GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
+    EDITOR = "vim";
+    KEYTIMEOUT = "10";
   };
 
   environment.systemPackages = with pkgs; [
@@ -212,6 +213,7 @@ in
     nodejs
     patchutils
     python-with-my-packages
+    xlibs.xorgserver # Xephyr
 
     gtk2
     glade
