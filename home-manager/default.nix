@@ -33,7 +33,10 @@ let
     "xournalpp"
     "zathura"
     "thunar"
-    "nomacs"
+    "imv"
+    "vlc"
+    "cvlc"
+    "okular"
   ];
 in
 {
@@ -68,6 +71,8 @@ in
 
     # WM stuff
     redshift
+    feh
+    polybar
 
     # Command line tools
     bat
@@ -78,10 +83,13 @@ in
     colorls
     manix
     dialog
+    pandoc
+    texlive.combined.scheme-full
     
     # GUI
     obs-studio
     ktorrent
+    imv
   ];
 
   # Installing and setting up proper neovim config

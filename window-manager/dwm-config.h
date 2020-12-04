@@ -29,6 +29,8 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
+#include "fibonacci.c"
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -39,11 +41,12 @@ static const Rule rules[] = {
     { "Firefox",           NULL,     NULL,           0,         0,            -1 },
     { "Pavucontrol",       NULL,     NULL,           0,         1,            -1 },
     { "MEGAsync",          NULL,     NULL,           0,         1,            -1 },
+    { "Toolkit",           NULL,    "Picture-in-Picture",     0,         1,            -1 },
     { NULL,                NULL,     "Event Tester", 0,         0,            -1 }, /* xev */
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -52,6 +55,8 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+ 	{ "[@]",      spiral },
+ 	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
@@ -70,7 +75,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *browser[] = { "firefox", NULL };
 static const char *dmenucmd[] = { "rofi", "-show", "combi", "-combi-modi", "drun,rn", "-modi", "combi", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char screenshot[] = "maim -s -u | xclip -selection clipboard -t image/png -i";
+#define SCREENSHOT "maim -s -u | xclip -selection clipboard -t image/png -i"
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -81,17 +86,19 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.02} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.02} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD(screenshot) },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD(SCREENSHOT) },
     { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = browser} },
 	{ MODKEY,                       XK_s,      togglesticky,   {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },

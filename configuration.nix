@@ -84,8 +84,8 @@ in
         src = fetchFromGitHub {
           owner = "Mazurel";
           repo = "dwm";
-          rev = "519908eafb492e0b9401b75ebfc73f6be1203a78";
-          sha256 = "14fr5ah7jma8avfywpq9a8c9i0h6cnif43y98g5f6bbaxpxxmgbs";
+          rev = "4719907bf0ec2dddbabf6f0ea6f950bde6116f64";
+          sha256 = "0plinyw5ff11i5gbpirqf7mjw6gcj8xn8hg0pm0paxlm7d71na2n";
         };
         });
       };
@@ -97,9 +97,10 @@ in
 
   # Fonts
   fonts.fonts = with pkgs; [
+    font-awesome
+    emojione
     source-code-pro
     noto-fonts
-    noto-fonts-emoji
     liberation_ttf
     (nerdfonts.override {
       fonts = [ "FiraCode" "DroidSansMono"];
@@ -125,6 +126,7 @@ in
     };
 
     windowManager.dwm.enable = true;
+    windowManager.leftwm.enable = true;
     
     xautolock = {
       enable = true;
@@ -215,6 +217,8 @@ in
     python-with-my-packages
     xlibs.xorgserver # Xephyr
 
+    vscodium
+
     gtk2
     glade
     qt514.full
@@ -230,6 +234,7 @@ in
     # Office
     libreoffice-fresh
     zathura
+    kdeApplications.okular
     nomacs
     gimp
     thunderbird-bin
@@ -239,9 +244,11 @@ in
     maxima
     wxmaxima
     scilab-bin
-    qucs-s
-    ngspice
 
+    # Electronics
+    qucs-s
+    qucs
+    ngspice
 
     # Other
     pavucontrol
