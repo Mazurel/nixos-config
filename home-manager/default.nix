@@ -62,7 +62,6 @@ in
     dunst &
     megasync &
     nm-applet &
-    picom -b
     '';
   };
 
@@ -90,6 +89,15 @@ in
     obs-studio
     ktorrent
     imv
+    marktext
+    gimp
+    thunderbird
+    xournalpp
+
+    # Science stuff
+    maxima
+    wxmaxima
+    scilab-bin
   ];
 
   # Installing and setting up proper neovim config
@@ -116,6 +124,8 @@ in
       enable = true;
       theme = "amuse";
     };
+
+    # initExtra = "eval '$(starship init zsh)'";
 
     plugins = [
     rec {
@@ -146,7 +156,19 @@ in
       "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
       "cls" = "colorls";
       "t" = "nohup ${myTerm} 2> /dev/null 3> /dev/null &";
-    } // lib.fold (x: acc: acc // (make-devour x)) {} devour-aliases;
+    }
+    # Add all devour aliases
+    // lib.fold (x: acc: acc // (make-devour x)) {} devour-aliases;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      character.symbol = "➜";
+      prompt_order = [ "line_break" "package" "line_break" "character" ];
+      time.disabled = false;
+    };
   };
 
   programs.git = {

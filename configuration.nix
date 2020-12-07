@@ -23,7 +23,6 @@ in
 
   # Use the GRUB 2 boot loader.
   boot.loader = {
-    
     grub = {
       enable = true;
       version = 2;
@@ -147,6 +146,9 @@ in
     configFile = configs/default.pa;
   };
 
+  # Steam hardware configuration
+  hardware.opengl.driSupport = true;
+  hardware.opengl.extraPackages = with pkgs; [ mesa ];
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
@@ -165,6 +167,7 @@ in
     # Icons for gtk
     GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
     EDITOR = "vim";
+    # Zsh-vim timeout
     KEYTIMEOUT = "10";
   };
 
@@ -176,7 +179,6 @@ in
     slstatus
     dmenu
     rofi
-    picom
     networkmanagerapplet
 
     # Themes and more
@@ -236,9 +238,6 @@ in
     zathura
     kdeApplications.okular
     nomacs
-    gimp
-    thunderbird-bin
-    xournalpp
 
     # Science stuff
     maxima
@@ -260,7 +259,7 @@ in
     gparted
 
     # Games
-    (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib  libstdcxx5 ]; nativeOnly = false; })
+    (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib libstdcxx5 gcc mesa ]; nativeOnly = true; })
     steam-run-native
     minecraft
 
@@ -272,6 +271,16 @@ in
 
   services.printing.enable = true;
   services.teamviewer.enable = true;
+  services.picom = {
+    enable = true;
+    fade = true;
+    inactiveOpacity = 0.9;
+    shadow = true;
+    fadeDelta = 4;
+  };
+
+  programs.qt5ct.enable = true;
+
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemuOvmf = true;
   virtualisation.libvirtd.qemuRunAsRoot = false;
