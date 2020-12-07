@@ -2,6 +2,7 @@
 with pkgs;
 let
   comma-pkg = import ./comma { inherit pkgs; };
+  my-scripts = import ./scripts { pkgs = pkgs; };
 
   my-python-packages = python-packages: with python-packages; [
     numpy
@@ -14,36 +15,16 @@ in
   imports =
     [ 
       ./hardware-configuration.nix
+      ./boot.nix
+      ./packages.nix
+      ./virtualization.nix
+      ./steam-and-games.nix
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
     ];
 
   nix.useSandbox = true;
   nix.maxJobs = 4;
-
-  # Use the GRUB 2 boot loader.
-  boot.loader = {
-    grub = {
-      enable = true;
-      version = 2;
-
-      # Efi config
-      efiSupport = true;
-      efiInstallAsRemovable = false;
-      device = "nodev";
-
-      # Specific for device
-      extraEntries = ''
-        menuentry "Arch" {
-        search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
-        configfile "($arch)/boot/grub/grub.cfg"
-        }
-      '';
-    };
-
-    efi.efiSysMountPoint = "/boot";
-    efi.canTouchEfiVariables = true;
-  };
 
   # Network settings
   networking = {
@@ -69,7 +50,6 @@ in
     keyMap = "pl";
   };
 
-
   # Packages settings
   nixpkgs = {
     config = {
@@ -89,8 +69,8 @@ in
         });
       };
 
-      dwm.conf = builtins.readFile window-manager/dwm-config.h;
-      slstatus.conf = builtins.readFile window-manager/slstatus-config.h;
+      dwm.conf = builtins.readFile configs/dwm-config.h;
+      slstatus.conf = builtins.readFile configs/slstatus-config.h;
     };
   };
 
@@ -118,10 +98,6 @@ in
 
     displayManager.lightdm = {
       enable = true;
-      #greeters.mini = {
-      #  enable = true;
-      #  user = "mateusz";
-      #};
     };
 
     windowManager.dwm.enable = true;
@@ -130,6 +106,7 @@ in
     xautolock = {
       enable = true;
       time = 10; # in minutes
+      locker = "${my-scripts}/bin/locker";
 
       killtime = 60;
       killer = "/run/current-system/systemd/bin/systemctl suspend";
@@ -145,13 +122,6 @@ in
     # Based on https://askubuntu.com/questions/18958/realtime-noise-removal-with-pulseaudio
     configFile = configs/default.pa;
   };
-
-  # Steam hardware configuration
-  hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = with pkgs; [ mesa ];
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
-  hardware.pulseaudio.support32Bit = true;
 
   # User account. Don't forget to set a password with ‘passwd’.
   users.users.mateusz = {
@@ -171,102 +141,11 @@ in
     KEYTIMEOUT = "10";
   };
 
-  environment.systemPackages = with pkgs; [
-    # WM etc
-    alacritty
-    dunst
-    nitrogen
-    slstatus
-    dmenu
-    rofi
-    networkmanagerapplet
-
-    # Themes and more
-    capitaine-cursors
-    arc-theme
-    lxappearance
-
-    # Night colors
-    redshift
-    hicolor-icon-theme
-
-    # Tools
-    wget
-    comma-pkg
-    htop
-    devour
-    libnotify
-    maim
-    xclip
-    file
-
-    # Virtualization
-    udev
-    OVMF
-    pciutils
-    kvm
-
-    # Programming
-    git
-    gcc
-    gnumake
-    pkgconfig
-    clang
-    clang-tools
-    racket
-    nodejs
-    patchutils
+  # Custom packages
+  environment.systemPackages = [
     python-with-my-packages
-    xlibs.xorgserver # Xephyr
-
-    vscodium
-
-    gtk2
-    glade
-    qt514.full
-
-    # Wine
-    wineWowPackages.full
-    winetricks
-
-    # Browser
-    brave
-    firefox
-
-    # Office
-    libreoffice-fresh
-    zathura
-    kdeApplications.okular
-    nomacs
-
-    # Science stuff
-    maxima
-    wxmaxima
-    scilab-bin
-
-    # Electronics
-    qucs-s
-    qucs
-    ngspice
-
-    # Other
-    pavucontrol
-    xfce.thunar
-    megasync
-    vlc
-    discord
-    teams
-    gparted
-
-    # Games
-    (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib libstdcxx5 gcc mesa ]; nativeOnly = true; })
-    steam-run-native
-    minecraft
-
-    # Virtualization
-    virt-manager
-    ebtables
-    dnsmasq
+    comma-pkg
+    my-scripts
   ];
 
   services.printing.enable = true;
@@ -281,17 +160,6 @@ in
 
   programs.qt5ct.enable = true;
 
-  virtualisation.libvirtd.enable = true;
-  virtualisation.libvirtd.qemuOvmf = true;
-  virtualisation.libvirtd.qemuRunAsRoot = false;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
   system.stateVersion = "20.09";
