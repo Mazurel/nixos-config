@@ -1,11 +1,13 @@
 #!/bin/bash
 
+[[ -z $DISPLAY ]] && DISPLAY=$(who --short | grep $(whoami) | awk '{ print $5 }' | sed 's/(//;s/)//')
+
 yad --center --width 200 --height 100 --fixed \
     --button=OK \
     --text "Screen is about to be locked\nPress OK to abort lock"\
     2> /dev/null 3> /dev/null &
 
 PID=$!
-[[ -z SLEEP_TIMEOUT ]] && sleep 5s || sleep $SLEEP_TIMEOUT
+[[ -z $SLEEP_TIMEOUT ]] && sleep 5s || sleep $SLEEP_TIMEOUT
 kill -0 $! 2> /dev/null && kill $! && i3lock
 

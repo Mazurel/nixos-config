@@ -1,20 +1,30 @@
 { pkgs, ... }:
+with pkgs;
 {
+  nixpkgs.config.packageOverrides = pkgs: rec {
+    steam = pkgs.steam.override { 
+      extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib gcc mesa ]; 
+      nativeOnly = true; 
+    };
+  };
+
+  programs.steam.enable = true;
+
   # Required packages
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = [ 
     # Wine
     wineWowPackages.full
     winetricks
     # Games
-    (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib libstdcxx5 gcc mesa ]; nativeOnly = true; })
     steam-run-native
     minecraft
+    freesweep
   ];
 
   # Steam hardware configuration
   hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = with pkgs; [ mesa ];
+  hardware.opengl.extraPackages = [ mesa ];
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.opengl.extraPackages32 = with pkgsi686Linux; [ libva ];
   hardware.pulseaudio.support32Bit = true;
 }

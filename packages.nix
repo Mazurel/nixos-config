@@ -15,6 +15,9 @@ rec {
     capitaine-cursors
     arc-theme
     lxappearance
+    marwaita-manjaro
+    papirus-maia-icon-theme
+    lxqt.lxqt-themes
 
     # Night colors
     redshift

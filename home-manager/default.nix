@@ -49,6 +49,8 @@ in
   home.homeDirectory = "/home/mateusz";
 
   xdg.configFile."dunst/dunstrc".text = builtins.readFile ./dunstrc;
+  xdg.configFile."rofi/purple.rasi".text = builtins.readFile ./purple.rasi;
+  xdg.configFile."rofi/config".text = "rofi.theme: ~/.config/rofi/purple.rasi";
 
   xdg.configFile."dwm/autostart.sh" = {
     executable = true;
@@ -64,6 +66,8 @@ in
     nm-applet &
     '';
   };
+
+  
 
   home.packages = with pkgs; [
     clang
@@ -125,8 +129,6 @@ in
       theme = "amuse";
     };
 
-    # initExtra = "eval '$(starship init zsh)'";
-
     plugins = [
     rec {
       name = "zsh-nix-shell";
@@ -166,7 +168,6 @@ in
     enableZshIntegration = true;
     settings = {
       character.symbol = "➜";
-      prompt_order = [ "line_break" "package" "line_break" "character" ];
       time.disabled = false;
     };
   };

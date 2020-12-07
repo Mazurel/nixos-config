@@ -153,9 +153,32 @@ in
   services.picom = {
     enable = true;
     fade = true;
-    inactiveOpacity = 0.9;
+    opacityRules = [ 
+      "97:class_g = 'Alacritty' && focused"
+      "95:class_g = 'Alacritty' && !focused"
+    ];
+    experimentalBackends = true;
     shadow = true;
-    fadeDelta = 4;
+    backend = "glx";
+    fadeDelta = 5;
+    settings = {
+      no-dock-shadow = true;
+      detect-rounded-corners = true;
+      use-ewmh-active-win = true;
+#      detect-client-opacity = false;
+#      corner-radius = 5;
+#      blur-background-exclude = [
+#        "window_type = 'dock'"
+#        "window_type = 'desktop'"
+#        "class_g = 'maim'"
+#        "class_g = 'Maim'"
+#      ];
+#      blur = {
+#        method = "gaussian";
+#        size = 10;
+#        deviation = 5.0;
+#      };
+    };
   };
 
   programs.qt5ct.enable = true;
