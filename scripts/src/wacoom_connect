@@ -1,0 +1,6 @@
+# !/bin/sh
+
+Tablet=$(xinput list --name-only | dmenu -p 'Select device:')
+Output=$(xrandr --listactivemonitors | awk '{ print $4 }' | dmenu -p 'Select output:')
+
+xinput list | grep "$Tablet" && xinput --map-to-output "$Tablet" $Output
