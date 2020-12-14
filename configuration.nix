@@ -7,6 +7,7 @@ let
   my-python-packages = python-packages: with python-packages; [
     numpy
     matplotlib
+    jedi
   ]; 
 
   python-with-my-packages = python3.withPackages my-python-packages;
@@ -25,6 +26,12 @@ in
 
   nix.useSandbox = true;
   nix.maxJobs = 4;
+  nix.autoOptimiseStore = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
 
   # Network settings
   networking = {
@@ -93,6 +100,8 @@ in
     layout = "pl";
     #videoDrivers = [ "intel" ];
     videoDrivers = [ "nvidia" ];
+
+    #config = builtins.readFile configs/xorg.conf;
     
     libinput.enable = false; # Touchpad
 

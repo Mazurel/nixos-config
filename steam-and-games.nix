@@ -1,14 +1,13 @@
 { pkgs, ... }:
 with pkgs;
 {
-  nixpkgs.config.packageOverrides = pkgs: rec {
-    steam = pkgs.steam.override { 
-      extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib gcc mesa ]; 
-      nativeOnly = true; 
-    };
-  };
+#  nixpkgs.config.packageOverrides = pkgs: rec {
+#    steam = pkgs.steam.override { 
+#      extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib gcc mesa ]; 
+#      nativeOnly = false; 
+#    };
+#  };
 
-  programs.steam.enable = true;
 
   # Required packages
   environment.systemPackages = [ 
@@ -16,6 +15,7 @@ with pkgs;
     wineWowPackages.full
     winetricks
     # Games
+    steam
     steam-run-native
     minecraft
     freesweep

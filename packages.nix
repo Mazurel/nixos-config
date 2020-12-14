@@ -2,7 +2,7 @@
 with pkgs;
 rec {
   environment.systemPackages = [
-    # WM etc
+    # Window manager addons
     alacritty
     dunst
     nitrogen
@@ -10,6 +10,7 @@ rec {
     dmenu
     rofi
     networkmanagerapplet
+    redshift
 
     # Themes and more
     capitaine-cursors
@@ -18,12 +19,12 @@ rec {
     marwaita-manjaro
     papirus-maia-icon-theme
     lxqt.lxqt-themes
-
-    # Night colors
-    redshift
     hicolor-icon-theme
+    adwaita-qt
 
     # Tools
+    bash
+    neofetch
     wget
     htop
     devour
@@ -31,6 +32,7 @@ rec {
     maim
     xclip
     file
+    xlibs.xorgserver # Xephyr
 
     # Virtualization
     udev
@@ -48,9 +50,10 @@ rec {
     racket
     nodejs
     patchutils
-    xlibs.xorgserver # Xephyr
+    glade
 
     vscodium
+    nodePackages.pyright
 
     gtk2
     glade
@@ -69,6 +72,7 @@ rec {
     zathura
     kdeApplications.okular
     nomacs
+    marktext
 
     # Science stuff
     maxima
@@ -88,11 +92,6 @@ rec {
     discord
     teams
     gparted
-
-    # Games
-    (steam.override { extraPkgs = pkgs: [ mono gtk3 gtk3-x11 libgdiplus zlib libstdcxx5 gcc mesa ]; nativeOnly = true; })
-    steam-run-native
-    minecraft
 
     # Virtualization
     virt-manager

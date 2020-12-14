@@ -37,9 +37,13 @@ let
     "vlc"
     "cvlc"
     "okular"
+    "marktext"
   ];
 in
 {
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -129,6 +133,11 @@ in
       theme = "amuse";
     };
 
+    initExtra = ''
+      neofetch
+      cal
+    '';
+
     plugins = [
     rec {
       name = "zsh-nix-shell";
@@ -166,6 +175,7 @@ in
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    enableBashIntegration = true;
     settings = {
       character.symbol = "➜";
       time.disabled = false;
