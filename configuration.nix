@@ -73,7 +73,8 @@ in
           rev = "4719907bf0ec2dddbabf6f0ea6f950bde6116f64";
           sha256 = "0plinyw5ff11i5gbpirqf7mjw6gcj8xn8hg0pm0paxlm7d71na2n";
         };
-        });
+      });
+      dwm-git = dwm;
       };
 
       dwm.conf = builtins.readFile configs/dwm-config.h;
@@ -83,8 +84,8 @@ in
 
   # Fonts
   fonts.fonts = with pkgs; [
-    font-awesome
     emojione
+    font-awesome
     source-code-pro
     noto-fonts
     liberation_ttf
@@ -100,15 +101,9 @@ in
     layout = "pl";
     #videoDrivers = [ "intel" ];
     videoDrivers = [ "nvidia" ];
-
-    #config = builtins.readFile configs/xorg.conf;
     
     libinput.enable = false; # Touchpad
-
-    displayManager.lightdm = {
-      enable = true;
-    };
-
+    displayManager.sddm.enable = true; # Kind of like lightdm
     windowManager.dwm.enable = true;
     windowManager.leftwm.enable = true;
     
@@ -148,6 +143,8 @@ in
     EDITOR = "vim";
     # Zsh-vim timeout
     KEYTIMEOUT = "10";
+
+    NIXQC_OPTPATH="/opt";
   };
 
   # Custom packages
@@ -159,6 +156,8 @@ in
 
   services.printing.enable = true;
   services.teamviewer.enable = true;
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
   services.picom = {
     enable = true;
     fade = true;
@@ -174,25 +173,13 @@ in
       no-dock-shadow = true;
       detect-rounded-corners = true;
       use-ewmh-active-win = true;
-#      detect-client-opacity = false;
-#      corner-radius = 5;
-#      blur-background-exclude = [
-#        "window_type = 'dock'"
-#        "window_type = 'desktop'"
-#        "class_g = 'maim'"
-#        "class_g = 'Maim'"
-#      ];
-#      blur = {
-#        method = "gaussian";
-#        size = 10;
-#        deviation = 5.0;
-#      };
     };
   };
 
   programs.qt5ct.enable = true;
 
   networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 80 443 24800 ];
 
   system.stateVersion = "20.09";
 }

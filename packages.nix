@@ -11,6 +11,7 @@ rec {
     rofi
     networkmanagerapplet
     redshift
+    autorandr
 
     # Themes and more
     capitaine-cursors
@@ -32,7 +33,9 @@ rec {
     maim
     xclip
     file
+    unzip
     xlibs.xorgserver # Xephyr
+    usbutils # lsusb
 
     # Virtualization
     udev
@@ -43,9 +46,9 @@ rec {
     # Programming
     git
     gcc
+    gdb
     gnumake
     pkgconfig
-    clang
     clang-tools
     racket
     nodejs
@@ -71,8 +74,9 @@ rec {
     libreoffice-fresh
     zathura
     kdeApplications.okular
-    nomacs
+    sxiv
     marktext
+    inkscape
 
     # Science stuff
     maxima
@@ -80,7 +84,7 @@ rec {
     scilab-bin
 
     # Electronics
-    qucs-s
+    # qucs-s
     qucs
     ngspice
 
@@ -89,9 +93,11 @@ rec {
     xfce.thunar
     megasync
     vlc
+    kdenlive
     discord
     teams
     gparted
+    barrier
 
     # Virtualization
     virt-manager

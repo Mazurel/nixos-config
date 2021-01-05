@@ -14,10 +14,12 @@ let
     coc-nvim
     vim-racket
     vim-lsp-cxx-highlight
+    vim-clang-format
     vim-nix
     vim-surround
     vim-airline
     vim-airline-themes
+    vim-slime
     gruvbox
     nerdtree
     vim-nerdtree-syntax-highlight
@@ -38,6 +40,7 @@ let
     "cvlc"
     "okular"
     "marktext"
+    "sxiv"
   ];
 in
 {
@@ -59,22 +62,28 @@ in
   xdg.configFile."dwm/autostart.sh" = {
     executable = true;
     text = ''
-    #!/bin/sh
-    xrandr --output HDMI1 --auto --left-of HDMI2
+    #!/usr/bin/env sh
+
+    # Xrandr settings
+    xrandr --output DP-0 --primary --mode 1920x1080 --left-of HDMI-0 --mode 1920x1080
+
+    # Fixes programs such as scilab and matlab
+    wmname LG3D
 
     nitrogen --restore
     WM_NAME=dwm slstatus &
-    redshift-gtk &
+    #redshift-gtk &
     dunst &
     megasync &
     nm-applet &
+    barrier &
     '';
   };
 
   
 
   home.packages = with pkgs; [
-    clang
+    #clangd
 
     # WM stuff
     redshift
@@ -91,16 +100,21 @@ in
     manix
     dialog
     pandoc
+    unrar
+    wmname
     texlive.combined.scheme-full
     
     # GUI
     obs-studio
     ktorrent
     imv
+    sxiv
     marktext
     gimp
     thunderbird
     xournalpp
+    neovim-qt
+    spotify
 
     # Science stuff
     maxima
@@ -134,7 +148,6 @@ in
     };
 
     initExtra = ''
-      neofetch
       cal
     '';
 
@@ -159,6 +172,26 @@ in
         sha256 = "0cnjazclz1kyi13m078ca2v6l8pg4y8jjrry6mkvszd383dx1wib";
       };
     }
+    rec {
+      name = "zsh-syntax-highlighting";
+      file = "${name}.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "zsh-users";
+        repo = name;
+        rev = "00a5fd11eb9d1c163fb49da5310c8f4b09fb3022";
+        sha256 = "1gv7cl4kyqyjgyn3i6dx9jr5qsvr7dx1vckwv5xg97h81hg884rn";
+      };
+    }
+    rec {
+      name = "zsh-autosuggestions";
+      file = "${name}.plugin.zsh";
+      src = pkgs.fetchFromGitHub {
+        owner = "zsh-users";
+        repo = name;
+        rev = "ae315ded4dba10685dbbafbfa2ff3c1aefeb490d";
+        sha256 = "0h52p2waggzfshvy1wvhj4hf06fmzd44bv6j18k3l9rcx6aixzn6";
+      };
+    }
     ];
 
     shellAliases = {
@@ -167,6 +200,10 @@ in
       "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
       "cls" = "colorls";
       "t" = "nohup ${myTerm} 2> /dev/null 3> /dev/null &";
+      "untar" = "tar -xvf";
+      "mv" = "mv -v";
+      "cp" = "cp -v";
+      "rm" = "rm -v";
     }
     # Add all devour aliases
     // lib.fold (x: acc: acc // (make-devour x)) {} devour-aliases;
@@ -194,6 +231,12 @@ in
       a = "add";
       rb = "rebase";
     };
+  };
+
+  services.redshift = {
+    enable = true;
+    provider = "geoclue2";
+    tray = true;
   };
 
   # This value determines the Home Manager release that your

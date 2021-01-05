@@ -19,6 +19,7 @@ with pkgs;
     steam-run-native
     minecraft
     freesweep
+    lutris
   ];
 
   # Steam hardware configuration

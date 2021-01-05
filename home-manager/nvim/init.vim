@@ -28,6 +28,7 @@
 " Settings
 set number
 set relativenumber
+set clipboard=unnamedplus
 
 set tabstop=4
 set shiftwidth=4
@@ -60,7 +61,7 @@ nmap <leader>bl :ls<CR>
 nnoremap <leader>bo :ls<CR>:b 
 nnoremap <leader>bd :bdelete!<CR> 
 
-inoremap <silent> <c-p> <Esc>:CtrlPMixed<CR>i
+inoremap <silent> <c-p> <Esc>:CtrlPMixed<CR>
 
 " Window manipulations 
 nmap <leader>w <C-w>
