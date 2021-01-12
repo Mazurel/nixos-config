@@ -55,9 +55,11 @@ in
   home.username = "mateusz";
   home.homeDirectory = "/home/mateusz";
 
-  xdg.configFile."dunst/dunstrc".text = builtins.readFile ./dunstrc;
-  xdg.configFile."rofi/purple.rasi".text = builtins.readFile ./purple.rasi;
+  xdg.configFile."dunst/dunstrc".source = ./dunstrc;
+  xdg.configFile."rofi/purple.rasi".source = ./purple.rasi;
   xdg.configFile."rofi/config".text = "rofi.theme: ~/.config/rofi/purple.rasi";
+  xdg.configFile."i3/".source = ./i3;
+  xdg.configFile."polybar/config".source = ./polybar-config;
 
   xdg.configFile."dwm/autostart.sh" = {
     executable = true;
@@ -72,11 +74,13 @@ in
 
     nitrogen --restore
     WM_NAME=dwm slstatus &
-    #redshift-gtk &
-    dunst &
+    # Redshift is managed via configuration.nix
+    # redshift-gtk & 
+    deadd-notification-center &
     megasync &
     nm-applet &
     barrier &
+    kdeconnect-indicator &
     '';
   };
 
@@ -87,8 +91,9 @@ in
 
     # WM stuff
     redshift
-    feh
-    polybar
+    okular
+    sxiv
+    kdeApplications.kdeconnect-kde
 
     # Command line tools
     bat

@@ -4,7 +4,8 @@ rec {
   environment.systemPackages = [
     # Window manager addons
     alacritty
-    dunst
+    polybarFull
+    deadd-notification-center
     nitrogen
     slstatus
     dmenu
@@ -12,6 +13,7 @@ rec {
     networkmanagerapplet
     redshift
     autorandr
+    dragon-drop
 
     # Themes and more
     capitaine-cursors
@@ -36,6 +38,7 @@ rec {
     unzip
     xlibs.xorgserver # Xephyr
     usbutils # lsusb
+    jq # Json manipulation
 
     # Virtualization
     udev
@@ -74,6 +77,7 @@ rec {
     libreoffice-fresh
     zathura
     kdeApplications.okular
+    kdeApplications.kdeconnect-kde
     sxiv
     marktext
     inkscape

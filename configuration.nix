@@ -52,6 +52,7 @@ in
   location.provider = "geoclue2";
 
   i18n.defaultLocale = "pl_PL.UTF-8";
+
   console = {
     font = "Lat2-Terminus16";
     keyMap = "pl";
@@ -70,8 +71,8 @@ in
         src = fetchFromGitHub {
           owner = "Mazurel";
           repo = "dwm";
-          rev = "4719907bf0ec2dddbabf6f0ea6f950bde6116f64";
-          sha256 = "0plinyw5ff11i5gbpirqf7mjw6gcj8xn8hg0pm0paxlm7d71na2n";
+          rev = "c5ffd76d4813d7a5bcd7ad4aa916fff6404c5b31";
+          sha256 = "1wp2ardc1hbdkk2pd2x0p6kkfs9wmw62ic1gapv1k8gs79j8xb67";
         };
       });
       dwm-git = dwm;
@@ -103,9 +104,9 @@ in
     videoDrivers = [ "nvidia" ];
     
     libinput.enable = false; # Touchpad
-    displayManager.sddm.enable = true; # Kind of like lightdm
+    displayManager.lightdm.enable = true;
     windowManager.dwm.enable = true;
-    windowManager.leftwm.enable = true;
+    windowManager.i3.enable = true;
     
     xautolock = {
       enable = true;
@@ -143,8 +144,6 @@ in
     EDITOR = "vim";
     # Zsh-vim timeout
     KEYTIMEOUT = "10";
-
-    NIXQC_OPTPATH="/opt";
   };
 
   # Custom packages
@@ -179,7 +178,9 @@ in
   programs.qt5ct.enable = true;
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 80 443 24800 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 24800 ]; # For http/https and Barrier
+  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ]; # For kde connect
+  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ]; # For kde connect
 
   system.stateVersion = "20.09";
 }

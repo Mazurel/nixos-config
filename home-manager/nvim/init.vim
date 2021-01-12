@@ -1,27 +1,6 @@
 " Copyright Mazurel 2020
  
-"" Plugs
-"call plug#begin('~/.vim/plugged')
-"
-"Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-"Plug 'preservim/nerdtree'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-"
-"" For c++ highlighting
-"Plug 'jackguo380/vim-lsp-cxx-highlight'
-"" Add "clangd.semanticHighlighting": true 
-"" To coc config
-"
-"Plug 'rhysd/vim-clang-format'
-"
-"Plug 'godlygeek/tabular'
-"Plug 'plasticboy/vim-markdown'
-"
-"Plug 'wlangstroth/vim-racket'
-"
-"call plug#end()
-"
+
 " My coc plugins:
 " CocInstall coc-tsserver coc-json coc-clangd coc-rls
 
@@ -45,6 +24,9 @@ let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
             \ "AllowShortIfStatementsOnASingleLine" : "true" }
 
+" Vim-slime settings
+let g:slime_target = "neovim"
+
 " Key bindings
 let mapleader=" "
 
@@ -58,10 +40,14 @@ tnoremap <ESC> <C-\><C-n>
 nmap <leader>bn :bn<CR>
 nmap <leader>bp :bp<CR>
 nmap <leader>bl :ls<CR>
+nmap <leader>bb :b#<CR>
 nnoremap <leader>bo :ls<CR>:b 
-nnoremap <leader>bd :bdelete!<CR> 
+nnoremap <leader>bd :bdelete!<CR>
 
-inoremap <silent> <c-p> <Esc>:CtrlPMixed<CR>
+inoremap <c-p> <Esc>:CtrlP<CR>
+nnoremap <c-p> <Esc>:CtrlP<CR>
+imap <c-b> <Esc>:CtrlPBuffer<CR>
+nmap <c-b> <Esc>:CtrlPBuffer<CR>
 
 " Window manipulations 
 nmap <leader>w <C-w>
@@ -70,9 +56,8 @@ nmap <leader>w <C-w>
 nnoremap <leader>wq :q!<CR>
 nnoremap <leader>wd :wq<CR>
 
-au BufNewFile,BufRead *.cpp|*.c|*.h|*.hpp vmap <leader>ff :ClangFormat<CR>
-au BufNewFile,BufRead *.cpp|*.c|*.h|*.hpp map <leader>ff :ClangFormat<CR>
-au BufNewFile,BufRead *.cpp|*.c|*.h|*.hpp map <leader>ft :ClangFormatAutoToggle<CR>
+nmap <c-s> :w<CR>
+imap <c-s> <ESC>:w<CR>a
 
 nmap <leader>tt :terminal<CR>
 nmap <leader>tn :NERDTree<CR>
@@ -83,4 +68,4 @@ nmap <leader>sd :set spell&<CR>
 nmap <leader>sl :set spell spelllang=
 
 " Snippets
-nnoremap <leader>imc i Copyright Mateusz 2020<cr><ESC>
+nnoremap <leader>imc i Copyright Mazurel 2021<cr><ESC>
