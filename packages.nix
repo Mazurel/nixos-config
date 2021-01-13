@@ -39,6 +39,7 @@ rec {
     xlibs.xorgserver # Xephyr
     usbutils # lsusb
     jq # Json manipulation
+    hardinfo # Hardware info
 
     # Virtualization
     udev
@@ -52,7 +53,6 @@ rec {
     gdb
     gnumake
     pkgconfig
-    clang-tools
     racket
     nodejs
     patchutils

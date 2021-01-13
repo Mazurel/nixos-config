@@ -154,9 +154,12 @@ in
   ];
 
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.epson-escpr ];
   services.teamviewer.enable = true;
+
   services.flatpak.enable = true;
   xdg.portal.enable = true;
+
   services.picom = {
     enable = true;
     fade = true;
@@ -177,7 +180,8 @@ in
 
   programs.qt5ct.enable = true;
 
-  networking.firewall.enable = true;
+  # Temproarly disabled
+  networking.firewall.enable = false;
   networking.firewall.allowedTCPPorts = [ 80 443 24800 ]; # For http/https and Barrier
   networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ]; # For kde connect
   networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ]; # For kde connect

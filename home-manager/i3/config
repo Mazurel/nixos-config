@@ -28,6 +28,7 @@ set $ws10 10
 font pango:Source Code Pro 11
 title_align center
 default_border pixel 2
+default_floating_border normal
 client.focused          #2E373B #2E373B #ffffff #CA9BF2   #2E373B
 client.focused_inactive #1E272B #1E272B #aaaaaa #1E272B   #1E272B 
 client.unfocused        #1E272B #1E272B #aaaaaa #1E272B   #1E272B

@@ -2,7 +2,7 @@
 background = #1E272B
 foreground = #CA9BF2
 foregroundLight = #DAABF4
-backgroundLight = #2E373B
+backgroundLight = #4E575B
 alert = #bd2c40
 
 [bar/mainbar]
@@ -23,7 +23,7 @@ font-0 = "Source Code Pro Semibold:size=10;1"
 font-1 = "Font Awesome 5 Free:style=Solid:size=10;1"
 font-2 = "Font Awesome 5 Brands:size=10;1"
 modules-left = i3 title
-modules-center = date pulseaudio
+modules-center = date cpu memory
 cursor-click = pointer
 cursor-scroll = ns-resize
 tray-position=right
@@ -41,7 +41,8 @@ label-unfocused-padding = 2
 label-visible = %name%
 label-visible-underline = ${colors.backgroundLight}
 label-visible-padding = 2
-pin-workspaces = true
+pin-workspaces = false
+index-sort = true
 label-separator = |
 label-separator-padding = 1
 
@@ -49,8 +50,8 @@ label-separator-padding = 1
 type = internal/date
 interval = 5
 date =
-date-alt = " %Y-%m-%d"
-time = %H:%M
+date-alt = " %A %Y-%m-%d"
+time = %H:%M %A
 time-alt = %H:%M:%S
 format-prefix = 
 format-foreground = ${colors.foreground}
@@ -58,18 +59,16 @@ format-background = ${colors.background}
 format-padding = 2
 label = %date% %time%
 
-[module/pulseaudio]
-type = internal/pulseaudio
-
-format-volume = <label-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
-
-label-muted = 🔇 muted
-label-muted-foreground = #666
-click-right = pavucontrol
-
 [module/title]
 type = internal/xwindow
 label-maxlen = 46
 
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+label = CPU %percentage%%
+
+[module/memory]
+type = internal/memory
+interval = 3
+label = RAM %percentage_used%%

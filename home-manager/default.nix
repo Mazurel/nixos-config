@@ -87,7 +87,7 @@ in
   
 
   home.packages = with pkgs; [
-    #clangd
+    clang-tools # Clangd
 
     # WM stuff
     redshift
