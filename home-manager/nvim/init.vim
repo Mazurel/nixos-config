@@ -49,6 +49,11 @@ nnoremap <c-p> <Esc>:CtrlP<CR>
 imap <c-b> <Esc>:CtrlPBuffer<CR>
 nmap <c-b> <Esc>:CtrlPBuffer<CR>
 
+" Gitgutter mappings
+nmap <silent> N :GitGutterPreviewHunk<CR>
+nmap <silent> ]N :GitGutterNextHunk<CR>
+nmap <silent> [N :GitGutterPrevHunk<CR>
+
 " Window manipulations 
 nmap <leader>w <C-w>
 

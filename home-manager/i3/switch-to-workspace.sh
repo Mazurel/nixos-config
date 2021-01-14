@@ -42,4 +42,8 @@ i3-msg move workspace to output "$currentOutput" 1> /dev/null
 
 # Focus on dest workspace
 echo $destWorkspace
+# Why 3 times ?
+# Because one time not always work
+i3-msg workspace number $destWorkspace 1> /dev/null 
+i3-msg workspace number $destWorkspace 1> /dev/null 
 i3-msg workspace number $destWorkspace 1> /dev/null 

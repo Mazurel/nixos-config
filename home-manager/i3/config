@@ -89,16 +89,16 @@ bindsym $mod+Ctrl+greater move workspace to output right
 bindsym $mod+Ctrl+less move workspace to output left
 
 # switch to workspace
-bindsym $mod+1 exec "~/.config/i3/switch-to-workspace.sh $ws1"
-bindsym $mod+2 exec "~/.config/i3/switch-to-workspace.sh $ws2"
-bindsym $mod+3 exec "~/.config/i3/switch-to-workspace.sh $ws3"
-bindsym $mod+4 exec "~/.config/i3/switch-to-workspace.sh $ws4"
-bindsym $mod+5 exec "~/.config/i3/switch-to-workspace.sh $ws5"
-bindsym $mod+6 exec "~/.config/i3/switch-to-workspace.sh $ws6"
-bindsym $mod+7 exec "~/.config/i3/switch-to-workspace.sh $ws7"
-bindsym $mod+8 exec "~/.config/i3/switch-to-workspace.sh $ws8"
-bindsym $mod+9 exec "~/.config/i3/switch-to-workspace.sh $ws9"
-bindsym $mod+0 exec "~/.config/i3/switch-to-workspace.sh $ws10"
+bindsym $mod+1 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws1"
+bindsym $mod+2 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws2"
+bindsym $mod+3 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws3"
+bindsym $mod+4 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws4"
+bindsym $mod+5 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws5"
+bindsym $mod+6 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws6"
+bindsym $mod+7 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws7"
+bindsym $mod+8 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws8"
+bindsym $mod+9 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws9"
+bindsym $mod+0 exec --no-startup-id "~/.config/i3/switch-to-workspace.sh $ws10"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number "$ws1"

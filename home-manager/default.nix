@@ -20,6 +20,7 @@ let
     vim-airline
     vim-airline-themes
     vim-slime
+    vim-gitgutter
     gruvbox
     nerdtree
     vim-nerdtree-syntax-highlight
@@ -128,7 +129,7 @@ in
   ];
 
   # Installing and setting up proper neovim config
-  xdg.configFile."nvim/coc-settings.json".text = builtins.readFile nvim/coc-settings.json;
+  xdg.configFile."nvim/coc-settings.json".source = nvim/coc-settings.json;
   programs.neovim =
   {
     enable = true;
