@@ -60,6 +60,7 @@ for_window [class="MEGAsync"] floating enable
 for_window [class="Toolkit" title="Picture-in-Picture"] floating enable
 
 # Use Mouse+$mod to drag floating windows to their wanted position
+mouse_warping none
 floating_modifier $mod
 
 bindsym $mod+q kill
