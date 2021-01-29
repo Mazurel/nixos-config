@@ -24,8 +24,8 @@ with pkgs;
 
   # Steam hardware configuration
   hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [ mesa ];
+  hardware.opengl.extraPackages = [ mesa amdvlk ];
   hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgsi686Linux; [ libva ];
+  hardware.opengl.extraPackages32 = with pkgsi686Linux; [ amdvlk libva ];
   hardware.pulseaudio.support32Bit = true;
 }

@@ -38,7 +38,8 @@ client.placeholder      #1E272B #1E272B #ffffff #1E272B   #1E272B
 client.background       #ffffff
 
 # Autorun
-exec --no-startup-id xrandr --output DP-0 --primary --mode 1920x1080 --left-of HDMI-0 --mode 1920x1080
+#exec --no-startup-id xrandr --output DP-0 --primary --mode 1920x1080 --left-of HDMI-0 --mode 1920x1080
+exec --no-startup-id xrandr --output DP1 --primary --mode 1920x1080 --left-of HDMI2 --mode 1920x1080
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id wmname LG3D
 exec --no-startup-id nm-applet
@@ -64,6 +65,9 @@ mouse_warping none
 floating_modifier $mod
 
 bindsym $mod+q kill
+
+bindsym $mod+n output left
+bindsym $mod+m output right
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down

@@ -76,11 +76,12 @@ rec {
     # Office
     libreoffice-fresh
     zathura
-    kdeApplications.okular
-    kdeApplications.kdeconnect-kde
+    libsForQt5.okular
+    libsForQt5.kdeconnect-kde
     sxiv
     marktext
     inkscape
+    slack
 
     # Science stuff
     maxima
@@ -88,7 +89,7 @@ rec {
     scilab-bin
 
     # Electronics
-    # qucs-s
+    qucs-s
     qucs
     ngspice
 

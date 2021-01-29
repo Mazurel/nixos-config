@@ -101,7 +101,8 @@ in
     enable = true;
     layout = "pl";
     #videoDrivers = [ "intel" ];
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "intel" "amdgpu" ];
+    #videoDrivers = [ "amdgpu" "intel" ];
     
     libinput.enable = false; # Touchpad
     displayManager.lightdm.enable = true;
@@ -179,6 +180,7 @@ in
   };
 
   programs.qt5ct.enable = true;
+  services.sshd.enable = true;
 
   # Temproarly disabled
   networking.firewall.enable = false;

@@ -94,7 +94,7 @@ in
     redshift
     okular
     sxiv
-    kdeApplications.kdeconnect-kde
+    #kdeApplications.kdeconnect-kde
 
     # Command line tools
     bat
@@ -109,6 +109,7 @@ in
     unrar
     wmname
     texlive.combined.scheme-full
+    exa
     
     # GUI
     obs-studio
@@ -204,6 +205,7 @@ in
       gst = "git status";
       ".." = "cd ..";
       "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
+      "ls" = "exa";
       "cls" = "colorls";
       "t" = "nohup ${myTerm} 2> /dev/null 3> /dev/null &";
       "untar" = "tar -xvf";
