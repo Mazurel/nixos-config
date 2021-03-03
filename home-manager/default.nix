@@ -94,7 +94,6 @@ in
     redshift
     okular
     sxiv
-    #kdeApplications.kdeconnect-kde
 
     # Command line tools
     bat
@@ -102,31 +101,12 @@ in
     htop
     killall
     cmakeCurses
-    colorls
     manix
     dialog
     pandoc
     unrar
     wmname
-    texlive.combined.scheme-full
     exa
-    
-    # GUI
-    obs-studio
-    ktorrent
-    imv
-    sxiv
-    marktext
-    gimp
-    thunderbird
-    xournalpp
-    neovim-qt
-    spotify
-
-    # Science stuff
-    maxima
-    wxmaxima
-    scilab-bin
   ];
 
   # Installing and setting up proper neovim config
@@ -136,12 +116,14 @@ in
     enable = true;
     vimAlias = true;
     vimdiffAlias = true;
-    configure = {
-      customRC = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
-      packages.myVimPackage = with pkgs.vimPlugins; {
-        start = nvimPackages;
-      };
-    };
+    plugins = nvimPackages;
+    extraConfig = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
+    #configure = {
+      #customRC = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
+      #packages.myVimPackage = with pkgs.vimPlugins; {
+      #  start = nvimPackages;
+      #};
+    #};
   };
 
   programs.zsh = {
@@ -206,7 +188,6 @@ in
       ".." = "cd ..";
       "lsblk" = "lsblk -o name,mountpoint,label,size,uuid";
       "ls" = "exa";
-      "cls" = "colorls";
       "t" = "nohup ${myTerm} 2> /dev/null 3> /dev/null &";
       "untar" = "tar -xvf";
       "mv" = "mv -v";

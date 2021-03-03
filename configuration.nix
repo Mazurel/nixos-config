@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, libsForQt514, ... }:
 with pkgs;
 let
   comma-pkg = import ./comma { inherit pkgs; };
@@ -8,6 +8,7 @@ let
     numpy
     matplotlib
     jedi
+    sympy
   ]; 
 
   python-with-my-packages = python3.withPackages my-python-packages;
@@ -32,6 +33,21 @@ in
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
+
+#  nixpkgs.overlays = [ (self: super: {
+#    cryptopp = super.cryptopp.overrideAttrs(old: rec {
+#      pname = "crypto++";
+#      version = "8.2.0";
+#      underscoredVersion = lib.strings.replaceStrings ["."] ["_"] version;
+#
+#      src = fetchFromGitHub {
+#        owner = "weidai11";
+#        repo = "cryptopp";
+#        rev = "CRYPTOPP_${underscoredVersion}";
+#        sha256 = "01zrrzjn14yhkb9fzzl57vmh7ig9a6n6fka45f8za0gf7jpcq3mj";
+#      };
+#    });
+#  })];
 
   # Network settings
   networking = {
@@ -106,8 +122,9 @@ in
     
     libinput.enable = false; # Touchpad
     displayManager.lightdm.enable = true;
-    windowManager.dwm.enable = true;
+    windowManager.dwm.enable = false;
     windowManager.i3.enable = true;
+    desktopManager.gnome3.enable = false;
     
     xautolock = {
       enable = true;
@@ -148,10 +165,15 @@ in
   };
 
   # Custom packages
-  environment.systemPackages = [
+  environment.systemPackages = 
+    let OLDMEGASYNC = import (pkgs.fetchzip {
+        url = "https://github.com/NixOS/nixpkgs/archive/4a7f99d55d299453a9c2397f90b33d1120669775.tar.gz";
+        sha256 = "14sdgw2am5k66im2vwb8139k5zxiywh3wy6bgfqbrqx2p4zlc3m7"; }) { config = { allowUnfree=true; }; };
+    in with pkgs; [
     python-with-my-packages
     comma-pkg
     my-scripts
+    OLDMEGASYNC.megasync
   ];
 
   services.printing.enable = true;
@@ -181,6 +203,7 @@ in
 
   programs.qt5ct.enable = true;
   services.sshd.enable = true;
+  services.gnome3.gnome-keyring.enable = true;
 
   # Temproarly disabled
   networking.firewall.enable = false;

@@ -29,7 +29,7 @@ in
       name = "acs-override";
       patch = pkgs.fetchurl {
         url = "https://aur.archlinux.org/cgit/aur.git/plain/add-acs-overrides.patch?h=linux-vfio";
-        sha256 = "0gab2k7msx0jgglvn3x0ff9mbaycmi6jc15pkfif1p7iryjkswnk";
+        sha256 = "0xrzb1klz64dnrkjdvifvi0a4xccd87h1486spvn3gjjjsvyf2xr";
       };
     }
   ];

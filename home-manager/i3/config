@@ -27,8 +27,9 @@ set $ws10 10
 # Look and feel
 font pango:Source Code Pro 11
 title_align center
-default_border pixel 2
-default_floating_border normal
+#default_border pixel 2
+#default_floating_border normal
+
 client.focused          #2E373B #2E373B #ffffff #CA9BF2   #2E373B
 client.focused_inactive #1E272B #1E272B #aaaaaa #1E272B   #1E272B 
 client.unfocused        #1E272B #1E272B #aaaaaa #1E272B   #1E272B
@@ -39,7 +40,7 @@ client.background       #ffffff
 
 # Autorun
 #exec --no-startup-id xrandr --output DP-0 --primary --mode 1920x1080 --left-of HDMI-0 --mode 1920x1080
-exec --no-startup-id xrandr --output DP1 --primary --mode 1920x1080 --left-of HDMI2 --mode 1920x1080
+#exec --no-startup-id xrandr --output DP1 --primary --mode 1920x1080 --left-of HDMI2 --mode 1920x1080
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id wmname LG3D
 exec --no-startup-id nm-applet
@@ -59,6 +60,8 @@ bindsym $mod+o exec "autorandr --load $(autorandr --detected | dmenu) && nitroge
 for_window [class="Pavucontrol"] floating enable
 for_window [class="MEGAsync"] floating enable
 for_window [class="Toolkit" title="Picture-in-Picture"] floating enable
+for_window [class="Anki"] floating enable
+for_window [title="Rozmowa w Messengerze — Mozilla Firefox"] floating enable
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 mouse_warping none

@@ -24,6 +24,7 @@ rec {
     lxqt.lxqt-themes
     hicolor-icon-theme
     adwaita-qt
+    pop-gtk-theme
 
     # Tools
     bash
@@ -40,6 +41,8 @@ rec {
     usbutils # lsusb
     jq # Json manipulation
     hardinfo # Hardware info
+    anki
+    ntfs3g
 
     # Virtualization
     udev
@@ -57,8 +60,8 @@ rec {
     nodejs
     patchutils
     glade
+    conda
 
-    vscodium
     nodePackages.pyright
 
     gtk2
@@ -82,6 +85,8 @@ rec {
     marktext
     inkscape
     slack
+    texlive.combined.scheme-full
+    mailspring
 
     # Science stuff
     maxima
@@ -96,7 +101,6 @@ rec {
     # Other
     pavucontrol
     xfce.thunar
-    megasync
     vlc
     kdenlive
     discord
@@ -108,5 +112,16 @@ rec {
     virt-manager
     ebtables
     dnsmasq
+
+    # GUI
+    obs-studio
+    ktorrent
+    imv
+    sxiv
+    marktext
+    gimp
+    thunderbird
+    xournalpp
+    spotify
   ];
 }
