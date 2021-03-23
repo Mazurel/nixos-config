@@ -14,6 +14,7 @@ rec {
     redshift
     autorandr
     dragon-drop
+    libsecret
 
     # Themes and more
     capitaine-cursors
@@ -43,6 +44,7 @@ rec {
     hardinfo # Hardware info
     anki
     ntfs3g
+    tmux
 
     # Virtualization
     udev
@@ -82,11 +84,14 @@ rec {
     libsForQt5.okular
     libsForQt5.kdeconnect-kde
     sxiv
-    marktext
     inkscape
     slack
     texlive.combined.scheme-full
     mailspring
+    obsidian
+    kile
+    ark
+    lyx
 
     # Science stuff
     maxima
@@ -117,7 +122,6 @@ rec {
     obs-studio
     ktorrent
     imv
-    sxiv
     marktext
     gimp
     thunderbird

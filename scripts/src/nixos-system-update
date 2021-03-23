@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+echo Updating nix channels ...
+
+nix-channel --update
+sudo nix-channel --update
+
+echo Running rebuild ...
+# Cores that I use on my main pc
+sudo nixos-rebuild switch --cores 7

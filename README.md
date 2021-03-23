@@ -5,10 +5,15 @@ I am using it on my main machine for programming and everyday useage.
 ## Channels that I use
 
 ```bash
-# sudo nix-channels --list
-home-manager https://github.com/nix-community/home-manager/archive/master.tar.gz
-nixos https://nixos.org/channels/nixos-unstable
-nixos-hardware https://github.com/NixOS/nixos-hardware/archive/master.tar.gz
+# System config (main nix repos)
+sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs 
+sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+
+# User (home-manager)
+nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs 
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager 
 ```
 
 **Note**

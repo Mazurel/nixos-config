@@ -91,7 +91,6 @@ in
     clang-tools # Clangd
 
     # WM stuff
-    redshift
     okular
     sxiv
 
@@ -223,7 +222,7 @@ in
   };
 
   services.redshift = {
-    enable = true;
+    enable = false;
     provider = "geoclue2";
     tray = true;
   };

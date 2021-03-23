@@ -1,14 +1,18 @@
 { lib, config, pkgs, libsForQt514, ... }:
 with pkgs;
 let
-  comma-pkg = import ./comma { inherit pkgs; };
-  my-scripts = import ./scripts { pkgs = pkgs; };
+
+  /* My custom packages */
+  comma-pkg = pkgs.callPackage ./comma { };
+  my-scripts = pkgs.callPackage ./scripts { };
+  fluent-reader = pkgs.callPackage ./fluentReader.nix {  };
 
   my-python-packages = python-packages: with python-packages; [
     numpy
     matplotlib
     jedi
     sympy
+    numba
   ]; 
 
   python-with-my-packages = python3.withPackages my-python-packages;
@@ -18,9 +22,9 @@ in
     [ 
       ./hardware-configuration.nix
       ./boot.nix
-      ./packages.nix
       ./virtualization.nix
-      ./steam-and-games.nix
+      #./steam-and-games.nix - temporarly disabled
+      ./packages.nix
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
     ];
@@ -121,13 +125,22 @@ in
     #videoDrivers = [ "amdgpu" "intel" ];
     
     libinput.enable = false; # Touchpad
-    displayManager.lightdm.enable = true;
+    #displayManager.lightdm.enable = true;
     windowManager.dwm.enable = false;
     windowManager.i3.enable = true;
-    desktopManager.gnome3.enable = false;
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
+
+    displayManager.session = [
+    {
+      manage = "desktop";
+      name = "plasma5i3";
+      start = "/usr/bin/env KDEWM=/run/current-system/sw/bin/i3 /run/current-system/sw/bin/startplasma-x11";
+    }
+    ];
     
     xautolock = {
-      enable = true;
+      enable = false;
       time = 10; # in minutes
       locker = "${my-scripts}/bin/locker";
 
@@ -158,7 +171,7 @@ in
 
   environment.sessionVariables = {
     # Icons for gtk
-    GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
+    #GDK_PIXBUF_MODULE_FILE = "$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)";
     EDITOR = "vim";
     # Zsh-vim timeout
     KEYTIMEOUT = "10";
@@ -174,6 +187,7 @@ in
     comma-pkg
     my-scripts
     OLDMEGASYNC.megasync
+    fluent-reader
   ];
 
   services.printing.enable = true;
@@ -184,7 +198,7 @@ in
   xdg.portal.enable = true;
 
   services.picom = {
-    enable = true;
+    enable = false;
     fade = true;
     opacityRules = [ 
       "97:class_g = 'Alacritty' && focused"
@@ -201,7 +215,7 @@ in
     };
   };
 
-  programs.qt5ct.enable = true;
+  programs.qt5ct.enable = false;
   services.sshd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
 
