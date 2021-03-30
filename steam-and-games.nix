@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   nixpkgs.overlays = [ (self: super: {
-    steam = super.steam.overrideAttrs(old: rec { 
+    ssteam = super.steam.overrideAttrs(old: rec { 
       pname = "steam-original";
       version = "1.0.0.69";
       src = pkgs.fetchurl {

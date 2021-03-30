@@ -7,8 +7,8 @@ appimageTools.wrapType1 {
   };
 
   extraInstallCommands = ''
-    mkdir -p $out/usr/share/applications/ 
-    cat >$out/usr/share/applications/Fluent-reader.desktop <<EOL
+    mkdir -p $out/share/applications/ 
+    cat >$out/share/applications/Fluent-reader.desktop <<EOL
     [Desktop Entry]
     Type=Application
     Name=Fluent-reader

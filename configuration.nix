@@ -23,7 +23,7 @@ in
       ./hardware-configuration.nix
       ./boot.nix
       ./virtualization.nix
-      #./steam-and-games.nix - temporarly disabled
+      ./steam-and-games.nix 
       ./packages.nix
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
@@ -193,6 +193,7 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];
   services.teamviewer.enable = true;
+  services.mullvad-vpn.enable = true;
 
   services.flatpak.enable = true;
   xdg.portal.enable = true;

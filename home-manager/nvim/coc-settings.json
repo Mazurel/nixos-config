@@ -18,6 +18,12 @@
          "requireRootPattern": false,
          "initializationOptions": {},
          "settings": {}
+        },
+        "nix": {
+          "command": "rnix-lsp",
+          "filetypes": [
+            "nix"
+          ]
         }
       },
       "clangd.semanticHighlighting": true,
