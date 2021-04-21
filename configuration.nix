@@ -13,6 +13,8 @@ let
     jedi
     sympy
     numba
+    ipython
+    tkinter
   ]; 
 
   python-with-my-packages = python3.withPackages my-python-packages;
@@ -25,6 +27,7 @@ in
       ./virtualization.nix
       ./steam-and-games.nix 
       ./packages.nix
+      # TODO: Move i3wm, dwm and plasma to different modules
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
     ];
@@ -66,6 +69,8 @@ in
 
     wireless.enable = false; # Enables wpa_supplicant
   };
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Time zone and location
   time.timeZone = "Europe/Warsaw";
@@ -127,17 +132,9 @@ in
     libinput.enable = false; # Touchpad
     #displayManager.lightdm.enable = true;
     windowManager.dwm.enable = false;
-    windowManager.i3.enable = true;
+    windowManager.i3.enable = false;
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
-
-    displayManager.session = [
-    {
-      manage = "desktop";
-      name = "plasma5i3";
-      start = "/usr/bin/env KDEWM=/run/current-system/sw/bin/i3 /run/current-system/sw/bin/startplasma-x11";
-    }
-    ];
     
     xautolock = {
       enable = false;

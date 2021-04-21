@@ -24,15 +24,15 @@ in
 {
   boot.kernelParams = [ "intel_iommu=on" "pcie_aspm=off" "pcie_acs_override=downstream,multifunction" ];
   boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" "kvm-intel" ];
-  boot.kernelPatches = [
-    {
-      name = "acs-override";
-      patch = pkgs.fetchurl {
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/add-acs-overrides.patch?h=linux-vfio";
-        sha256 = "0xrzb1klz64dnrkjdvifvi0a4xccd87h1486spvn3gjjjsvyf2xr";
-      };
-    }
-  ];
+#  boot.kernelPatches = [
+#    {
+#      name = "acs-override";
+#      patch = pkgs.fetchurl {
+#        url = "https://aur.archlinux.org/cgit/aur.git/plain/add-acs-overrides.patch?h=linux-vfio";
+#        sha256 = "0xrzb1klz64dnrkjdvifvi0a4xccd87h1486spvn3gjjjsvyf2xr";
+#      };
+#    }
+#  ];
   boot.initrd.availableKernelModules = [ "vfio-pci" ];
   boot.initrd.preDeviceCommands = ''
   DEVS="${lib.concatStrings (lib.intersperse " " passthourgh-devices.ids1)}"

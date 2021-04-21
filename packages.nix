@@ -52,8 +52,8 @@ let
 in
 rec {
   environment.systemPackages = [
-    mullvad-vpn
     rnix-lsp
+    radeontop
 
     # Window manager addons
     alacritty
@@ -98,6 +98,12 @@ rec {
     anki
     ntfs3g
     tmux
+    gnome3.librsvg # SVG parsing for LyX
+    torrential
+    brasero # For cd recording
+    cdrkit # For cd recording
+    imagemagick
+    poppler_utils
 
     # Languages
     aspell
@@ -111,7 +117,7 @@ rec {
       dictFileName = "pl_PL";
       shortDescription = "Polish (Poland)";
       readmeFile = "README_pl.txt";
-      license = with lib.licenses; [ mpl20 lgpl3 ];
+      license = with lib.licenses; [ gpl2 mpl20 lgpl3 ];
     })
 
     # Virtualization
@@ -131,11 +137,10 @@ rec {
     patchutils
     glade
     conda
+    ant
 
     nodePackages.pyright
 
-    gtk2
-    glade
     qt514.full
 
     # Wine
@@ -164,7 +169,6 @@ rec {
     # Science stuff
     maxima
     wxmaxima
-    scilab-bin
 
     # Electronics
     qucs-s
@@ -180,6 +184,7 @@ rec {
     teams
     gparted
     barrier
+    mullvad-vpn
 
     # Virtualization
     virt-manager
@@ -190,9 +195,7 @@ rec {
     obs-studio
     ktorrent
     imv
-    marktext
     gimp
-    thunderbird
     xournalpp
     spotify
   ];

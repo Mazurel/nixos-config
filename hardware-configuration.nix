@@ -12,6 +12,7 @@
   #boot.initrd.kernelModules = [ "amdgpu" "nvidia" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/df37e299-5f41-4353-9319-b90768bcca25";

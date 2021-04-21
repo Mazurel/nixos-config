@@ -19,6 +19,7 @@
     winetricks
     # Games
     steam
+    steam-run
     minecraft
     freesweep
     lutris
