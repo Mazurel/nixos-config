@@ -12,7 +12,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+set updatetime=200
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -109,11 +109,6 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
 
@@ -122,8 +117,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-autocmd FileType cpp,c nmap <silent> <leader>a :call CocAction('runCommand', 'clangd.switchSourceHeader')<CR>
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that

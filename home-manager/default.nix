@@ -5,8 +5,8 @@ let
 
   # Files to load into neovim
   nvimFiles = [
-    nvim/init.vim
     nvim/coc-settings.vim
+    nvim/init.vim
   ];
 
   # Packages loaded form nix packages
@@ -88,7 +88,7 @@ in
   
 
   home.packages = with pkgs; [
-    clang-tools # Clangd
+    ccls
 
     # WM stuff
     okular

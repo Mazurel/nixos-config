@@ -64,13 +64,18 @@ nnoremap <leader>wd :wq<CR>
 nmap <c-s> :w<CR>
 imap <c-s> <ESC>:w<CR>a
 
-nmap <leader>tt :terminal<CR>
-nmap <leader>tn :NERDTree<CR>
+nmap <leader>Tt :terminal<CR>
+nmap <leader>Tn :NERDTree<CR>
 
 " Spell checking 
 nmap <leader>se :set spell<CR>
 nmap <leader>sd :set spell&<CR>
 nmap <leader>sl :set spell spelllang=
+
+" Tabs
+nmap <silent> tn :tabn<CR>
+nmap <silent> tp :tabp<CR>
+nmap to :tabnew<SPACE>
 
 " Snippets
 nnoremap <leader>imc i Copyright Mazurel 2021<cr><ESC>
