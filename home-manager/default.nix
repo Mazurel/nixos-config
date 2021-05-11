@@ -89,9 +89,9 @@ in
 
   home.packages = with pkgs; [
     ccls
+    rnix-lsp
 
     # WM stuff
-    okular
     sxiv
 
     # Command line tools
@@ -117,12 +117,6 @@ in
     vimdiffAlias = true;
     plugins = nvimPackages;
     extraConfig = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
-    #configure = {
-      #customRC = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
-      #packages.myVimPackage = with pkgs.vimPlugins; {
-      #  start = nvimPackages;
-      #};
-    #};
   };
 
   programs.zsh = {
@@ -130,10 +124,6 @@ in
     enableAutosuggestions = true;
     autocd = true;
     dotDir = ".config/zsh";
-    oh-my-zsh = {
-      enable = true;
-      theme = "amuse";
-    };
 
     initExtra = ''
       cal

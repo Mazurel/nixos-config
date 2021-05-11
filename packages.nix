@@ -52,22 +52,21 @@ let
 in
 rec {
   environment.systemPackages = [
-    rnix-lsp
     radeontop
 
     # Window manager addons
-    alacritty
-    polybarFull
-    deadd-notification-center
-    nitrogen
-    slstatus
+#    alacritty
+#    polybarFull
+#    deadd-notification-center
+#    nitrogen
+#    slstatus
     dmenu
-    rofi
-    networkmanagerapplet
-    redshift
-    autorandr
-    dragon-drop
-    libsecret
+#    rofi
+#    networkmanagerapplet
+#    redshift
+#    autorandr
+#    dragon-drop
+#    libsecret
 
     # Themes and more
     capitaine-cursors
@@ -119,13 +118,6 @@ rec {
       readmeFile = "README_pl.txt";
       license = with lib.licenses; [ gpl2 mpl20 lgpl3 ];
     })
-
-    # Virtualization
-    udev
-    OVMF
-    pciutils
-    kvm
-
     # Programming
     git
     gcc
@@ -140,8 +132,6 @@ rec {
     ant
 
     nodePackages.pyright
-
-    qt514.full
 
     # Wine
     wineWowPackages.full
@@ -186,11 +176,6 @@ rec {
     barrier
     mullvad-vpn
 
-    # Virtualization
-    virt-manager
-    ebtables
-    dnsmasq
-
     # GUI
     obs-studio
     ktorrent
@@ -198,5 +183,7 @@ rec {
     gimp
     xournalpp
     spotify
+
+    jetbrains.clion
   ];
 }

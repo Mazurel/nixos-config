@@ -133,7 +133,8 @@ in
     #displayManager.lightdm.enable = true;
     windowManager.dwm.enable = false;
     windowManager.i3.enable = false;
-    displayManager.sddm.enable = true;
+    displayManager.sddm.enable = false; # For some reason it doesn't work
+    displayManager.lightdm.enable = true;
     desktopManager.plasma5.enable = true;
     
     xautolock = {
@@ -160,7 +161,7 @@ in
   users.users.mateusz = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" ];
+    extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" "adbusers" ];
   }; 
 
   # Load home manager for main user
@@ -214,6 +215,8 @@ in
   };
 
   programs.qt5ct.enable = false;
+  programs.adb.enable = true;
+
   services.sshd.enable = true;
   services.gnome3.gnome-keyring.enable = true;
 
