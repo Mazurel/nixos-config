@@ -1,10 +1,12 @@
 { ... }:
 {
+  # You should have only one de/wm selected 
   de = {
     plasma = true;
   };
   wm = {
     i3 = false;
+    dwm = false;
   };
 
   virtualization = {

@@ -184,6 +184,9 @@ rec {
     xournalpp
     spotify
 
-    jetbrains.clion
+    # Crypto I guess
+    monero
+    monero-gui
+    xmrig
   ];
 }
