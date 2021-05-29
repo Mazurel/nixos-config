@@ -9,7 +9,12 @@
     dwm = false;
   };
 
+  development = {
+    java = true;
+  };
+
   virtualization = {
+    enable = true;
     # Devices that will be disabled and ready for passthorugh
     # Remember to disable gpu in bios (change display)
     passthrough = {

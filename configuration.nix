@@ -4,7 +4,7 @@ let
   /* My custom packages */
   comma-pkg = pkgs.callPackage ./comma { };
   my-scripts = pkgs.callPackage ./scripts { };
-  fluent-reader = pkgs.callPackage ./fluentReader.nix {  };
+  fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix {  };
 
   # My settings implementation
   settings = import ./settings.nix {};
@@ -27,13 +27,15 @@ in
       ./hardware-configuration.nix
       ./boot.nix
       ./virtualization.nix
-      ./steam-and-games.nix 
+      ./desktop/steam-and-games.nix 
       ./packages.nix
       # TODO: Move i3wm, dwm and plasma to different modules
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
     ]
-    ++ lib.optionals settings.wm.dwm ./dwm.nix;
+    ++ lib.optionals settings.virtualization.enable ./virtualization.nix
+    ++ lib.optionals settings.wm.dwm ./desktop/dwm.nix
+    ++ lib.optionals settings.development.java ./development/java.nix;
 
   nix.useSandbox = true;
   nix.maxJobs = 4;
@@ -102,8 +104,8 @@ in
     
     libinput.enable = false; # Touchpad
     windowManager.i3.enable = false;
-    displayManager.sddm.enable = true; # For some reason it doesn't work
-    displayManager.lightdm.enable = false;
+    displayManager.sddm.enable = false; # For some reason it doesn't work
+    displayManager.lightdm.enable = true;
     desktopManager.plasma5.enable = true;
   };
 
@@ -159,7 +161,7 @@ in
   programs.adb.enable = true;
 
   services.sshd.enable = true;
-  services.gnome3.gnome-keyring.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   # Temproarly disabled
   networking.firewall.enable = false;

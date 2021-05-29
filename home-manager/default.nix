@@ -106,6 +106,7 @@ in
     unrar
     wmname
     exa
+    direnv
   ];
 
   # Installing and setting up proper neovim config
@@ -127,6 +128,7 @@ in
 
     initExtra = ''
       cal
+      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
     '';
 
     plugins = [
