@@ -5,6 +5,8 @@ let
   comma-pkg = pkgs.callPackage ./comma { };
   my-scripts = pkgs.callPackage ./scripts { };
   fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix {  };
+  tviti-matlab = pkgs.callPackage ./matlab { };
+  my-emacs = pkgs.callPackage ./emacs { };
 
   # My settings implementation
   settings = import ./settings.nix {};
@@ -33,18 +35,29 @@ in
       <home-manager/nixos>
       <nixos-hardware/common/cpu/intel>
     ]
-    ++ lib.optionals settings.virtualization.enable ./virtualization.nix
-    ++ lib.optionals settings.wm.dwm ./desktop/dwm.nix
-    ++ lib.optionals settings.development.java ./development/java.nix;
+    ++ lib.optional settings.virtualization.enable ./virtualization.nix
+    ++ lib.optional settings.wm.dwm ./desktop/dwm.nix
+    ++ lib.optional settings.development.java ./development/java.nix;
 
   nix.useSandbox = true;
   nix.maxJobs = 4;
+
+  # Automatically clean and optimize store
   nix.autoOptimiseStore = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
+
+  # Enable flakes :O
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
+  # Automatic upgrade of the system
+  system.autoUpgrade.enable = true; 
 
   # Network settings
   networking = {
@@ -98,12 +111,30 @@ in
   {
     enable = true;
     layout = "pl";
-    #videoDrivers = [ "intel" ];
+    xkbOptions = "caps:ctrl_modifier,terminate:ctrl_alt_bksp";
     videoDrivers = [ "intel" "amdgpu" ];
-    #videoDrivers = [ "amdgpu" "intel" ];
     
     libinput.enable = false; # Touchpad
     windowManager.i3.enable = false;
+    windowManager.exwm = {
+      enable = false;
+      enableDefaultConfig = true;
+      extraPackages = my-emacs.emacs-packages;
+      loadScript = ''
+        (require 'exwm)
+        (require 'exwm-config)
+        (exwm-config-example)
+        (require 'exwm-randr)
+        (setq exwm-randr-workspace-monitor-plist '(0 "DisplayPort-3" 1 "HDMI-A-3"))
+        (add-hook 'exwm-randr-screen-change-hook
+                (lambda ()
+                    (start-process-shell-command
+                    "xrandr" nil "xrandr --output HDMI-A-3 --right-of DisplayPort-3 --auto")))
+        (exwm-randr-enable)
+        (require 'exwm-systemtray)
+        (exwm-systemtray-enable)
+      '';
+    };
     displayManager.sddm.enable = false; # For some reason it doesn't work
     displayManager.lightdm.enable = true;
     desktopManager.plasma5.enable = true;
@@ -148,6 +179,8 @@ in
     my-scripts
     OLDMEGASYNC.megasync
     fluent-reader
+    tviti-matlab.matlab
+    my-emacs.emacs
   ];
 
   services.printing.enable = true;
@@ -162,6 +195,7 @@ in
 
   services.sshd.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  services.xserver.exportConfiguration = true;
 
   # Temproarly disabled
   networking.firewall.enable = false;

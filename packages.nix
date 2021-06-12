@@ -72,9 +72,7 @@ rec {
     capitaine-cursors
     arc-theme
     lxappearance
-    marwaita-manjaro
     papirus-maia-icon-theme
-    lxqt.lxqt-themes
     hicolor-icon-theme
     adwaita-qt
     pop-gtk-theme
@@ -152,7 +150,6 @@ rec {
     texlive.combined.scheme-full
     mailspring
     obsidian
-    kile
     ark
     lyx
 
@@ -162,12 +159,10 @@ rec {
 
     # Electronics
     qucs-s
-    qucs
     ngspice
 
     # Other
     pavucontrol
-    xfce.thunar
     vlc
     kdenlive
     discord
@@ -183,10 +178,12 @@ rec {
     gimp
     xournalpp
     spotify
+    konversation
+    element-desktop
 
     # Crypto I guess
-    monero
-    monero-gui
-    xmrig
+#    monero
+#    monero-gui
+#    xmrig
   ];
 }
