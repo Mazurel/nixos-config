@@ -128,6 +128,8 @@ rec {
     glade
     conda
     ant
+    nixfmt
+    hy
 
     nodePackages.pyright
 
@@ -138,6 +140,7 @@ rec {
     # Browser
     brave
     firefox
+    nyxt
 
     # Office
     libreoffice-fresh

@@ -69,7 +69,6 @@ in
       # Specific for device
       eno1.useDHCP = true;
     };
-
     wireless.enable = false; # Enables wpa_supplicant
   };
 
@@ -91,6 +90,12 @@ in
     config = {
       allowUnfree = true;
       allowBroken = true;
+      packageOverrides = pkgs: rec {
+        # Overrides dwm as dwm-git
+        krohnkite =  krohnkite.overrideAttrs (oldAttr: {
+          buildInputs = oldAttr.buildInputs ++ [ nodePackages.typescript ];
+        });
+      };
     };
   };
 
@@ -117,22 +122,11 @@ in
     libinput.enable = false; # Touchpad
     windowManager.i3.enable = false;
     windowManager.exwm = {
-      enable = false;
-      enableDefaultConfig = true;
+      enable = true;
+      enableDefaultConfig = false;
       extraPackages = my-emacs.emacs-packages;
       loadScript = ''
-        (require 'exwm)
-        (require 'exwm-config)
-        (exwm-config-example)
-        (require 'exwm-randr)
-        (setq exwm-randr-workspace-monitor-plist '(0 "DisplayPort-3" 1 "HDMI-A-3"))
-        (add-hook 'exwm-randr-screen-change-hook
-                (lambda ()
-                    (start-process-shell-command
-                    "xrandr" nil "xrandr --output HDMI-A-3 --right-of DisplayPort-3 --auto")))
-        (exwm-randr-enable)
-        (require 'exwm-systemtray)
-        (exwm-systemtray-enable)
+        (load "/home/mateusz/.emacs.d/exwm.el"
       '';
     };
     displayManager.sddm.enable = false; # For some reason it doesn't work
@@ -178,15 +172,21 @@ in
     comma-pkg
     my-scripts
     OLDMEGASYNC.megasync
-    fluent-reader
     tviti-matlab.matlab
-    my-emacs.emacs
+    plasma5Packages.krohnkite
   ];
+
+  services.emacs = {
+    enable = true;
+    package = my-emacs.emacs;
+    defaultEditor = true;
+  };
 
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];
   services.teamviewer.enable = true;
   services.mullvad-vpn.enable = true;
+  #programs.corectrl.enable = true;
 
   services.flatpak.enable = true;
   xdg.portal.enable = true;
@@ -196,12 +196,6 @@ in
   services.sshd.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.xserver.exportConfiguration = true;
-
-  # Temproarly disabled
-  networking.firewall.enable = false;
-  networking.firewall.allowedTCPPorts = [ 80 443 24800 ]; # For http/https and Barrier
-  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ]; # For kde connect
-  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ]; # For kde connect
 
   system.stateVersion = "20.09";
 }

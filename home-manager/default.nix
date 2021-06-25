@@ -43,6 +43,8 @@ let
     "marktext"
     "sxiv"
   ];
+
+  my-emacs = pkgs.callPackage ../emacs { };
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -107,6 +109,8 @@ in
     wmname
     exa
     direnv
+
+    my-emacs.emacs
   ];
 
   # Installing and setting up proper neovim config
@@ -120,6 +124,11 @@ in
     extraConfig = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
   };
 
+  # Emacs
+  home.file.".emacs.d/init.el".source = ../emacs/init.el;
+  home.file.".emacs.d/keybindings.el".source = ../emacs/keybindings.el;
+  home.file.".emacs.d/exwm.el".source = ../emacs/exwm.el;
+  
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
