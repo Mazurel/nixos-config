@@ -19,7 +19,7 @@ let
     numba
     ipython
     tkinter
-  ]; 
+  ];
 
   python-with-my-packages = python3.withPackages my-python-packages;
 in

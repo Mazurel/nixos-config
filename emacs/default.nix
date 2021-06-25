@@ -18,6 +18,7 @@ in rec {
     swiper
   ]) ++ (with epkgs.melpaPackages; [
     lsp-mode
+    lsp-ui
     racket-mode
     spacemacs-theme
     vterm
@@ -36,6 +37,8 @@ in rec {
     nodePackages.pyright
     ccls
     rnix-lsp
+
+    emacs-all-the-icons-fonts
   ]));
 
   emacs = ((pkgs.emacsPackagesFor myEmacs).emacsWithPackages emacs-packages);
