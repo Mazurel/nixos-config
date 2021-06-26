@@ -35,6 +35,7 @@ in rec {
 
     # Emacs LSP
     nodePackages.pyright
+    nodePackages.eslint
     ccls
     rnix-lsp
 

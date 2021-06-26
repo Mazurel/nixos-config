@@ -73,7 +73,8 @@
 ;; LSP mode hook functions
 (mapc
  (lambda (hook) (add-hook hook 'lsp))
- '(c-mode-hook c++-mode-hook python-mode-hook nix-mode-hook))
+ '(c-mode-hook c++-mode-hook python-mode-hook nix-mode-hook js-mode-hook))
+
 
 ; Timings for company
 (setq company-minimum-prefix-length 1

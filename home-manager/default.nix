@@ -109,6 +109,13 @@ in
     wmname
     exa
     direnv
+
+    # Stuff for Emacs
+    ccls
+    rnix-lsp
+    nodePackages.pyright
+    deno
+    nixfmt
   ];
 
   # Installing and setting up proper neovim config
@@ -211,7 +218,7 @@ in
   };
 
   programs.git = {
-    enable = true;
+    enable = false;
     userName = "Mazurel";
     userEmail = "mateusz.mazur@yahoo.com";
     aliases = 
@@ -223,6 +230,9 @@ in
       rb = "rebase";
     };
   };
+
+  # Enable ssh (mostly for git)
+  programs.ssh.enable = false;
 
   services.redshift = {
     enable = false;
