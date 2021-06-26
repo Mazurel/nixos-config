@@ -70,10 +70,18 @@
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
 
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024)
+      treemacs-space-between-root-nodes nil
+      company-idle-delay 0.0
+      company-minimum-prefix-length 1
+      lsp-idle-delay 0.1)
+
 ;; LSP mode hook functions
 (mapc
  (lambda (hook) (add-hook hook 'lsp))
- '(c-mode-hook c++-mode-hook python-mode-hook nix-mode-hook))
+ '(c-mode-hook c++-mode-hook python-mode-hook nix-mode-hook js-mode-hook))
+
 
 ; Timings for company
 (setq company-minimum-prefix-length 1
