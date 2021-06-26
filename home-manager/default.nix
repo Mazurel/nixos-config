@@ -114,7 +114,7 @@ in
     ccls
     rnix-lsp
     nodePackages.pyright
-    deno
+    nodePackages.typescript
     nixfmt
   ];
 
