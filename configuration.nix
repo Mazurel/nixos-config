@@ -197,6 +197,9 @@ in
   services.gnome.gnome-keyring.enable = true;
   services.xserver.exportConfiguration = true;
 
+  # At leas for now
+  networking.firewall.enable = false;
+  
   system.stateVersion = "20.09";
 }
 

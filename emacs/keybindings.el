@@ -51,8 +51,9 @@
 (define-key evil-motion-state-map (kbd "SPC") my-custom-keybindings-map)
 
 ;; Dired h/l navigation
-;(define-key 'dired-mode-map "h" 'dired-up-directory)
-;(define-key 'dired-mode-map "l" 'dired-find-file)
+(evil-define-key 'normal dired-mode-map
+  "h" 'dired-up-directory
+  "l" 'dired-find-file)
 
 ;; Ivy keybindings
 (global-set-key (kbd "C-c C-f") 'swiper)
