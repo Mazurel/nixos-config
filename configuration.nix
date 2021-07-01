@@ -37,6 +37,7 @@ in
     ]
     ++ lib.optional settings.virtualization.enable ./virtualization.nix
     ++ lib.optional settings.wm.dwm ./desktop/dwm.nix
+    ++ lib.optional settings.wm.leftwm ./desktop/leftwm.nix
     ++ lib.optional settings.development.java ./development/java.nix;
 
   nix.useSandbox = true;

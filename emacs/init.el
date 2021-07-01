@@ -128,7 +128,8 @@
 	("<=" . "≤")
 	(">=" . "≥")
 	("!=" . "≠")
-	;(":)" . "🙂")
+	("or" . "⋁")
+	("and" . "⋀")
 	))
 
 (add-hook 'prog-mode-hook 'prettify-symbols-mode)
@@ -137,4 +138,4 @@
 ;(add-hook 'post-command-hook 'recenter)
 
 ;; Keybindings
-(load "~/.emacs.d/keybindings.el")
+(load "~/.config/emacs/keybindings.el")

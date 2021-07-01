@@ -7,6 +7,7 @@
   wm = {
     i3 = false;
     dwm = false;
+    leftwm = false;
   };
 
   development = {

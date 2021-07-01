@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  my-scripts = pkgs.callPackage ../scripts {};
+in
 {
   services.xserver = {
     enable = true;
@@ -9,7 +12,7 @@
     xautolock = {
       enable = true;
       time = 30; # in minutes
-      #locker = "${my-scripts}/bin/locker";
+      locker = "${my-scripts}/bin/locker";
 
       killtime = 60;
       killer = "/run/current-system/systemd/bin/systemctl suspend";
@@ -29,6 +32,8 @@
     opacityRules = [ 
       "97:class_g = 'Alacritty' && focused"
       "95:class_g = 'Alacritty' && !focused"
+      "97:class_g = 'Emacs' && focused"
+      "95:class_g = 'Emacs' && !focused"
     ];
     experimentalBackends = true;
     shadow = true;

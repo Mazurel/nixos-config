@@ -115,6 +115,7 @@ in
     rnix-lsp
     nodePackages.pyright
     nodePackages.typescript
+    python38Packages.python-language-server
     nixfmt
   ];
 
@@ -130,9 +131,9 @@ in
   };
 
   # Emacs
-  home.file.".emacs.d/init.el".source = ../emacs/init.el;
-  home.file.".emacs.d/keybindings.el".source = ../emacs/keybindings.el;
-  home.file.".emacs.d/exwm.el".source = ../emacs/exwm.el;
+  xdg.configFile."emacs/init.el".source = ../emacs/init.el;
+  xdg.configFile."emacs/keybindings.el".source = ../emacs/keybindings.el;
+  xdg.configFile."emacs/exwm.el".source = ../emacs/exwm.el;
   programs.emacs = {
     enable = true;
     package = my-emacs.emacs;
