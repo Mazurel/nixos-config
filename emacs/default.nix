@@ -17,9 +17,9 @@ in rec {
     counsel
     swiper
   ]) ++ (with epkgs.melpaPackages; [
-    lsp-mode
-    lsp-ui
-    racket-mode
+    #lsp-mode
+    #lsp-ui
+    #racket-mode
     spacemacs-theme
     vterm
 

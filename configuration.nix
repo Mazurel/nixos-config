@@ -38,6 +38,7 @@ in
     ++ lib.optional settings.virtualization.enable ./virtualization.nix
     ++ lib.optional settings.wm.dwm ./desktop/dwm.nix
     ++ lib.optional settings.wm.leftwm ./desktop/leftwm.nix
+    ++ lib.optional settings.de.gnome ./desktop/gnome.nix
     ++ lib.optional settings.development.java ./development/java.nix;
 
   nix.useSandbox = true;
@@ -107,9 +108,9 @@ in
     source-code-pro
     noto-fonts
     liberation_ttf
-    (nerdfonts.override {
-      fonts = [ "FiraCode" "DroidSansMono"];
-    })
+#    (nerdfonts.override {
+#      fonts = [ "FiraCode" "DroidSansMono"];
+#    })
   ];
 
   # X11 configuration
@@ -123,7 +124,7 @@ in
     libinput.enable = false; # Touchpad
     windowManager.i3.enable = false;
     windowManager.exwm = {
-      enable = true;
+      enable = false;
       enableDefaultConfig = false;
       extraPackages = my-emacs.emacs-packages;
       loadScript = ''
@@ -131,8 +132,8 @@ in
       '';
     };
     displayManager.sddm.enable = false; # For some reason it doesn't work
-    displayManager.lightdm.enable = true;
-    desktopManager.plasma5.enable = true;
+    displayManager.lightdm.enable = false;
+    desktopManager.plasma5.enable = false;
   };
 
 
@@ -151,7 +152,11 @@ in
     shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" "adbusers" ];
-  }; 
+  };
+
+  users.users.root = {
+    shell = pkgs.zsh;
+  };
 
   # Load home manager for main user
   home-manager.users.mateusz = import ./home-manager;

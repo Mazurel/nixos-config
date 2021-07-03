@@ -1,8 +1,21 @@
 { ... }:
+# This is my custom settings file
+#
+# It contains some settings and customizations
+# that are supposed to be morew high level
+# than configuring files
+#
+# Some settings are for home-manager and some
+# are for system-wide configuration
 {
+  # This settings are single user oriented
+  # below there is main (non-root) username
+  user = "mateusz";
+  
   # You should have only one de/wm selected 
   de = {
-    plasma = true;
+    plasma = false;
+    gnome = true;
   };
   wm = {
     i3 = false;
@@ -10,8 +23,13 @@
     leftwm = false;
   };
 
+  editors = {
+    emacs = true;
+    neovim = true;
+  };
+
   development = {
-    java = true;
+    java = false;
   };
 
   virtualization = {

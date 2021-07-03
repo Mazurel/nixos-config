@@ -184,6 +184,8 @@ rec {
     konversation
     element-desktop
 
+
+    gnome.gnome-tweaks
     # Crypto I guess
 #    monero
 #    monero-gui
