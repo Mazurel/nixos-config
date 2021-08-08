@@ -24,6 +24,7 @@ in
     rofi
     alacritty
     feh
+    dunst
   ];
 
   services.picom = {

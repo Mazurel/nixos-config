@@ -28,11 +28,11 @@
     { device = "/dev/disk/by-uuid/06c6e551-10a6-41cc-b570-28f858752535";
       fsType = "ext4";
     };
-
-  fileSystems."/mnt/data" =
-    { device = "/dev/disk/by-uuid/5011fc86-9840-496d-a474-a5fcefec9d19";
-      fsType = "ext4";
-    };
+#
+#  fileSystems."/mnt/data" =
+#    { device = "/dev/disk/by-uuid/5011fc86-9840-496d-a474-a5fcefec9d19";
+#      fsType = "ext4";
+#    };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/7B56-8B58";

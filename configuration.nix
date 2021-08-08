@@ -22,6 +22,7 @@ let
   ];
 
   python-with-my-packages = python3.withPackages my-python-packages;
+  hy-with-my-packages = hy.withPackages my-python-packages;
 in
 {
   imports =
@@ -74,6 +75,7 @@ in
     wireless.enable = false; # Enables wpa_supplicant
   };
 
+  # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";
 
   # Time zone and location
@@ -108,9 +110,7 @@ in
     source-code-pro
     noto-fonts
     liberation_ttf
-#    (nerdfonts.override {
-#      fonts = [ "FiraCode" "DroidSansMono"];
-#    })
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
   ];
 
   # X11 configuration
@@ -132,7 +132,7 @@ in
       '';
     };
     displayManager.sddm.enable = false; # For some reason it doesn't work
-    displayManager.lightdm.enable = false;
+    displayManager.lightdm.enable = true;
     desktopManager.plasma5.enable = false;
   };
 
@@ -158,26 +158,20 @@ in
     shell = pkgs.zsh;
   };
 
-  # Load home manager for main user
-  home-manager.users.mateusz = import ./home-manager;
-
   environment.sessionVariables = {
     # Icons for gtk
-    EDITOR = "vim";
+    EDITOR = "emacs -nw";
     # Zsh-vim timeout
     KEYTIMEOUT = "10";
   };
 
   # Custom packages
-  environment.systemPackages = 
-    let OLDMEGASYNC = import (pkgs.fetchzip {
-        url = "https://github.com/NixOS/nixpkgs/archive/4a7f99d55d299453a9c2397f90b33d1120669775.tar.gz";
-        sha256 = "14sdgw2am5k66im2vwb8139k5zxiywh3wy6bgfqbrqx2p4zlc3m7"; }) { config = { allowUnfree=true; }; };
-    in with pkgs; [
+  environment.systemPackages = [
     python-with-my-packages
+    hy-with-my-packages
     comma-pkg
     my-scripts
-    OLDMEGASYNC.megasync
+    megasync
     tviti-matlab.matlab
     plasma5Packages.krohnkite
   ];

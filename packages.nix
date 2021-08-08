@@ -71,7 +71,7 @@ rec {
     # Themes and more
     capitaine-cursors
     arc-theme
-    lxappearance
+    #lxappearance
     papirus-maia-icon-theme
     hicolor-icon-theme
     adwaita-qt
@@ -129,7 +129,6 @@ rec {
     conda
     ant
     nixfmt
-    hy
 
     nodePackages.pyright
 
@@ -138,18 +137,18 @@ rec {
     winetricks
 
     # Browser
-    brave
+    # brave
     firefox
     nyxt
 
     # Office
     libreoffice-fresh
-    zathura
+    # zathura
     libsForQt5.okular
     libsForQt5.kdeconnect-kde
-    sxiv
+    # sxiv
     inkscape
-    slack
+    # slack
     texlive.combined.scheme-full
     mailspring
     obsidian
@@ -161,15 +160,16 @@ rec {
     wxmaxima
 
     # Electronics
-    qucs-s
-    ngspice
+    
+    # qucs-s
+    # ngspice
 
     # Other
     pavucontrol
     vlc
     kdenlive
     discord
-    teams
+    #teams
     gparted
     barrier
     mullvad-vpn
@@ -190,5 +190,8 @@ rec {
 #    monero
 #    monero-gui
 #    xmrig
+
+    # Photography
+    darktable
   ];
 }

@@ -16,16 +16,17 @@ in rec {
     ivy
     counsel
     swiper
+
   ]) ++ (with epkgs.melpaPackages; [
-    #lsp-mode
-    #lsp-ui
-    #racket-mode
     spacemacs-theme
     vterm
 
+    lsp-mode
+    lsp-ui
+    racket-mode
     all-the-icons-dired
     all-the-icons
-  ]) ++ (with epkgs.elpaPackages; [ 
+  ]) ++ (with epkgs.elpaPackages; [
   ]) ++ (with pkgs; [
     # Other maybe useful stuff
     racket

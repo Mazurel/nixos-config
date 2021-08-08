@@ -15,12 +15,12 @@
   # You should have only one de/wm selected 
   de = {
     plasma = false;
-    gnome = true;
+    gnome = false;
   };
   wm = {
     i3 = false;
     dwm = false;
-    leftwm = false;
+    leftwm = true;
   };
 
   editors = {
