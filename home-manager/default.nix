@@ -47,8 +47,9 @@ let
   my-emacs = pkgs.callPackage ../emacs { };
 in
 {
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
+  # Not needed with flakes
+  #nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowBroken = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -90,9 +91,6 @@ in
   
 
   home.packages = with pkgs; [
-    ccls
-    rnix-lsp
-
     # WM stuff
     sxiv
 
@@ -110,6 +108,7 @@ in
     exa
     direnv
 
+    my-emacs.emacs
     # Stuff for Emacs
     ccls
     rnix-lsp
@@ -134,10 +133,6 @@ in
   xdg.configFile."emacs/init.el".source = ../emacs/init.el;
   xdg.configFile."emacs/keybindings.el".source = ../emacs/keybindings.el;
   xdg.configFile."emacs/exwm.el".source = ../emacs/exwm.el;
-  programs.emacs = {
-    enable = true;
-    package = my-emacs.emacs;
-  };
   
   programs.zsh = {
     enable = true;
@@ -213,7 +208,6 @@ in
     enableZshIntegration = true;
     enableBashIntegration = true;
     settings = {
-      character.symbol = "➜";
       time.disabled = false;
     };
   };

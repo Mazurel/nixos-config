@@ -1,15 +1,13 @@
+settings:
 { lib, config, pkgs, libsForQt514, ... }:
 with pkgs;
 let
   /* My custom packages */
-  comma-pkg = pkgs.callPackage ./comma { };
+  #comma-pkg = pkgs.callPackage ./comma { };
   my-scripts = pkgs.callPackage ./scripts { };
   fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix {  };
   tviti-matlab = pkgs.callPackage ./matlab { };
   my-emacs = pkgs.callPackage ./emacs { };
-
-  # My settings implementation
-  settings = import ./settings.nix {};
 
   my-python-packages = python-packages: with python-packages; [
     numpy
@@ -25,18 +23,16 @@ let
   hy-with-my-packages = hy.withPackages my-python-packages;
 in
 {
-  imports =
-    [ 
+  imports = (settings.lib settings).forAllApplySettings [ 
       ./hardware-configuration.nix
       ./boot.nix
-      ./virtualization.nix
       ./desktop/steam-and-games.nix 
       ./packages.nix
+
+      # Settings based modules
+      ./virtualization.nix
       # TODO: Move i3wm, dwm and plasma to different modules
-      <home-manager/nixos>
-      <nixos-hardware/common/cpu/intel>
     ]
-    ++ lib.optional settings.virtualization.enable ./virtualization.nix
     ++ lib.optional settings.wm.dwm ./desktop/dwm.nix
     ++ lib.optional settings.wm.leftwm ./desktop/leftwm.nix
     ++ lib.optional settings.de.gnome ./desktop/gnome.nix
@@ -169,7 +165,7 @@ in
   environment.systemPackages = [
     python-with-my-packages
     hy-with-my-packages
-    comma-pkg
+    #comma-pkg
     my-scripts
     megasync
     tviti-matlab.matlab

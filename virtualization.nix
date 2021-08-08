@@ -1,9 +1,9 @@
+settings:
 { pkgs, ... }:
 with pkgs;
-with (import ./settings.nix {});
 let
   # Devices to be passthroughed
-  passthrough-devices = with virtualization; {
+  passthrough-devices = with settings.virtualization; {
     ids1 = lib.optionals passthrough.enable 
       (lib.optionals passthrough.gpu.enable passthrough.gpu.ids1) ++ (lib.optionals passthrough.audio-card.enable passthourgh.audio-card.ids1);
     ids2 = lib.optionals passthrough.enable
@@ -25,7 +25,7 @@ in
   boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" "kvm-intel" ];
 
   # This is needed if I not use zen kernel
-  boot.kernelPatches = lib.optionals virtualization.acs-override-patch 
+  boot.kernelPatches = lib.optionals settings.virtualization.acs-override-patch 
     ({
       name = "acs-override";
       patch = pkgs.fetchurl {
