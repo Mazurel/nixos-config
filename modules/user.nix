@@ -25,7 +25,12 @@ in {
   };
 
   config.home-manager = {
-    users.${cfg.username} = (import ./home-manager) cfg.home-manager;
+    users.${cfg.username} =
+      (import ./home-manager) (
+        cfg.home-manager // {
+          home.username = cfg.username;
+          home.homeDirectory = "/home/${cfg.username}";
+        });
 
     # It is required for this trick to work
     useGlobalPkgs = true;

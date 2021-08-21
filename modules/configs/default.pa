@@ -1,4 +1,4 @@
-#!/nix/store/2facmb8z0i51s136d7dwxb7b14nmx78b-pulseaudio-13.0/bin/pulseaudio -nF
+#!/usr/bin/env pulseaudio -nF
 #
 # This file is part of PulseAudio.
 #
