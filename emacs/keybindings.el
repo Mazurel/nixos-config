@@ -2,11 +2,21 @@
   "Removes key from some map"
   (define-key map k nil))
 
+(defun redefine-key (map k c)
+  "Redefines key in some keymap"
+  (remove-key map k)
+  (define-key map k c))
+
 (defun global-redefine-key (k c)
   "Redefine globaly defined key."
   (interactive)
   (global-unset-key k)
   (global-set-key k c))
+
+(defun spawn-alacritty ()
+  "Spawns alacritty terminal"
+  (interactive)
+  (start-process-shell-command "alacritty-term" nil "alacritty"))
 
 (setq my-custom-keybindings-map (make-keymap))
 
@@ -19,10 +29,15 @@
 (global-redefine-key (kbd "C-s") 'save-buffer)
 
 ;; Buffer navigation
-(define-key my-custom-keybindings-map (kbd "b l") 'buffer-menu)
 (define-key my-custom-keybindings-map (kbd "b n") 'next-buffer)
 (define-key my-custom-keybindings-map (kbd "b p") 'previous-buffer)
 (define-key my-custom-keybindings-map (kbd "b d") 'kill-buffer)
+
+;; Ibuffer navigation
+(define-key my-custom-keybindings-map (kbd "b l") 'ibuffer)
+(redefine-key ibuffer-mode-map (kbd "j") 'ibuffer-forward-line)
+(redefine-key ibuffer-mode-map (kbd "k") 'ibuffer-backward-line)
+(define-key ibuffer-mode-map (kbd "J") 'ibuffer-jump-to-buffer)
 
 ;; Windows navigation
 (define-key my-custom-keybindings-map (kbd "w s h") 'split-window-horizontally)
@@ -37,6 +52,9 @@
 	  
 (define-key my-custom-keybindings-map (kbd "w d") 'evil-window-delete)
 (define-key my-custom-keybindings-map (kbd "w q") 'evil-window-delete)
+
+;; Spawning external programs
+(define-key my-custom-keybindings-map (kbd "s a") 'spawn-alacritty)
 
 ;; Terminals/Shell
 (define-key my-custom-keybindings-map (kbd "t e")
@@ -54,6 +72,9 @@
 (evil-define-key 'normal dired-mode-map
   "h" 'dired-up-directory
   "l" 'dired-find-file)
+
+(evil-define-key 'insert evil-insert-state-map
+  (kbd "C-V") 'paste)
 
 ;; Ivy keybindings
 (global-set-key (kbd "C-c C-f") 'swiper)

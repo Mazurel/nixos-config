@@ -8,6 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
   #boot.initrd.kernelModules = [ "amdgpu" "nvidia" ];
   boot.kernelModules = [ "kvm-intel" ];

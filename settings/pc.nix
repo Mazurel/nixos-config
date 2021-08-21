@@ -1,11 +1,5 @@
-# This is my custom settings file
-#
-# It contains some settings and customizations
-# that are supposed to be morew high level
-# than configuring files
-#
-# Some settings are for home-manager and some
-# are for system-wide configuration
+# This is settings file that is specific to my PC machine
+{ ... }:
 {
   # This settings are single user oriented
   # below there is main (non-root) username

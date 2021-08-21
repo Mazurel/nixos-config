@@ -1,13 +1,11 @@
-{ lib, config, pkgs, ... }:
+data:
+{ lib, pkgs, ... }:
 with lib;
-let 
+let
   myTerm = "alacritty";
 
   # Files to load into neovim
-  nvimFiles = [
-    nvim/coc-settings.vim
-    nvim/init.vim
-  ];
+  nvimFiles = [ nvim/coc-settings.vim nvim/init.vim ];
 
   # Packages loaded form nix packages
   nvimPackages = with pkgs.vimPlugins; [
@@ -29,9 +27,8 @@ let
   ];
 
   # Run app 
-  make-devour = name : { ${name} = "devour ${name} 2> /dev/null 3> /dev/null"; };
-  devour-aliases = 
-  [
+  make-devour = name: { ${name} = "devour ${name} 2> /dev/null 3> /dev/null"; };
+  devour-aliases = [
     "wine"
     "xournalpp"
     "zathura"
@@ -45,8 +42,7 @@ let
   ];
 
   my-emacs = pkgs.callPackage ../emacs { };
-in
-{
+in {
   # Not needed with flakes
   #nixpkgs.config.allowUnfree = true;
   #nixpkgs.config.allowBroken = true;
@@ -65,35 +61,7 @@ in
   xdg.configFile."i3/".source = ./i3;
   xdg.configFile."polybar/config".source = ./polybar-config;
 
-  xdg.configFile."dwm/autostart.sh" = {
-    executable = true;
-    text = ''
-    #!/usr/bin/env sh
-
-    # Xrandr settings
-    xrandr --output DP-0 --primary --mode 1920x1080 --left-of HDMI-0 --mode 1920x1080
-
-    # Fixes programs such as scilab and matlab
-    wmname LG3D
-
-    nitrogen --restore
-    WM_NAME=dwm slstatus &
-    # Redshift is managed via configuration.nix
-    # redshift-gtk & 
-    deadd-notification-center &
-    megasync &
-    nm-applet &
-    barrier &
-    kdeconnect-indicator &
-    '';
-  };
-
-  
-
   home.packages = with pkgs; [
-    # WM stuff
-    sxiv
-
     # Command line tools
     bat
     ripgrep
@@ -120,8 +88,7 @@ in
 
   # Installing and setting up proper neovim config
   xdg.configFile."nvim/coc-settings.json".source = nvim/coc-settings.json;
-  programs.neovim =
-  {
+  programs.neovim = {
     enable = true;
     vimAlias = true;
     vimdiffAlias = true;
@@ -133,7 +100,7 @@ in
   xdg.configFile."emacs/init.el".source = ../emacs/init.el;
   xdg.configFile."emacs/keybindings.el".source = ../emacs/keybindings.el;
   xdg.configFile."emacs/exwm.el".source = ../emacs/exwm.el;
-  
+
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -146,46 +113,46 @@ in
     '';
 
     plugins = [
-    rec {
-      name = "zsh-nix-shell";
-      file = "nix-shell.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "chisui";
-        repo = name;
-        rev = "v0.1.0";
-        sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
-      };
-    }
-    rec {
-      name = "zsh-vim-mode";
-      file = "${name}.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "softmoth";
-        repo = name;
-        rev = "abef0c0c03506009b56bb94260f846163c4f287a";
-        sha256 = "0cnjazclz1kyi13m078ca2v6l8pg4y8jjrry6mkvszd383dx1wib";
-      };
-    }
-    rec {
-      name = "zsh-syntax-highlighting";
-      file = "${name}.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "zsh-users";
-        repo = name;
-        rev = "00a5fd11eb9d1c163fb49da5310c8f4b09fb3022";
-        sha256 = "1gv7cl4kyqyjgyn3i6dx9jr5qsvr7dx1vckwv5xg97h81hg884rn";
-      };
-    }
-    rec {
-      name = "zsh-autosuggestions";
-      file = "${name}.plugin.zsh";
-      src = pkgs.fetchFromGitHub {
-        owner = "zsh-users";
-        repo = name;
-        rev = "ae315ded4dba10685dbbafbfa2ff3c1aefeb490d";
-        sha256 = "0h52p2waggzfshvy1wvhj4hf06fmzd44bv6j18k3l9rcx6aixzn6";
-      };
-    }
+      rec {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "chisui";
+          repo = name;
+          rev = "v0.1.0";
+          sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
+        };
+      }
+      rec {
+        name = "zsh-vim-mode";
+        file = "${name}.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "softmoth";
+          repo = name;
+          rev = "abef0c0c03506009b56bb94260f846163c4f287a";
+          sha256 = "0cnjazclz1kyi13m078ca2v6l8pg4y8jjrry6mkvszd383dx1wib";
+        };
+      }
+      rec {
+        name = "zsh-syntax-highlighting";
+        file = "${name}.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = name;
+          rev = "00a5fd11eb9d1c163fb49da5310c8f4b09fb3022";
+          sha256 = "1gv7cl4kyqyjgyn3i6dx9jr5qsvr7dx1vckwv5xg97h81hg884rn";
+        };
+      }
+      rec {
+        name = "zsh-autosuggestions";
+        file = "${name}.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = name;
+          rev = "ae315ded4dba10685dbbafbfa2ff3c1aefeb490d";
+          sha256 = "0h52p2waggzfshvy1wvhj4hf06fmzd44bv6j18k3l9rcx6aixzn6";
+        };
+      }
     ];
 
     shellAliases = {
@@ -200,24 +167,21 @@ in
       "rm" = "rm -v";
     }
     # Add all devour aliases
-    // lib.fold (x: acc: acc // (make-devour x)) {} devour-aliases;
+      // lib.fold (x: acc: acc // (make-devour x)) { } devour-aliases;
   };
 
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
     enableBashIntegration = true;
-    settings = {
-      time.disabled = false;
-    };
+    settings = { time.disabled = false; };
   };
 
   programs.git = {
     enable = false;
     userName = "Mazurel";
     userEmail = "mateusz.mazur@yahoo.com";
-    aliases = 
-    {
+    aliases = {
       st = "status";
       cm = "commit";
       cmm = "commit -m";
@@ -230,7 +194,7 @@ in
   programs.ssh.enable = false;
 
   services.redshift = {
-    enable = false;
+    enable = true;
     provider = "geoclue2";
     tray = true;
   };
@@ -244,4 +208,4 @@ in
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "21.03";
-}
+} // data

@@ -1,42 +1,69 @@
-settings:
 { lib, config, pkgs, libsForQt514, ... }:
 with pkgs;
 let
-  /* My custom packages */
-  #comma-pkg = pkgs.callPackage ./comma { };
-  my-scripts = pkgs.callPackage ./scripts { };
-  fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix {  };
+  # My custom packages
+  fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix { };
   tviti-matlab = pkgs.callPackage ./matlab { };
   my-emacs = pkgs.callPackage ./emacs { };
 
-  my-python-packages = python-packages: with python-packages; [
-    numpy
-    matplotlib
-    jedi
-    sympy
-    numba
-    ipython
-    tkinter
-  ];
+  my-python-packages = python-packages:
+    with python-packages; [
+      numpy
+      matplotlib
+      jedi
+      sympy
+      numba
+      ipython
+      tkinter
+    ];
 
   python-with-my-packages = python3.withPackages my-python-packages;
   hy-with-my-packages = hy.withPackages my-python-packages;
-in
-{
-  imports = (settings.lib settings).forAllApplySettings [ 
-      ./hardware-configuration.nix
-      ./boot.nix
-      ./desktop/steam-and-games.nix 
-      ./packages.nix
+in {
+  imports = [
+    ./hardware-configuration.nix
+    ./boot.nix
 
-      # Settings based modules
-      ./virtualization.nix
-      # TODO: Move i3wm, dwm and plasma to different modules
-    ]
-    ++ lib.optional settings.wm.dwm ./desktop/dwm.nix
-    ++ lib.optional settings.wm.leftwm ./desktop/leftwm.nix
-    ++ lib.optional settings.de.gnome ./desktop/gnome.nix
-    ++ lib.optional settings.development.java ./development/java.nix;
+    ./user.nix
+    ./packages.nix
+    ./virtualization.nix
+    ./desktop/steam-and-games.nix
+    ./development/java.nix
+    ./desktop/wms/dwm.nix
+    ./desktop/wms/leftwm.nix
+    ./desktop/wms/common/picom.nix
+    ./desktop/wms/common/xautolock.nix
+    ./desktop/wms/common/packages.nix
+    ./desktop/des/gnome.nix
+  ];
+
+  mazurel.xorg.wms.leftwm.enable = true;
+
+  mazurel.virtualization = {
+    enable = true;
+    # Devices that will be disabled and ready for passthorugh
+    # Remember to disable gpu in bios (change display)
+    passthrough = {
+      enable = false;
+      # Ids can be read from `lspci -nnk`
+      gpu = {
+        enable = true;
+        ids1 = [ "0000:01:00.0" "0000:01:00.1" ];
+        ids2 = [ "1002:67df" "1002:aaf0" ];
+      };
+      audio-card = {
+        enable = false;
+        ids1 = [ "0000:00:1b.0" ];
+        ids2 = [ "8086:8c20" ];
+      };
+    };
+
+    # Needed if acs are not valid
+    acs-override-patch = false;
+  };
+
+  mazurel.username = "mateusz";
+  #home-manager.users.mateusz = import ./home-manager;
 
   nix.useSandbox = true;
   nix.maxJobs = 4;
@@ -56,7 +83,7 @@ in
   '';
 
   # Automatic upgrade of the system
-  system.autoUpgrade.enable = true; 
+  system.autoUpgrade.enable = true;
 
   # Network settings
   networking = {
@@ -90,9 +117,10 @@ in
     config = {
       allowUnfree = true;
       allowBroken = true;
+      android_sdk.accept_license = true;
       packageOverrides = pkgs: rec {
         # Overrides dwm as dwm-git
-        krohnkite =  krohnkite.overrideAttrs (oldAttr: {
+        krohnkite = krohnkite.overrideAttrs (oldAttr: {
           buildInputs = oldAttr.buildInputs ++ [ nodePackages.typescript ];
         });
       };
@@ -110,13 +138,12 @@ in
   ];
 
   # X11 configuration
-  services.xserver = 
-  {
+  services.xserver = {
     enable = true;
     layout = "pl";
     xkbOptions = "caps:ctrl_modifier,terminate:ctrl_alt_bksp";
     videoDrivers = [ "intel" "amdgpu" ];
-    
+
     libinput.enable = false; # Touchpad
     windowManager.i3.enable = false;
     windowManager.exwm = {
@@ -131,7 +158,6 @@ in
     displayManager.lightdm.enable = true;
     desktopManager.plasma5.enable = false;
   };
-
 
   # Enable sound.
   # TODO: Port to Pipewire
@@ -150,9 +176,7 @@ in
     extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" "adbusers" ];
   };
 
-  users.users.root = {
-    shell = pkgs.zsh;
-  };
+  users.users.root = { shell = pkgs.zsh; };
 
   environment.sessionVariables = {
     # Icons for gtk
@@ -165,8 +189,8 @@ in
   environment.systemPackages = [
     python-with-my-packages
     hy-with-my-packages
-    #comma-pkg
-    my-scripts
+    comma
+    mazurel-scripts
     megasync
     tviti-matlab.matlab
     plasma5Packages.krohnkite
@@ -195,7 +219,7 @@ in
 
   # At leas for now
   networking.firewall.enable = false;
-  
+
   system.stateVersion = "20.09";
 }
 

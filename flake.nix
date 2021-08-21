@@ -2,25 +2,33 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.comma = { url = "github:Shopify/comma"; flake = false; };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager }:
-    let settings-lib = import ./settings-lib.nix;
-    in {
-      nixosConfigurations.pc = let
-        settings = (import ./settings/pc.nix) // { lib = settings-lib; };
-      in nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, comma }:
+    {
+      nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = ((settings.lib settings).forAllApplySettings [
+        modules = [
           ./configuration.nix
-        ]) ++ [
           nixos-hardware.nixosModules.common-cpu-intel
           home-manager.nixosModules.home-manager
           {
+            imports = [
+                ./user.nix
+            ];
+            
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.mateusz = import ./home-manager;
           }
+          ({ ... }: {
+            nixpkgs.overlays = [ self.overlay ];
+          })
         ];
+      };
+
+      overlay = final: prev: {
+        mazurel-scripts = final.callPackage ./scripts { };
+        comma = final.callPackage comma { };
       };
     };
 }

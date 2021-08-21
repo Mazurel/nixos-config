@@ -151,7 +151,7 @@ rec {
     # slack
     texlive.combined.scheme-full
     mailspring
-    obsidian
+    #obsidian
     ark
     lyx
 
@@ -173,6 +173,7 @@ rec {
     gparted
     barrier
     mullvad-vpn
+    super-productivity
 
     # GUI
     obs-studio
@@ -181,7 +182,6 @@ rec {
     gimp
     xournalpp
     spotify
-    konversation
     element-desktop
 
 
