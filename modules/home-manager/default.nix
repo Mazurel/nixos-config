@@ -4,28 +4,6 @@ with lib;
 let
   myTerm = "alacritty";
 
-  # Files to load into neovim
-  nvimFiles = [ nvim/coc-settings.vim nvim/init.vim ];
-
-  # Packages loaded form nix packages
-  nvimPackages = with pkgs.vimPlugins; [
-    coc-nvim
-    vim-racket
-    vim-lsp-cxx-highlight
-    vim-clang-format
-    vim-nix
-    vim-surround
-    vim-airline
-    vim-airline-themes
-    vim-slime
-    vim-gitgutter
-    gruvbox
-    nerdtree
-    vim-nerdtree-syntax-highlight
-    vim-devicons
-    ctrlp-vim
-  ];
-
   # Run app 
   make-devour = name: { ${name} = "devour ${name} 2> /dev/null 3> /dev/null"; };
   devour-aliases = [
@@ -74,16 +52,6 @@ in {
     exa
     direnv
   ];
-
-  # Installing and setting up proper neovim config
-  xdg.configFile."nvim/coc-settings.json".source = nvim/coc-settings.json;
-  programs.neovim = {
-    enable = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    plugins = nvimPackages;
-    extraConfig = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
-  };
 
   programs.zsh = {
     enable = true;
@@ -149,6 +117,7 @@ in {
       "mv" = "mv -v";
       "cp" = "cp -v";
       "rm" = "rm -v";
+      "ed" = "emacs -nw";
     }
     # Add all devour aliases
       // lib.fold (x: acc: acc // (make-devour x)) { } devour-aliases;
@@ -162,7 +131,7 @@ in {
   };
 
   programs.git = {
-    enable = false;
+    enable = true;
     userName = "Mazurel";
     userEmail = "mateusz.mazur@yahoo.com";
     aliases = {

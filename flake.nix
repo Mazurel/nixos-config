@@ -11,17 +11,18 @@
     nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./configuration.nix
+        ./modules/default.nix
         nixos-hardware.nixosModules.common-cpu-intel
         home-manager.nixosModules.home-manager
-        { imports = [ ./user.nix ]; }
+        { imports = [ ./modules/user.nix ]; }
         ({ ... }: { nixpkgs.overlays = [ self.overlay ]; })
       ];
     };
 
     overlay = final: prev: {
-      mazurel-scripts = final.callPackage ./scripts { };
+      mazurel-scripts = final.callPackage ./packages/scripts { };
       comma = final.callPackage comma { };
-    };
+      fluentReader = final.callPackage ./packages/fluentReader.nix { };
+    } // (import ./packages/matlab/default.nix) { callPackage = final.callPackage; };
   };
 }

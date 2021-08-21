@@ -1,10 +1,6 @@
 { lib, config, pkgs, libsForQt514, ... }:
 with pkgs;
 let
-  # My custom packages
-  fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix { };
-  tviti-matlab = pkgs.callPackage ./matlab { };
-
   my-python-packages = python-packages:
     with python-packages; [
       numpy
@@ -19,26 +15,11 @@ let
   python-with-my-packages = python3.withPackages my-python-packages;
   hy-with-my-packages = hy.withPackages my-python-packages;
 in {
-  imports = [
-    ./hardware-configuration.nix
-    ./boot.nix
-
-    ./user.nix
-    ./packages.nix
-    ./virtualization.nix
-    ./desktop/steam-and-games.nix
-    ./development/java.nix
-    ./development/emacs.nix
-    ./desktop/wms/dwm.nix
-    ./desktop/wms/leftwm.nix
-    ./desktop/wms/common/picom.nix
-    ./desktop/wms/common/xautolock.nix
-    ./desktop/wms/common/packages.nix
-    ./desktop/des/gnome.nix
-  ];
+  mazurel.username = "mateusz";
 
   mazurel.xorg.wms.leftwm.enable = true;
   mazurel.development.emacs.enable = true;
+  mazurel.development.emacs.defaultEditor = true;
 
   mazurel.virtualization = {
     enable = true;
@@ -63,28 +44,7 @@ in {
     acs-override-patch = false;
   };
 
-  mazurel.username = "mateusz";
-  #home-manager.users.mateusz = import ./home-manager;
-
-  nix.useSandbox = true;
   nix.maxJobs = 4;
-
-  # Automatically clean and optimize store
-  nix.autoOptimiseStore = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
-  };
-
-  # Enable flakes :O
-  nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
-
-  # Automatic upgrade of the system
-  system.autoUpgrade.enable = true;
 
   # Network settings
   networking = {
@@ -116,8 +76,6 @@ in {
   # Packages settings
   nixpkgs = {
     config = {
-      allowUnfree = true;
-      allowBroken = true;
       android_sdk.accept_license = true;
       packageOverrides = pkgs: rec {
         # Overrides dwm as dwm-git
@@ -183,7 +141,7 @@ in {
     comma
     mazurel-scripts
     megasync
-    tviti-matlab.matlab
+    matlab
     plasma5Packages.krohnkite
   ];
 
@@ -199,7 +157,6 @@ in {
   programs.adb.enable = true;
 
   services.sshd.enable = true;
-  services.gnome.gnome-keyring.enable = true;
   services.xserver.exportConfiguration = true;
 
   # At leas for now

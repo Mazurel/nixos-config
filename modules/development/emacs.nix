@@ -6,9 +6,12 @@ let
 in {
   options.mazurel.development.emacs.enable =
     lib.mkEnableOption "Enable my Emacs package and config";
-
+      
+  options.mazurel.development.emacs.defaultEditor =
+    lib.mkEnableOption "Make emacs (terminal version) a default editor";
+ 
   config = lib.mkIf cfg.enable {
-    environment.sessionVariables = { EDITOR = "emacs -nw"; };
+    environment.sessionVariables = lib.mkIf cfg.defaultEditor { EDITOR = "emacs -nw"; };
 
     environment.systemPackages = with pkgs; [
       my-emacs.emacs

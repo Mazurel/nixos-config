@@ -1,0 +1,42 @@
+{
+      "languageserver": {
+        "elmLS": {
+          "command": "elm-language-server",
+          "filetypes": ["elm"],
+          "rootPatterns": ["elm.json"],
+          "initializationOptions": {
+            "elmAnalyseTrigger": "change",
+            "elmFormatPath": "elm-format", 
+            "elmTestPath": "elm-test"
+          }
+        },
+        "racket": {
+         "command": "racket",
+         "args": ["--lib", "racket-langserver"],
+         "filetypes": ["rkt", "racket"],
+         "trace.server": "verbose",
+         "requireRootPattern": false,
+         "initializationOptions": {},
+         "settings": {}
+        },
+        "nix": {
+          "command": "rnix-lsp",
+          "filetypes": [
+            "nix"
+          ]
+        },
+        "ccls": {
+        "command": "ccls",
+        "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"],
+        "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+        "initializationOptions": {
+            "cache": {
+              "directory": "/tmp/ccls"
+            },
+            "highlight": { "lsRanges": true }
+          }
+        }
+      },
+      "codeLens.enable": true,
+      "rust-client.disableRustup": true
+}
