@@ -6,6 +6,4 @@ let
     inherit (common) targetPkgs;
     runScript = "bash";
   };
-in pkgs.mkShell {
-  buildInputs = [ matlab-shell ];
-}
+in pkgs.mkShell { buildInputs = [ matlab-shell ]; }

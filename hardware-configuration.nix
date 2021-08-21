@@ -4,45 +4,43 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
   #boot.initrd.kernelModules = [ "amdgpu" "nvidia" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/df37e299-5f41-4353-9319-b90768bcca25";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/df37e299-5f41-4353-9319-b90768bcca25";
+    fsType = "ext4";
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/20ab98a9-6ab5-4d10-a631-c9332d697154";
-      fsType = "ext4";
-    };
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/20ab98a9-6ab5-4d10-a631-c9332d697154";
+    fsType = "ext4";
+  };
 
-  fileSystems."/mnt/vms" =
-    { device = "/dev/disk/by-uuid/06c6e551-10a6-41cc-b570-28f858752535";
-      fsType = "ext4";
-    };
-#
-#  fileSystems."/mnt/data" =
-#    { device = "/dev/disk/by-uuid/5011fc86-9840-496d-a474-a5fcefec9d19";
-#      fsType = "ext4";
-#    };
+  fileSystems."/mnt/vms" = {
+    device = "/dev/disk/by-uuid/06c6e551-10a6-41cc-b570-28f858752535";
+    fsType = "ext4";
+  };
+  #
+  #  fileSystems."/mnt/data" =
+  #    { device = "/dev/disk/by-uuid/5011fc86-9840-496d-a474-a5fcefec9d19";
+  #      fsType = "ext4";
+  #    };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7B56-8B58";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/7B56-8B58";
+    fsType = "vfat";
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/5c9a0638-aedf-4cad-8e64-e29632c0ed12"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/5c9a0638-aedf-4cad-8e64-e29632c0ed12"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 }

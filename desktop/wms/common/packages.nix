@@ -2,7 +2,7 @@
 { lib, pkgs, config, ... }:
 let
   cfg = config.mazurel.xorg.wms.common.packages;
-  my-scripts = pkgs.callPackage ../../../scripts {};
+  my-scripts = pkgs.callPackage ../../../scripts { };
 in {
   options.mazurel.xorg.wms.common.packages.enable =
     lib.mkEnableOption "Enable my default wm's package suite";

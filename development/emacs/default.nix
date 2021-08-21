@@ -16,7 +16,6 @@ in rec {
       ivy
       counsel
       swiper
-
     ]) ++ (with epkgs.melpaPackages; [
       spacemacs-theme
       vterm

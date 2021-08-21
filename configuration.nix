@@ -4,7 +4,6 @@ let
   # My custom packages
   fluent-reader = pkgs.callPackage ./desktop/fluentReader.nix { };
   tviti-matlab = pkgs.callPackage ./matlab { };
-  my-emacs = pkgs.callPackage ./emacs { };
 
   my-python-packages = python-packages:
     with python-packages; [
@@ -29,6 +28,7 @@ in {
     ./virtualization.nix
     ./desktop/steam-and-games.nix
     ./development/java.nix
+    ./development/emacs.nix
     ./desktop/wms/dwm.nix
     ./desktop/wms/leftwm.nix
     ./desktop/wms/common/picom.nix
@@ -38,6 +38,7 @@ in {
   ];
 
   mazurel.xorg.wms.leftwm.enable = true;
+  mazurel.development.emacs.enable = true;
 
   mazurel.virtualization = {
     enable = true;
@@ -146,14 +147,6 @@ in {
 
     libinput.enable = false; # Touchpad
     windowManager.i3.enable = false;
-    windowManager.exwm = {
-      enable = false;
-      enableDefaultConfig = false;
-      extraPackages = my-emacs.emacs-packages;
-      loadScript = ''
-        (load "/home/mateusz/.emacs.d/exwm.el"
-      '';
-    };
     displayManager.sddm.enable = false; # For some reason it doesn't work
     displayManager.lightdm.enable = true;
     desktopManager.plasma5.enable = false;
@@ -179,8 +172,6 @@ in {
   users.users.root = { shell = pkgs.zsh; };
 
   environment.sessionVariables = {
-    # Icons for gtk
-    EDITOR = "emacs -nw";
     # Zsh-vim timeout
     KEYTIMEOUT = "10";
   };
@@ -195,12 +186,6 @@ in {
     tviti-matlab.matlab
     plasma5Packages.krohnkite
   ];
-
-  services.emacs = {
-    enable = true;
-    package = my-emacs.emacs;
-    defaultEditor = true;
-  };
 
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];

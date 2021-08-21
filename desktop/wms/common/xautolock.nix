@@ -1,7 +1,6 @@
 # My usual picom config
 { lib, pkgs, config, ... }:
-let
-  cfg = config.mazurel.xorg.wms.common.xautolock;
+let cfg = config.mazurel.xorg.wms.common.xautolock;
 in {
   options.mazurel.xorg.wms.common.xautolock.enable =
     lib.mkEnableOption "Enable my default autolock for wms";

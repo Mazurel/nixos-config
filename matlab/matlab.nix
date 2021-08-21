@@ -1,8 +1,7 @@
 { common, buildFHSUserEnv }:
 let
-  
-in
-buildFHSUserEnv {
+
+in buildFHSUserEnv {
   name = "matlab";
 
   targetPkgs = pkgs: with pkgs; common.targetPkgs pkgs;

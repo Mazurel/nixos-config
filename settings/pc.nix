@@ -1,10 +1,9 @@
 # This is settings file that is specific to my PC machine
-{ ... }:
-{
+{ ... }: {
   # This settings are single user oriented
   # below there is main (non-root) username
   user = "mateusz";
-  
+
   # You should have only one de/wm selected 
   de = {
     plasma = false;
@@ -21,9 +20,7 @@
     neovim = true;
   };
 
-  development = {
-    java = false;
-  };
+  development = { java = false; };
 
   virtualization = {
     enable = true;

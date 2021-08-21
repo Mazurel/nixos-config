@@ -40,8 +40,6 @@ let
     "marktext"
     "sxiv"
   ];
-
-  my-emacs = pkgs.callPackage ../emacs { };
 in {
   # Not needed with flakes
   #nixpkgs.config.allowUnfree = true;
@@ -75,15 +73,6 @@ in {
     wmname
     exa
     direnv
-
-    my-emacs.emacs
-    # Stuff for Emacs
-    ccls
-    rnix-lsp
-    nodePackages.pyright
-    nodePackages.typescript
-    python38Packages.python-language-server
-    nixfmt
   ];
 
   # Installing and setting up proper neovim config
@@ -95,11 +84,6 @@ in {
     plugins = nvimPackages;
     extraConfig = fold (file: acc: acc + (builtins.readFile file)) "" nvimFiles;
   };
-
-  # Emacs
-  xdg.configFile."emacs/init.el".source = ../emacs/init.el;
-  xdg.configFile."emacs/keybindings.el".source = ../emacs/keybindings.el;
-  xdg.configFile."emacs/exwm.el".source = ../emacs/exwm.el;
 
   programs.zsh = {
     enable = true;

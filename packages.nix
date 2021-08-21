@@ -1,33 +1,27 @@
 { pkgs, ... }:
 with pkgs;
 let
-  mkDict =
-  { name, readmeFile, dictFileName, ... }@args:
-  stdenv.mkDerivation ({
-    inherit name;
-    installPhase = ''
-      # hunspell dicts
-      install -dm755 "$out/share/hunspell"
-      install -m644 ${dictFileName}.dic "$out/share/hunspell/"
-      install -m644 ${dictFileName}.aff "$out/share/hunspell/"
-      # myspell dicts symlinks
-      install -dm755 "$out/share/myspell/dicts"
-      ln -sv "$out/share/hunspell/${dictFileName}.dic" "$out/share/myspell/dicts/"
-      ln -sv "$out/share/hunspell/${dictFileName}.aff" "$out/share/myspell/dicts/"
-      # docs
-      install -dm755 "$out/share/doc"
-      install -m644 ${readmeFile} $out/share/doc/${name}.txt
-      runHook postInstall
-    '';
-  } // args);
+  mkDict = { name, readmeFile, dictFileName, ... }@args:
+    stdenv.mkDerivation ({
+      inherit name;
+      installPhase = ''
+        # hunspell dicts
+        install -dm755 "$out/share/hunspell"
+        install -m644 ${dictFileName}.dic "$out/share/hunspell/"
+        install -m644 ${dictFileName}.aff "$out/share/hunspell/"
+        # myspell dicts symlinks
+        install -dm755 "$out/share/myspell/dicts"
+        ln -sv "$out/share/hunspell/${dictFileName}.dic" "$out/share/myspell/dicts/"
+        ln -sv "$out/share/hunspell/${dictFileName}.aff" "$out/share/myspell/dicts/"
+        # docs
+        install -dm755 "$out/share/doc"
+        install -m644 ${readmeFile} $out/share/doc/${name}.txt
+        runHook postInstall
+      '';
+    } // args);
 
-  mkDictFromLibreOffice =
-    { shortName
-    , shortDescription
-    , dictFileName
-    , license
-    , readmeFile ? "README_${dictFileName}.txt"
-    , sourceRoot ? dictFileName }:
+  mkDictFromLibreOffice = { shortName, shortDescription, dictFileName, license
+    , readmeFile ? "README_${dictFileName}.txt", sourceRoot ? dictFileName }:
     mkDict rec {
       name = "hunspell-dict-${shortName}-libreoffice-${version}";
       version = "6.3.0.4";
@@ -42,31 +36,32 @@ let
         cp -a ${sourceRoot}/* .
       '';
       meta = with lib; {
-        homepage = "https://wiki.documentfoundation.org/Development/Dictionaries";
-        description = "Hunspell dictionary for ${shortDescription} from LibreOffice";
+        homepage =
+          "https://wiki.documentfoundation.org/Development/Dictionaries";
+        description =
+          "Hunspell dictionary for ${shortDescription} from LibreOffice";
         license = license;
         maintainers = with maintainers; [ vlaci ];
         platforms = platforms.all;
       };
     };
-in
-rec {
+in rec {
   environment.systemPackages = [
     radeontop
 
     # Window manager addons
-#    alacritty
-#    polybarFull
-#    deadd-notification-center
-#    nitrogen
-#    slstatus
+    #    alacritty
+    #    polybarFull
+    #    deadd-notification-center
+    #    nitrogen
+    #    slstatus
     dmenu
-#    rofi
-#    networkmanagerapplet
-#    redshift
-#    autorandr
-#    dragon-drop
-#    libsecret
+    #    rofi
+    #    networkmanagerapplet
+    #    redshift
+    #    autorandr
+    #    dragon-drop
+    #    libsecret
 
     # Themes and more
     capitaine-cursors
@@ -160,7 +155,7 @@ rec {
     wxmaxima
 
     # Electronics
-    
+
     # qucs-s
     # ngspice
 
@@ -184,12 +179,11 @@ rec {
     spotify
     element-desktop
 
-
     gnome.gnome-tweaks
     # Crypto I guess
-#    monero
-#    monero-gui
-#    xmrig
+    #    monero
+    #    monero-gui
+    #    xmrig
 
     # Photography
     darktable

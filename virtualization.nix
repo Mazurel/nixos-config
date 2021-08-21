@@ -1,14 +1,13 @@
 { pkgs, config, lib, ... }:
 with pkgs;
-let
-  cfg = config.mazurel.virtualization;
+let cfg = config.mazurel.virtualization;
 
 in {
   options.mazurel.virtualization = {
     enable = lib.mkEnableOption "Enable my virtualization settings";
 
-    acs-override-patch =
-      lib.mkEnableOption "Apply acs-override patch to the kernel (not needed with ZEN kernel)";
+    acs-override-patch = lib.mkEnableOption
+      "Apply acs-override patch to the kernel (not needed with ZEN kernel)";
 
     passthrough = {
       enable = lib.mkEnableOption "Enable my virtualized passthrough settings";

@@ -1,9 +1,9 @@
 # My usual picom config
 { lib, pkgs, config, ... }:
-let
-  cfg = config.mazurel.xorg.wms.common.picom;
+let cfg = config.mazurel.xorg.wms.common.picom;
 in {
-  options.mazurel.xorg.wms.common.picom.enable = lib.mkEnableOption "Enable my default picom config";
+  options.mazurel.xorg.wms.common.picom.enable =
+    lib.mkEnableOption "Enable my default picom config";
 
   config = lib.mkIf cfg.enable {
     services.picom = {
