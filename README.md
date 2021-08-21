@@ -30,7 +30,7 @@ flake = buitlins.getFlake "<insert path here>"
 2. See the options by running:
 ```nix
 flake.nixosConfigurations.pc.options.mazurel
-``
+```
 
 3. ???
 4. Profit !
