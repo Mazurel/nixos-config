@@ -5,8 +5,6 @@
     # TODO: Modularize configuration.nix !
     ./configuration.nix
     
-    ./hardware-configuration.nix
-
     ./user.nix
     ./packages.nix
     ./virtualization.nix
