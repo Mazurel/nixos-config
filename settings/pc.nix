@@ -1,28 +1,17 @@
 # This is settings file that is specific to my PC machine
-{ ... }: {
-  # This settings are single user oriented
-  # below there is main (non-root) username
-  user = "mateusz";
+#
+# It is propagated into nixos configuration
+{ pkgs, lib, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  
+  mazurel.username = "mateusz";
+  mazurel.languages.polish.enable = true;
 
-  # You should have only one de/wm selected 
-  de = {
-    plasma = false;
-    gnome = false;
-  };
-  wm = {
-    i3 = false;
-    dwm = false;
-    leftwm = true;
-  };
+  mazurel.xorg.wms.leftwm.enable = true;
+  mazurel.development.emacs.enable = true;
+  mazurel.development.emacs.defaultEditor = true;
 
-  editors = {
-    emacs = true;
-    neovim = true;
-  };
-
-  development = { java = false; };
-
-  virtualization = {
+  mazurel.virtualization = {
     enable = true;
     # Devices that will be disabled and ready for passthorugh
     # Remember to disable gpu in bios (change display)
@@ -44,4 +33,81 @@
     # Needed if acs are not valid
     acs-override-patch = false;
   };
+
+  nix.maxJobs = 8;
+
+  # Network settings
+  networking = {
+    hostName = "Nixos-desktop";
+
+    networkmanager.enable = true;
+
+    interfaces = {
+      # Specific for device
+      eno1.useDHCP = true;
+    };
+    wireless.enable = false; # Enables wpa_supplicant
+  };
+
+  # Make CPU speed as fast as possible
+  powerManagement.cpuFreqGovernor = "performance";
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelModules = [ "kvm-intel" ];
+
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
+  boot.loader = {
+    grub = {
+      enable = true;
+      version = 2;
+
+      # Efi config
+      efiSupport = true;
+      efiInstallAsRemovable = false;
+      device = "nodev";
+
+      # Specific for device
+      extraEntries = ''
+        menuentry "Arch" {
+        search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
+        configfile "($arch)/boot/grub/grub.cfg"
+        }
+      '';
+    };
+
+    efi.efiSysMountPoint = "/boot";
+    efi.canTouchEfiVariables = true;
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/NixOS";
+    fsType = "ext4";
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-label/Home";
+    fsType = "ext4";
+  };
+
+  fileSystems."/mnt/vms" = {
+    device = "/dev/disk/by-label/Vms";
+    fsType = "ext4";
+  };
+  
+  fileSystems."/mnt/data" =
+    { device = "/dev/disk/by-label/LinuxData";
+      fsType = "ext4";
+    };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
+  };
+
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/5c9a0638-aedf-4cad-8e64-e29632c0ed12"; }];
 }

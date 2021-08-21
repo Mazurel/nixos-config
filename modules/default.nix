@@ -12,6 +12,8 @@
     ./virtualization.nix
     ./desktop/steam-and-games.nix
 
+    ./languages/polish.nix
+
     ./development/java.nix
     ./development/emacs.nix
     ./development/neovim.nix
@@ -46,6 +48,8 @@
       allowBroken = true;
     };
   };
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   system.stateVersion = "20.09";
 }

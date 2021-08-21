@@ -1,4 +1,4 @@
-{ lib, config, pkgs, libsForQt514, ... }:
+{ lib, config, pkgs, ... }:
 with pkgs;
 let
   my-python-packages = python-packages:
@@ -15,74 +15,10 @@ let
   python-with-my-packages = python3.withPackages my-python-packages;
   hy-with-my-packages = hy.withPackages my-python-packages;
 in {
-  mazurel.username = "mateusz";
-
-  mazurel.xorg.wms.leftwm.enable = true;
-  mazurel.development.emacs.enable = true;
-  mazurel.development.emacs.defaultEditor = true;
-
-  mazurel.virtualization = {
-    enable = true;
-    # Devices that will be disabled and ready for passthorugh
-    # Remember to disable gpu in bios (change display)
-    passthrough = {
-      enable = false;
-      # Ids can be read from `lspci -nnk`
-      gpu = {
-        enable = true;
-        ids1 = [ "0000:01:00.0" "0000:01:00.1" ];
-        ids2 = [ "1002:67df" "1002:aaf0" ];
-      };
-      audio-card = {
-        enable = false;
-        ids1 = [ "0000:00:1b.0" ];
-        ids2 = [ "8086:8c20" ];
-      };
-    };
-
-    # Needed if acs are not valid
-    acs-override-patch = false;
-  };
-
-  nix.maxJobs = 4;
-
-  # Network settings
-  networking = {
-    hostName = "Nixos-desktop";
-
-    networkmanager.enable = true;
-
-    interfaces = {
-      # Specific for device
-      eno1.useDHCP = true;
-    };
-    wireless.enable = false; # Enables wpa_supplicant
-  };
-
-  # Make CPU speed as fast as possible
-  powerManagement.cpuFreqGovernor = "performance";
-
-  # Time zone and location
-  time.timeZone = "Europe/Warsaw";
-  location.provider = "geoclue2";
-
-  i18n.defaultLocale = "pl_PL.UTF-8";
-
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "pl";
-  };
-
   # Packages settings
   nixpkgs = {
     config = {
       android_sdk.accept_license = true;
-      packageOverrides = pkgs: rec {
-        # Overrides dwm as dwm-git
-        krohnkite = krohnkite.overrideAttrs (oldAttr: {
-          buildInputs = oldAttr.buildInputs ++ [ nodePackages.typescript ];
-        });
-      };
     };
   };
 
@@ -99,7 +35,6 @@ in {
   # X11 configuration
   services.xserver = {
     enable = true;
-    layout = "pl";
     xkbOptions = "caps:ctrl_modifier,terminate:ctrl_alt_bksp";
     videoDrivers = [ "intel" "amdgpu" ];
 
@@ -121,7 +56,7 @@ in {
   };
 
   # User account. Don't forget to set a password with ‘passwd’.
-  users.users.mateusz = {
+  users.users.${config.mazurel.username} = {
     shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" "adbusers" ];
@@ -142,7 +77,6 @@ in {
     mazurel-scripts
     megasync
     matlab
-    plasma5Packages.krohnkite
   ];
 
   services.printing.enable = true;
@@ -158,10 +92,5 @@ in {
 
   services.sshd.enable = true;
   services.xserver.exportConfiguration = true;
-
-  # At leas for now
-  networking.firewall.enable = false;
-
-  system.stateVersion = "20.09";
 }
 

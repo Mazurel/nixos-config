@@ -1,25 +1,20 @@
-# My simple desktop nixos + home-manager config
+# My simple desktop nixos + home-manager config with flakes
 
-I am using it on my main machine for programming and everyday useage.
+*This README is in progress*
 
-## Channels that I use
+I am using it on my main machine for programming and everyday usage.
 
-```bash
-# System config (main nix repos)
-sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs 
-sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+## Module system
 
-# User (home-manager)
-nix-channel --add https://nixos.org/channels/nixos-unstable nixpkgs 
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager 
-```
+This configuration consists of custom module system. 
+All custom modules are spocified under `mazurel` attribute.
 
-**Note**
+## Directory structure
 
-Some packages may not be avaible, because they are not yet pushed to nixos-unstable,
-if so it is needed to clone nixpkgs repository and use it directly and use command
-```bash
-sudo nixos-rebuild -I nixpkgs=<paste path to repo here> switch
-```
+- All modules and generic settings are localized in `modules` folder.
+- My custom packages, which are avaible via overlay can be found in `packages` folder.
+- All settings specific to machines, can be found in `settings` folder.
+
+
+
+

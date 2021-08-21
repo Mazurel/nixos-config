@@ -11,6 +11,7 @@
     nixosConfigurations.pc = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
+        ./settings/pc.nix
         ./modules/default.nix
         nixos-hardware.nixosModules.common-cpu-intel
         home-manager.nixosModules.home-manager
