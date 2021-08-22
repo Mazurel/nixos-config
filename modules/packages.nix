@@ -66,7 +66,6 @@ in rec {
     # Themes and more
     capitaine-cursors
     arc-theme
-    #lxappearance
     papirus-maia-icon-theme
     hicolor-icon-theme
     adwaita-qt
@@ -87,9 +86,7 @@ in rec {
     usbutils # lsusb
     jq # Json manipulation
     hardinfo # Hardware info
-    anki
     ntfs3g
-    tmux
     gnome3.librsvg # SVG parsing for LyX
     torrential
     brasero # For cd recording
@@ -111,6 +108,7 @@ in rec {
       readmeFile = "README_pl.txt";
       license = with lib.licenses; [ gpl2 mpl20 lgpl3 ];
     })
+
     # Programming
     git
     gcc
@@ -122,7 +120,6 @@ in rec {
     patchutils
     glade
     conda
-    ant
     nixfmt
 
     nodePackages.pyright
@@ -132,9 +129,9 @@ in rec {
     winetricks
 
     # Browser
-    # brave
+    ungoogled-chromium
     firefox
-    nyxt
+    # nyxt
 
     # Office
     libreoffice-fresh
@@ -144,9 +141,9 @@ in rec {
     # sxiv
     inkscape
     # slack
-    texlive.combined.scheme-full
+    texlive.combined.scheme-medium
     mailspring
-    #obsidian
+    # obsidian
     ark
     lyx
 
@@ -178,8 +175,8 @@ in rec {
     xournalpp
     spotify
     element-desktop
+    anki
 
-    gnome.gnome-tweaks
     # Crypto I guess
     #    monero
     #    monero-gui

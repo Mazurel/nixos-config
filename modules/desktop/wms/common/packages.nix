@@ -15,6 +15,7 @@ in {
       feh
       dunst
       dmenu
+      lxappearance
     ];
 
     programs.qt5ct.enable = true;
