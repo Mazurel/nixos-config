@@ -32,6 +32,16 @@
           ./settings/pc.nix
         ];
       };
+
+	lenovo-laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          self.nixosModules.mazurel
+
+          nixos-hardware.nixosModules.common-cpu-intel
+          ./settings/lenovo-laptop.nix
+        ];
+      };
     };
 
     overlay = final: prev:

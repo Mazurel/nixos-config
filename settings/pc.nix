@@ -3,7 +3,7 @@
 # It is propagated into nixos configuration
 { pkgs, lib, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-  
+
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
@@ -97,11 +97,11 @@
     device = "/dev/disk/by-label/Vms";
     fsType = "ext4";
   };
-  
-  fileSystems."/mnt/data" =
-    { device = "/dev/disk/by-label/LinuxData";
-      fsType = "ext4";
-    };
+
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-label/LinuxData";
+    fsType = "ext4";
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";

@@ -11,8 +11,8 @@ in {
     i18n.defaultLocale = "pl_PL.UTF-8";
 
     console = {
-        font = "Lat2-Terminus16";
-        keyMap = "pl";
+      font = "Lat2-Terminus16";
+      keyMap = "pl";
     };
 
     services.xserver.layout = "pl";

@@ -1,10 +1,9 @@
 # This is top module of all modules
-{ lib, config, pkgs, ... }:
-{
+{ lib, config, pkgs, ... }: {
   imports = [
     # TODO: Modularize configuration.nix !
     ./configuration.nix
-    
+
     ./user.nix
     ./packages.nix
     ./virtualization.nix

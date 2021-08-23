@@ -16,11 +16,7 @@ let
   hy-with-my-packages = hy.withPackages my-python-packages;
 in {
   # Packages settings
-  nixpkgs = {
-    config = {
-      android_sdk.accept_license = true;
-    };
-  };
+  nixpkgs = { config = { android_sdk.accept_license = true; }; };
 
   # Fonts
   fonts.fonts = with pkgs; [
@@ -38,7 +34,7 @@ in {
     xkbOptions = "caps:ctrl_modifier,terminate:ctrl_alt_bksp";
     videoDrivers = [ "intel" "amdgpu" ];
 
-    libinput.enable = false; # Touchpad
+    libinput.enable = true; # Touchpad
     windowManager.i3.enable = false;
     displayManager.sddm.enable = false; # For some reason it doesn't work
     displayManager.lightdm.enable = true;
