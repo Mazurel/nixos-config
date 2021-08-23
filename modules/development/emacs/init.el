@@ -165,6 +165,7 @@
 (setq ibuffer-saved-filter-groups
 	(quote (("Default"
 		("Dired" (mode . dired-mode))
+		("Magit" (name . "magit:*")) 
 		("Internal" (or
 			    (name . "^\\*.*\\*$")))))))
 

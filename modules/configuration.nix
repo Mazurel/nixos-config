@@ -75,6 +75,10 @@ in {
     matlab
   ];
 
+  services.geoclue2.enable = true;
+  services.geoclue2.appConfig."redshift".isAllowed = true;
+  services.geoclue2.appConfig."redshift".isSystem = true;
+  
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];
   services.teamviewer.enable = true;

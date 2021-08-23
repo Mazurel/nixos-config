@@ -8,13 +8,12 @@ in {
     services.xserver = {
       enable = true;
       desktopManager.gnome.enable = true;
-      displayManager.lightdm.enable = true;
+      displayManager.gdm.enable = true;
     };
 
     # Exclude all the packages
-    services.gnome.core-utilities.enable = false;
+    #services.gnome.core-utilities.enable = false;
 
-    # Add packages necessary for this DE imo
     environment.systemPackages = with pkgs; [
       alacritty
       gnome.nautilus
