@@ -76,6 +76,10 @@
         search --set=arch --fs-uuid 7ede759b-7d19-4c66-b98d-e8d7b7497dc0
         configfile "($arch)/boot/grub/grub.cfg"
         }
+
+        menuentry "UEFI Settings" {
+        fwsetup
+        }
       '';
     };
 
@@ -88,6 +92,11 @@
     fsType = "ext4";
   };
 
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/NixStore";
+    fsType = "ext4";
+  };
+ 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/Home";
     fsType = "ext4";

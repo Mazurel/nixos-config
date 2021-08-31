@@ -24,6 +24,8 @@ in {
     '';
   };
 
+  config.nix.trustedUsers = [ "root" "mateusz" ];
+  
   config.home-manager = {
     users.${cfg.username} = (import ./home-manager) (cfg.home-manager // {
       home.username = cfg.username;

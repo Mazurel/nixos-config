@@ -17,7 +17,17 @@
           ./modules/user.nix
           home-manager.nixosModules.home-manager
           { }
-          ({ ... }: { nixpkgs.overlays = [ self.overlay ]; })
+          ({ ... }: {
+            nixpkgs.overlays = [ self.overlay ];
+#            nix.registry.nixpkgs = {
+#              from = "nixpkgs";
+#              to = "github:NixOS/nixpkgs/nixos-21.05";
+#            };
+#            nix.registry.configuration = {
+#              from = "configuration";
+#              to = "/etc/nixos";
+#            };
+          })
         ];
       };
     };

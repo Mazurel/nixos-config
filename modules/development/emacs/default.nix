@@ -1,11 +1,14 @@
 { pkgs ? import <nixpkgs> { } }:
-let myEmacs = pkgs.emacs;
+let
+  myEmacs = pkgs.emacs;
+
 in rec {
   emacs-packages = (epkgs:
     (with epkgs.melpaStablePackages; [
       magit
       zerodark-theme
       nix-mode
+      groovy-mode
       evil
       which-key
       company
@@ -21,6 +24,7 @@ in rec {
       vterm
 
       lsp-mode
+      lsp-dart
       lsp-ui
       racket-mode
       all-the-icons-dired
@@ -35,12 +39,15 @@ in rec {
       # Emacs LSP
       nodePackages.pyright
       nodePackages.eslint
-      ccls
+      clang-tools
       rnix-lsp
+      dart
+      flutter
 
       emacs-all-the-icons-fonts
     ]));
 
   emacs = ((pkgs.emacsPackagesFor myEmacs).emacsWithPackages emacs-packages);
+
 }
 

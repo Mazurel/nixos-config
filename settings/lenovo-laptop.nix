@@ -53,6 +53,12 @@
       device = "nodev";
 
       enableCryptodisk = true;
+
+      extraEntries = ''
+        menuentry "UEFI Settings" {
+        fwsetup
+        }
+      '';
     };
 
     efi.efiSysMountPoint = "/boot";
