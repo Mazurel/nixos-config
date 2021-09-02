@@ -76,10 +76,12 @@
 
 (setq gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024)
-      treemacs-space-between-root-nodes nil
-      company-idle-delay 0.0
       company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)
+      lsp-lens-enable t
+      ;; Disable signatures at the bottom of the modeline, see: https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+      lsp-eldoc-enable-hover nil
+      lsp-signature-render-documentation nil
+      lsp-signature-auto-activate nil)
 
 ;; LSP mode hook functions
 (mapc
