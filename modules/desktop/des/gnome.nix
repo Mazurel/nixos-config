@@ -21,6 +21,10 @@ in {
       gnome.gnome-tweaks
 
       gnomeExtensions.gsconnect
+
+      touchegg
+      gnomeExtensions.x11-gestures
+      gnomeExtensions.maximize-to-workspace-with-history
     ];
 
     programs.qt5ct.enable = true;

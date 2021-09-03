@@ -70,6 +70,9 @@ in rec {
     hicolor-icon-theme
     adwaita-qt
     pop-gtk-theme
+    qogir-theme
+    qogir-icon-theme
+    orchis-theme
 
     # Tools
     bash

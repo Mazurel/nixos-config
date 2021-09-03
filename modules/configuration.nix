@@ -37,7 +37,7 @@ in {
     libinput.enable = true; # Touchpad
     windowManager.i3.enable = false;
     displayManager.sddm.enable = false; # For some reason it doesn't work
-    displayManager.lightdm.enable = true;
+    displayManager.lightdm.enable = false;
     desktopManager.plasma5.enable = false;
   };
 
@@ -78,6 +78,8 @@ in {
   services.geoclue2.enable = true;
   services.geoclue2.appConfig."redshift".isAllowed = true;
   services.geoclue2.appConfig."redshift".isSystem = true;
+  services.redshift.enable = true;
+  location.provider = "geoclue2";
   
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];
