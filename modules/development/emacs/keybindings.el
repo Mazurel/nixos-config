@@ -53,6 +53,10 @@
 (define-key my-custom-keybindings-map (kbd "w d") 'evil-window-delete)
 (define-key my-custom-keybindings-map (kbd "w q") 'evil-window-delete)
 
+;; Finding things
+(define-key my-custom-keybindings-map (kbd "f t n") 'hl-todo-next)
+(define-key my-custom-keybindings-map (kbd "f t p") 'hl-todo-previous)
+
 ;; Spawning external programs
 (define-key my-custom-keybindings-map (kbd "s a") 'spawn-alacritty)
 

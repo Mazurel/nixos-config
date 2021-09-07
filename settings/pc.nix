@@ -7,7 +7,8 @@
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
-  mazurel.xorg.wms.leftwm.enable = true;
+  #mazurel.xorg.wms.leftwm.enable = true;
+  mazurel.wayland.wms.sway.enable = true;
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;
 
@@ -48,6 +49,8 @@
     };
     wireless.enable = false; # Enables wpa_supplicant
   };
+
+  services.xserver.videoDrivers = [ "intel" "amdgpu" ];
 
   # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";

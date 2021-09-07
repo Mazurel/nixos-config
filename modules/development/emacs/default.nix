@@ -6,27 +6,33 @@ in rec {
   emacs-packages = (epkgs:
     (with epkgs.melpaStablePackages; [
       magit
-      zerodark-theme
-      nix-mode
-      groovy-mode
       evil
       which-key
       company
+      hl-todo # TODO and FIXME highlight
 
-      doom-modeline
-      dashboard
+      doom-modeline # Better modeline
+      dashboard # Emacs dashboard
 
+      # Custom search mechanisms
       ivy
       counsel
       swiper
+
+      # Language specific modes
+      nix-mode
+      groovy-mode
     ]) ++ (with epkgs.melpaPackages; [
       spacemacs-theme
       vterm
 
+      # Language specific modes
       lsp-mode
       lsp-dart
       lsp-ui
       racket-mode
+
+      # Icons
       all-the-icons-dired
       all-the-icons
     ]) ++ (with epkgs.elpaPackages; [ ]) ++ (with pkgs; [

@@ -85,7 +85,9 @@
 
 ;; LSP mode hook functions
 (mapc
- (lambda (hook) (add-hook hook 'lsp))
+ (lambda (hook)
+   (progn
+     (add-hook hook 'lsp)))
  '(c-mode-hook c++-mode-hook python-mode-hook nix-mode-hook js-mode-hook dart-mode-hook))
 
 ; Timings for company
@@ -173,6 +175,9 @@
 (add-hook 'ibuffer-mode-hook
               (lambda ()
                 (ibuffer-switch-to-saved-filter-groups "Default")))
+
+;; hl-todo
+(add-hook 'prog-mode-hook 'hl-todo-mode)
 
 ;; Keybindings
 (load "~/.config/emacs/keybindings.el")

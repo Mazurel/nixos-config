@@ -42,7 +42,10 @@
     exec -a "$0" "$@"
   '') ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    libinput.enable = true; # Touchpad
+  };
 
   hardware.nvidia.prime = {
     offload.enable = true;

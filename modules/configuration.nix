@@ -30,15 +30,7 @@ in {
 
   # X11 configuration
   services.xserver = {
-    enable = true;
     xkbOptions = "caps:ctrl_modifier,terminate:ctrl_alt_bksp";
-    videoDrivers = [ "intel" "amdgpu" ];
-
-    libinput.enable = true; # Touchpad
-    windowManager.i3.enable = false;
-    displayManager.sddm.enable = false; # For some reason it doesn't work
-    displayManager.lightdm.enable = false;
-    desktopManager.plasma5.enable = false;
   };
 
   # Enable sound.

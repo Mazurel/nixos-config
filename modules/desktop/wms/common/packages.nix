@@ -26,5 +26,20 @@ in {
     };
 
     services.gnome.gnome-keyring.enable = true;
+
+    mazurel.home-manager.systemd.user.services = {
+#      dunst = {
+#        enable = true;
+#        unitConfig = {
+#          type = "simple";
+#        };
+#
+#        serviceConfig = {
+#          ExecStart = "${dunst}/bin/dunst";
+#        };
+#
+#        wantedBy = [ ];
+#      };
+    };
   };
 }

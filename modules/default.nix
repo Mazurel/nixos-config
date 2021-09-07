@@ -16,6 +16,7 @@
     ./development/neovim.nix
 
     ./desktop/wms/dwm.nix
+    ./desktop/wms/sway.nix
     ./desktop/wms/leftwm.nix
     ./desktop/wms/common/picom.nix
     ./desktop/wms/common/xautolock.nix

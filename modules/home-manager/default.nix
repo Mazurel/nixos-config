@@ -56,6 +56,10 @@ in (lib.attrsets.recursiveUpdate {
     dotDir = ".config/zsh";
 
     initExtra = ''
+      if [ "$(tty)" = "/dev/tty1" ]; then
+        exec sway
+      fi
+
       cal
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
     '';
