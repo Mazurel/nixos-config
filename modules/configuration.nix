@@ -14,7 +14,8 @@ let
 
   python-with-my-packages = python3.withPackages my-python-packages;
   hy-with-my-packages = hy.withPackages my-python-packages;
-in {
+in
+{
   # Packages settings
   nixpkgs = { config = { android_sdk.accept_license = true; }; };
 
@@ -35,9 +36,24 @@ in {
 
   # Enable sound.
   # TODO: Port to Pipewire
-  sound.enable = true;
-  hardware.pulseaudio = {
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
+  # Old Pulseaudio:
+  sound.enable = false;
+  hardware.pulseaudio = {
+    enable = false;
     # Custom config for real time noise cancelation
     # Based on https://askubuntu.com/questions/18958/realtime-noise-removal-with-pulseaudio
     configFile = configs/default.pa;
@@ -72,7 +88,7 @@ in {
   services.geoclue2.appConfig."redshift".isSystem = true;
   services.redshift.enable = true;
   location.provider = "geoclue2";
-  
+
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];
   services.teamviewer.enable = true;
@@ -87,4 +103,3 @@ in {
   services.sshd.enable = true;
   services.xserver.exportConfiguration = true;
 }
-

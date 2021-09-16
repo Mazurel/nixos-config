@@ -56,6 +56,7 @@ in {
     mazurel.home-manager = {
       xdg.configFile."emacs/init.el".source = ./emacs/init.el;
       xdg.configFile."emacs/keybindings.el".source = ./emacs/keybindings.el;
+      xdg.configFile."emacs/dired-guess.el".source = ./emacs/dired-guess.el;
       xdg.configFile."emacs/custom-init.el".text = customEmacsInit;
     };
   };

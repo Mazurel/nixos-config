@@ -62,7 +62,9 @@ in rec {
     #    autorandr
     #    dragon-drop
     #    libsecret
-
+    glib
+    nix-index
+    
     # Themes and more
     capitaine-cursors
     arc-theme

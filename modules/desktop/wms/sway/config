@@ -90,6 +90,12 @@ bindsym $mod+Return exec $term
 # Start your launcher
 bindsym $mod+p exec "wofi --show drun"
 
+# Launch Emacs !
+bindsym $mod+e exec "emacs"
+bindsym $mod+d exec 'emacs ~/'
+
+bindsym Print exec '$HOME/.config/sway/make-screenshot.sh'
+
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
@@ -125,7 +131,7 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 bindsym $mod+space floating toggle
 bindsym $mod+Shift+s sticky toggle
@@ -203,10 +209,19 @@ bar {
     workspace_buttons yes
 }
 
-# Spawning (should be at the end of the config)
-exec --no-startup-id nm-applet
-exec --no-startup-id deadd-notification-center
-exec --no-startup-id megasync
-exec --no-startup-id kdeconnect-indicator
+# Auto start programs (should be at the end of the config)
+exec {
+    nm-applet
+    megasync
+    kdeconnect-indicator
+}
+
+# System settings
+exec_always {
+    wmname LG3D # For compatibility with Java programs like Matlab
+    gsettings set org.gnome.desktop.interface cursor-theme "Adwaita"
+    gsettings set org.gnome.desktop.interface icon-theme "Orchis"
+    gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+}
 
 include /etc/sway/config.d/*

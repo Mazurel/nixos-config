@@ -7,6 +7,7 @@
     ./user.nix
     ./packages.nix
     ./virtualization.nix
+    ./anbox.nix
     ./desktop/steam-and-games.nix
 
     ./languages/polish.nix

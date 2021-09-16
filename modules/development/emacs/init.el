@@ -179,6 +179,11 @@
 ;; hl-todo
 (add-hook 'prog-mode-hook 'hl-todo-mode)
 
+;; Load and setup dired-guess
+(load "~/.config/emacs/dired-guess.el")
+(require 'dired-guess)
+(define-key dired-mode-map "r" 'dig-start)
+
 ;; Keybindings
 (load "~/.config/emacs/keybindings.el")
 

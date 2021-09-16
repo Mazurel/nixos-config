@@ -2,7 +2,7 @@
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   inputs.home-manager.url = "github:nix-community/home-manager";
-  inputs.nix-matlab.url = "/home/mateusz/Matlab/nix-matlab";
+  inputs.nix-matlab.url = "gitlab:doronbehar/nix-matlab";
   inputs.comma = {
     url = "github:Shopify/comma";
     flake = false;

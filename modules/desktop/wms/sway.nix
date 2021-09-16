@@ -14,23 +14,31 @@ in
       enable = true;
       wrapperFeatures.gtk = true;
       extraPackages = with pkgs; [
-        swaylock
-        swayidle
-        wl-clipboard
+        swaylock # Locker
+        swayidle # Idle detector
+        wl-clipboard # Clipboard manager
         mako # notification daemon
         alacritty # Alacritty is the default terminal in the config
         dmenu
-        wofi
-        waybar
-        lxappearance
-        gtk-engine-murrine
-        gtk_engines
-        gsettings-desktop-schemas
-        flameshot
-        swaylock
-        firefox-wayland
+        wofi # Wayland rofi
+        waybar # Wayland polybar
+        lxappearance # Apperance manager
+        flameshot # Screenshot
+        firefox-wayland # Firefox for wayland
+
+        # For screenshots
+        grim
+        slurp
+        dragon
       ];
     };
+
+    environment.systemPackages = with pkgs; [
+      gtk-engine-murrine
+      gtk_engines
+      gsettings-desktop-schemas
+      lxappearance
+    ];
 
     environment.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";

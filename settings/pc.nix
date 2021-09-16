@@ -7,11 +7,12 @@
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
-  #mazurel.xorg.wms.leftwm.enable = true;
+  mazurel.xorg.wms.leftwm.enable = true;
   mazurel.wayland.wms.sway.enable = true;
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;
 
+  mazurel.anbox.enable = true;
   mazurel.virtualization = {
     enable = true;
     # Devices that will be disabled and ready for passthorugh
