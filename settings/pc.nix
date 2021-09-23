@@ -53,6 +53,8 @@
 
   services.xserver.videoDrivers = [ "intel" "amdgpu" ];
 
+  virtualisation.docker.enable = true;
+  
   # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";
 

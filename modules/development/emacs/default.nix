@@ -45,6 +45,7 @@ in rec {
       # Emacs LSP
       nodePackages.pyright
       nodePackages.eslint
+      nodePackages.typescript
       clang-tools
       rnix-lsp
       dart

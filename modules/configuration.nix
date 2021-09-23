@@ -63,7 +63,7 @@ in
   users.users.${config.mazurel.username} = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" "adbusers" ];
+    extraGroups = [ "wheel" "audio" "libvirtd" "networkmanager" "adbusers" "docker" ];
   };
 
   users.users.root = { shell = pkgs.zsh; };
@@ -97,6 +97,9 @@ in
 
   services.flatpak.enable = true;
   xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+  ];
 
   programs.adb.enable = true;
 
