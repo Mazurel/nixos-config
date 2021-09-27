@@ -10,6 +10,8 @@
   mazurel.languages.polish.enable = true;
 
   mazurel.xorg.des.gnome.enable = true;
+  programs.qt5ct.enable = lib.mkForce false;
+
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;
 
@@ -34,18 +36,27 @@
   # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";
 
-  environment.systemPackages = [ (pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '') ];
+  environment.systemPackages = [
+    (
+      pkgs.writeShellScriptBin "nvidia-offload" ''
+        export __NV_PRIME_RENDER_OFFLOAD=1
+        export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+        export __GLX_VENDOR_LIBRARY_NAME=nvidia
+        export __VK_LAYER_NV_optimus=NVIDIA_only
+        exec -a "$0" "$@"
+      ''
+    )
+  ];
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidia" "modesetting" ];
     libinput.enable = true; # Touchpad
   };
+
+  services.xserver.screenSection = ''
+    Option    "Xinerama" "false"
+  '';
+
 
   hardware.nvidia.prime = {
     offload.enable = true;
@@ -53,12 +64,12 @@
     intelBusId = "PCI:0:02:0";
     nvidiaBusId = "PCI:3:0:0";
   };
-  
+
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -109,5 +120,5 @@
     "/dev/disk/by-uuid/3589cda3-abfc-47ec-b832-663951cc318e";
   boot.initrd.luks.devices."crypted_sda4".preLVM = true;
 
-  swapDevices = [ ];
+  swapDevices = [];
 }
