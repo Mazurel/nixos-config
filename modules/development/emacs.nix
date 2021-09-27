@@ -49,7 +49,7 @@ in {
       rnix-lsp
       nodePackages.pyright
       nodePackages.typescript
-      python38Packages.python-language-server
+      # python38Packages.python-language-server
       nixfmt
     ];
 
