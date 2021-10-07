@@ -170,6 +170,7 @@ in rec {
     gparted
     barrier
     mullvad-vpn
+    openvpn
     super-productivity
 
     # GUI

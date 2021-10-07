@@ -92,8 +92,8 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.epson-escpr ];
   services.teamviewer.enable = true;
-  services.mullvad-vpn.enable = true;
-  #programs.corectrl.enable = true;
+  # services.mullvad-vpn.enable = true;
+  # programs.corectrl.enable = true;
 
   services.flatpak.enable = true;
   xdg.portal.enable = true;

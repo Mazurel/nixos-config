@@ -15,6 +15,7 @@
     ./development/java.nix
     ./development/emacs.nix
     ./development/neovim.nix
+    ./development/cuda.nix
 
     ./desktop/wms/dwm.nix
     ./desktop/wms/sway.nix
