@@ -2,7 +2,8 @@
 let
   myEmacs = pkgs.emacs;
 
-in rec {
+in
+rec {
   emacs-packages = (epkgs:
     (with epkgs.melpaStablePackages; [
       magit
@@ -35,7 +36,10 @@ in rec {
       # Icons
       all-the-icons-dired
       all-the-icons
-    ]) ++ (with epkgs.elpaPackages; [ ]) ++ (with pkgs; [
+    ]) ++ (with epkgs.elpaPackages; [
+      # Language specific modes
+      ediprolog
+    ]) ++ (with pkgs; [
       # Other maybe useful stuff
       racket
       nodejs

@@ -155,6 +155,7 @@ in rec {
     # Science stuff
     maxima
     wxmaxima
+    swiProlog
 
     # Electronics
 

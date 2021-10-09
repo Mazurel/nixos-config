@@ -14,6 +14,7 @@ in {
   options.mazurel.development.emacs.defaultEditor =
     lib.mkEnableOption "Make emacs (terminal version) a default editor";
 
+  # TODO: Implement this thing
   options.mazurel.development.emacs.additionalCustomization =
     lib.mkOption {
       description = ''
@@ -51,6 +52,7 @@ in {
       nodePackages.typescript
       # python38Packages.python-language-server
       nixfmt
+      swiProlog
     ];
 
     mazurel.home-manager = {

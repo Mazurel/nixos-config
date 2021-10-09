@@ -184,6 +184,11 @@
 (require 'dired-guess)
 (define-key dired-mode-map "r" 'dig-start)
 
+;; Prolog
+(global-set-key [f10] 'ediprolog-dwim)
+(setq ediprolog-system 'swi)
+(setq ediprolog-program "swipl")
+
 ;; Keybindings
 (load "~/.config/emacs/keybindings.el")
 
