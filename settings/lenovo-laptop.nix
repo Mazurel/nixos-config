@@ -15,6 +15,8 @@
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;
 
+  mazurel.development.cuda.enable = true;
+
   mazurel.virtualization = {
     enable = false;
     # Devices that will be disabled and ready for passthorugh
@@ -23,6 +25,18 @@
     # Needed if acs are not valid
     acs-override-patch = false;
   };
+
+  hardware.opengl.enable = true;
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+
+  users.users.mateusz.extraGroups = [
+    "video"
+  ];
+
+  boot.blacklistedKernelModules = [
+    "nouveau"
+  ];
 
   nix.maxJobs = 8;
 
@@ -49,8 +63,10 @@
   ];
 
   services.xserver = {
-    videoDrivers = [ "nvidia" "modesetting" ];
+    videoDrivers = [ "nvidia" ];
     libinput.enable = true; # Touchpad
+    #displayManager.lightdm.enable = true;
+    #displayManager.gdm.enable = lib.mkForce false;
   };
 
   services.xserver.screenSection = ''
@@ -61,15 +77,15 @@
   hardware.nvidia.prime = {
     offload.enable = true;
 
-    intelBusId = "PCI:0:02:0";
+    intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:3:0:0";
   };
 
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc" ];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [];
+  boot.extraModulePackages = [ ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
@@ -120,5 +136,5 @@
     "/dev/disk/by-uuid/3589cda3-abfc-47ec-b832-663951cc318e";
   boot.initrd.luks.devices."crypted_sda4".preLVM = true;
 
-  swapDevices = [];
+  swapDevices = [ ];
 }
