@@ -32,6 +32,7 @@ rec {
       lsp-dart
       lsp-ui
       racket-mode
+      matlab-mode
 
       # Icons
       all-the-icons-dired

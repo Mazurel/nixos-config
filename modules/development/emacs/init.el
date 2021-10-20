@@ -189,6 +189,12 @@
 (setq ediprolog-system 'swi)
 (setq ediprolog-program "swipl")
 
+;; Matlab
+;(add-to-list
+; 'auto-mode-alist
+; '("\\.m$" . matlab-mode))
+(matlab-cedet-setup)
+
 ;; Keybindings
 (load "~/.config/emacs/keybindings.el")
 

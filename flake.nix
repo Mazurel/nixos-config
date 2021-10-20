@@ -1,5 +1,6 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  # inputs.nixpkgs.url = "/home/mateusz/nixpkgs";
   inputs.nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.nix-matlab.url = "gitlab:doronbehar/nix-matlab";
@@ -56,6 +57,11 @@
         mazurel-scripts = final.callPackage ./packages/scripts {};
         comma = final.callPackage comma {};
         fluentReader = final.callPackage ./packages/fluentReader.nix {};
+        inkscape-with-custom-extensions = prev.inkscape-with-extensions.override {
+          inkscapeExtensions = [
+            (prev.callPackage ./packages/textext.nix { })
+          ];
+        };
       };
   };
 }

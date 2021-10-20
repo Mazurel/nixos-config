@@ -113,10 +113,11 @@
     fsType = "ext4";
   };
 
-  fileSystems."/mnt/data" = {
-    device = "/dev/disk/by-label/LinuxData";
-    fsType = "ext4";
-  };
+# I think by disk is dead
+#  fileSystems."/mnt/data" = {
+#    device = "/dev/disk/by-label/LinuxData";
+#    fsType = "ext4";
+#  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";

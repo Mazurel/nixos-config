@@ -144,7 +144,7 @@ in rec {
     libsForQt5.okular
     libsForQt5.kdeconnect-kde
     # sxiv
-    inkscape
+    inkscape-with-custom-extensions
     # slack
     texlive.combined.scheme-medium
     mailspring

@@ -38,6 +38,7 @@ in
       gtk_engines
       gsettings-desktop-schemas
       lxappearance
+      xfce.thunar
     ];
 
     environment.sessionVariables = {
