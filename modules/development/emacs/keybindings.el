@@ -50,8 +50,8 @@
 (define-key my-custom-keybindings-map (kbd "w k") 'windmove-up)
 (define-key my-custom-keybindings-map (kbd "w l") 'windmove-right)
 	  
-(define-key my-custom-keybindings-map (kbd "w d") 'evil-window-delete)
-(define-key my-custom-keybindings-map (kbd "w q") 'evil-window-delete)
+(define-key my-custom-keybindings-map (kbd "w d") 'delete-window)
+(define-key my-custom-keybindings-map (kbd "w q") 'delete-window)
 
 ;; Finding things
 (define-key my-custom-keybindings-map (kbd "f t n") 'hl-todo-next)
