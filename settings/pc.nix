@@ -7,8 +7,11 @@
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
-  mazurel.xorg.wms.leftwm.enable = true;
   mazurel.wayland.wms.sway.enable = true;
+
+  services.flatpak.enable = lib.mkForce false;
+  xdg.portal.enable = lib.mkForce false;
+  
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;
 

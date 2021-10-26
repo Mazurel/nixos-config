@@ -33,6 +33,7 @@ rec {
       lsp-ui
       racket-mode
       matlab-mode
+      rust-mode
 
       # Icons
       all-the-icons-dired

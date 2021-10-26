@@ -53,6 +53,9 @@ in {
       # python38Packages.python-language-server
       nixfmt
       swiProlog
+
+      cargo
+      rustc
     ];
 
     mazurel.home-manager = {
