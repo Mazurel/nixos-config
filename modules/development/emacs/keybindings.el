@@ -38,6 +38,7 @@
 (redefine-key ibuffer-mode-map (kbd "j") 'ibuffer-forward-line)
 (redefine-key ibuffer-mode-map (kbd "k") 'ibuffer-backward-line)
 (define-key ibuffer-mode-map (kbd "J") 'ibuffer-jump-to-buffer)
+(global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
 
 ;; Windows navigation
 (define-key my-custom-keybindings-map (kbd "w s h") 'split-window-horizontally)

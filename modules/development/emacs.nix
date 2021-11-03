@@ -41,7 +41,7 @@ in {
   
   config = lib.mkIf cfg.enable {
     environment.sessionVariables =
-      lib.mkIf cfg.defaultEditor { EDITOR = "emacs -nw"; };
+      lib.mkIf cfg.defaultEditor { EDITOR = "emacs"; };
 
     environment.systemPackages = with pkgs; [
       my-emacs.emacs

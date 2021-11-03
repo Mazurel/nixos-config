@@ -49,6 +49,9 @@
 
 (load-theme 'spacemacs-dark)
 
+;; Environemnt variables
+(setenv "TERM" "emacs") ; Removes weird line characters
+
 ;; Modeline
 (doom-modeline-mode 1)
 (size-indication-mode)
@@ -99,6 +102,11 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 (setq search-default-mode #'char-fold-to-regexp)
+
+;; Ido search
+; TODO: Consider using it instead of ivy
+; (ido-mode)
+; (setq ido-enable-flex-matching t)
 
 ;; Every file should be opened with relative line numbers
 (add-hook 'find-file-hook (lambda ()
@@ -193,7 +201,12 @@
 ;(add-to-list
 ; 'auto-mode-alist
 ; '("\\.m$" . matlab-mode))
-(matlab-cedet-setup)
+; (matlab-cedet-setup)
+
+;; Prolog (with ediprolog)
+(add-to-list
+ 'auto-mode-alist
+ '("\\.pl$" . prolog-mode))
 
 ;; Keybindings
 (load "~/.config/emacs/keybindings.el")

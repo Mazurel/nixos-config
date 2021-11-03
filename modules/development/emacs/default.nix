@@ -46,7 +46,6 @@ rec {
       racket
       nodejs
       nixfmt
-      hy
 
       # Emacs LSP
       nodePackages.pyright
