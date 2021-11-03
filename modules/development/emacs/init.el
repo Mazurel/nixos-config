@@ -127,7 +127,6 @@
 ;; Colored eshell
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
-(setenv "TERM" "xterm-256color")
 
 ;; Makes line wrap nicer in markdown languages
 (mapc
