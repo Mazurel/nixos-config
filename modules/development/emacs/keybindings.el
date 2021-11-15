@@ -18,6 +18,13 @@
   (interactive)
   (start-process-shell-command "alacritty-term" nil "alacritty"))
 
+; From: https://www.emacswiki.org/emacs/DocumentingKeyBindingToLambda
+(defun lambda-key (keymap key def)
+  "Wrap`define-key' to provide documentation."
+  (set 'sym (make-symbol (documentation def)))
+  (fset sym def)
+  (define-key keymap key sym))
+
 (setq my-custom-keybindings-map (make-keymap))
 
 ;; Remove useless keybindings
@@ -80,6 +87,20 @@
 
 (evil-define-key 'insert evil-insert-state-map
   (kbd "C-V") 'paste)
+
+;; Matlab related
+(add-hook 'matlab-mode-hook
+	  (lambda ()
+	    (lambda-key matlab-mode-map (kbd "C-c C-w")
+			'(lambda ()
+			   "Launch matlab shell in window below"
+			   (interactive)
+			   (progn
+			     (split-window-below)
+			     (other-window 1)
+			     (fit-window-to-buffer (selected-window) (/ (frame-height) 3))
+			     (matlab-shell)))
+			)))
 
 ;; Ivy keybindings
 (global-set-key (kbd "C-c C-f") 'swiper)

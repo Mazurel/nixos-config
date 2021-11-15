@@ -18,7 +18,7 @@
           ./modules/default.nix
           ./modules/user.nix
           home-manager.nixosModules.home-manager
-          {}
+          { }
           (
             { ... }: {
               nixpkgs.overlays = [ self.overlay nix-matlab.overlay ];
@@ -54,14 +54,23 @@
 
     overlay = final: prev:
       {
-        mazurel-scripts = final.callPackage ./packages/scripts {};
-        comma = final.callPackage comma {};
-        fluentReader = final.callPackage ./packages/fluentReader.nix {};
+        mazurel-scripts = final.callPackage ./packages/scripts { };
+        comma = final.callPackage comma { };
+        fluentReader = final.callPackage ./packages/fluentReader.nix { };
         inkscape-with-custom-extensions = prev.inkscape-with-extensions.override {
           inkscapeExtensions = [
             (prev.callPackage ./packages/textext.nix { })
           ];
         };
+        megasync = prev.megasync.overrideAttrs (oldAttrs: {
+          src = prev.fetchFromGitHub {
+            owner = "nullobsi/";
+            repo = "MEGAsync";
+            rev = "ad1e46a94dada7f11418647c4e2db7ca5c559ba0";
+            sha256 = "sha256-b9Cal3zd/b+NYFR8fAdFYWLLoCjvj1crjqxDra+oHFA=";
+            fetchSubmodules = true;
+          };
+        });
       };
   };
 }

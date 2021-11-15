@@ -101,7 +101,7 @@
 (ivy-mode)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
-(setq search-default-mode #'char-fold-to-regexp)
+; (setq search-default-mode #'char-fold-to-regexp)
 
 ;; Ido search
 ; TODO: Consider using it instead of ivy
