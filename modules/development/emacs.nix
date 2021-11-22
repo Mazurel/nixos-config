@@ -63,6 +63,7 @@ in {
       xdg.configFile."emacs/keybindings.el".source = ./emacs/keybindings.el;
       xdg.configFile."emacs/dired-guess.el".source = ./emacs/dired-guess.el;
       xdg.configFile."emacs/custom-init.el".text = customEmacsInit;
+      xdg.configFile."emacs/scad-mode.el".source = ./emacs/scad-mode.el;
     };
   };
 }

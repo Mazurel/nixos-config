@@ -23,6 +23,9 @@ rec {
       # Language specific modes
       nix-mode
       groovy-mode
+
+      # Org mode
+      org-superstar
     ]) ++ (with epkgs.melpaPackages; [
       spacemacs-theme
       vterm

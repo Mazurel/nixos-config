@@ -10,6 +10,7 @@ let
       numba
       ipython
       tkinter
+      pygments
     ];
 
   python-with-my-packages = python3.withPackages my-python-packages;
@@ -81,6 +82,10 @@ in
     mazurel-scripts
     megasync
     matlab
+
+    (lyx.override {
+      python3 = python-with-my-packages;
+    })
   ];
 
   services.geoclue2.enable = true;

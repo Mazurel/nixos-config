@@ -146,16 +146,28 @@ in rec {
     # sxiv
     inkscape-with-custom-extensions
     # slack
-    texlive.combined.scheme-medium
+    (texlive.combine {
+      inherit (texlive)
+        collection-basic
+        collection-latex
+        collection-latexextra
+        collection-latexrecommended
+        collection-luatex
+        collection-formatsextra
+        collection-fontutils
+        collection-fontsrecommended
+        collection-langpolish
+        minted;
+    })
     mailspring
     # obsidian
     ark
-    lyx
 
     # Science stuff
     maxima
     wxmaxima
     swiProlog
+    openscad
 
     # Electronics
 
@@ -170,7 +182,7 @@ in rec {
     #teams
     gparted
     barrier
-    mullvad-vpn
+    # mullvad-vpn
     openvpn
     super-productivity
 
@@ -182,7 +194,8 @@ in rec {
     xournalpp
     spotify
     element-desktop
-    anki
+    # anki
+    drawio
 
     # Crypto I guess
     #    monero

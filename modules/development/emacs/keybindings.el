@@ -88,6 +88,15 @@
 (evil-define-key 'insert evil-insert-state-map
   (kbd "C-V") 'paste)
 
+(evil-define-key 'normal org-mode-map
+  (kbd "<tab>") 'org-cycle)
+
+(evil-define-key 'insert org-mode-map
+  (kbd "C-M-<return>") 'org-insert-item)
+
+(evil-define-key 'normal org-mode-map
+  (kbd "C-M-<return>") 'org-insert-item)
+
 ;; Matlab related
 (add-hook 'matlab-mode-hook
 	  (lambda ()
