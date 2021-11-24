@@ -17,8 +17,11 @@
     winetricks
     # Games
     (steam.override {
-      extraProfile = "unset VK_ICD_FILENAMES";
-    }) # TODO: Remove override when https://github.com/NixOS/nixpkgs/issues/108598#issuecomment-853489577 is fixed.
+      extraProfile = ''
+        unset VK_ICD_FILENAMES 
+        export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.x86_64.json:/usr/share/vulkan/icd.d/radeon_icd.i686.json:${amdvlk}/share/vulkan/icd.d/amd_icd64.json:${driversi686Linux.amdvlk}/share/vulkan/icd.d/amd_icd32.json
+      '';
+    }) # TODO: Remove override when  https://github.com/NixOS/nixpkgs/issues/108598#issuecomment-882847374 is fixed.
     steam-run-native
     minecraft
     freesweep
@@ -26,9 +29,5 @@
   ];
 
   # Steam hardware configuration
-  hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = with pkgs; [ mesa amdvlk ];
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ amdvlk libva ];
-  hardware.pulseaudio.support32Bit = true;
+  programs.steam.enable = true;
 }

@@ -45,6 +45,9 @@
     config = {
       allowUnfree = true;
       allowBroken = true;
+      permittedInsecurePackages = [
+        "electron-11.5.0"
+      ];
     };
   };
 
