@@ -179,7 +179,7 @@ in rec {
     vlc
     kdenlive
     discord
-    #teams
+    teams
     gparted
     barrier
     # mullvad-vpn

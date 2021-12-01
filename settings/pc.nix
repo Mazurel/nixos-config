@@ -9,8 +9,8 @@
 
   mazurel.wayland.wms.sway.enable = true;
 
-  services.flatpak.enable = lib.mkForce false;
-  xdg.portal.enable = lib.mkForce false;
+  # services.flatpak.enable = lib.mkForce false;
+  # xdg.portal.enable = lib.mkForce false;
   
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;

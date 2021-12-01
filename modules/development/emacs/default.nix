@@ -7,7 +7,7 @@ rec {
   emacs-packages = (epkgs:
     (with epkgs.melpaStablePackages; [
       magit
-      evil
+      # evil
       which-key
       company
       hl-todo # TODO and FIXME highlight
@@ -29,6 +29,7 @@ rec {
     ]) ++ (with epkgs.melpaPackages; [
       spacemacs-theme
       vterm
+      meow
 
       # Language specific modes
       lsp-mode

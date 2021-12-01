@@ -27,75 +27,35 @@
 
 (setq my-custom-keybindings-map (make-keymap))
 
-;; Remove useless keybindings
-(remove-key evil-motion-state-map (kbd "SPC"))
-(remove-key evil-motion-state-map (kbd "RET"))
-
-(global-set-key (kbd "C-SPC") nil)
+; (global-set-key (kbd "C-SPC") nil)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-redefine-key (kbd "C-s") 'save-buffer)
 
 ;; Buffer navigation
-(define-key my-custom-keybindings-map (kbd "b n") 'next-buffer)
-(define-key my-custom-keybindings-map (kbd "b p") 'previous-buffer)
-(define-key my-custom-keybindings-map (kbd "b d") 'kill-buffer)
+(define-key my-custom-keybindings-map (kbd "C-b C-n") 'next-buffer)
+(define-key my-custom-keybindings-map (kbd "C-b C-p") 'previous-buffer)
+(define-key my-custom-keybindings-map (kbd "C-b C-d") 'kill-buffer)
 
 ;; Ibuffer navigation
-(define-key my-custom-keybindings-map (kbd "b l") 'ibuffer)
-(redefine-key ibuffer-mode-map (kbd "j") 'ibuffer-forward-line)
-(redefine-key ibuffer-mode-map (kbd "k") 'ibuffer-backward-line)
-(define-key ibuffer-mode-map (kbd "J") 'ibuffer-jump-to-buffer)
-(global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
-
-;; Windows navigation
-(define-key my-custom-keybindings-map (kbd "w s h") 'split-window-horizontally)
-(define-key my-custom-keybindings-map (kbd "w s v") 'split-window-vertically)
-(define-key my-custom-keybindings-map (kbd "w s l") 'split-window-right)
-(define-key my-custom-keybindings-map (kbd "w s j") 'split-window-below)
-
-(define-key my-custom-keybindings-map (kbd "w h") 'windmove-left)
-(define-key my-custom-keybindings-map (kbd "w j") 'windmove-down)
-(define-key my-custom-keybindings-map (kbd "w k") 'windmove-up)
-(define-key my-custom-keybindings-map (kbd "w l") 'windmove-right)
-	  
-(define-key my-custom-keybindings-map (kbd "w d") 'delete-window)
-(define-key my-custom-keybindings-map (kbd "w q") 'delete-window)
-
-;; Finding things
-(define-key my-custom-keybindings-map (kbd "f t n") 'hl-todo-next)
-(define-key my-custom-keybindings-map (kbd "f t p") 'hl-todo-previous)
+(define-key my-custom-keybindings-map (kbd "C-b C-l") 'ibuffer)
+(define-key my-custom-keybindings-map (kbd "C-b C-b") 'counsel-ibuffer)
 
 ;; Spawning external programs
-(define-key my-custom-keybindings-map (kbd "s a") 'spawn-alacritty)
+(define-key my-custom-keybindings-map (kbd "C-s C-a") 'spawn-alacritty)
 
 ;; Terminals/Shell
-(define-key my-custom-keybindings-map (kbd "t e")
+(define-key my-custom-keybindings-map (kbd "C-t C-e")
   (lambda (name)
     (interactive (list (read-shell-command "sName: ")))
     (eshell)
     (rename-buffer (concat "*Eshell-" name "*"))))
-(define-key my-custom-keybindings-map (kbd "t t") 'vterm)
+(define-key my-custom-keybindings-map (kbd "C-t C-t") 'vterm)
 
 ;; Map my map to more global maps
-(global-set-key (kbd "C-SPC") my-custom-keybindings-map)
-(define-key evil-motion-state-map (kbd "SPC") my-custom-keybindings-map)
+(global-set-key (kbd "C-c C-p") my-custom-keybindings-map)
 
-;; Dired h/l navigation
-(evil-define-key 'normal dired-mode-map
-  "h" 'dired-up-directory
-  "l" 'dired-find-file)
-
-(evil-define-key 'insert evil-insert-state-map
-  (kbd "C-V") 'paste)
-
-(evil-define-key 'normal org-mode-map
-  (kbd "<tab>") 'org-cycle)
-
-(evil-define-key 'insert org-mode-map
-  (kbd "C-M-<return>") 'org-insert-item)
-
-(evil-define-key 'normal org-mode-map
-  (kbd "C-M-<return>") 'org-insert-item)
+;(evil-define-key 'insert evil-insert-state-map
+;  (kbd "C-V") 'paste)
 
 ;; Matlab related
 (add-hook 'matlab-mode-hook
