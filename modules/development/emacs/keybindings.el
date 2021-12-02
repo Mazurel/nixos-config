@@ -27,7 +27,7 @@
 
 (setq my-custom-keybindings-map (make-keymap))
 
-; (global-set-key (kbd "C-SPC") nil)
+;(global-set-key (kbd "C-SPC") nil)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-redefine-key (kbd "C-s") 'save-buffer)
 
@@ -52,7 +52,8 @@
 (define-key my-custom-keybindings-map (kbd "C-t C-t") 'vterm)
 
 ;; Map my map to more global maps
-(global-set-key (kbd "C-c C-p") my-custom-keybindings-map)
+; (global-set-key (kbd " ") my-custom-keybindings-map)
+(global-set-key (kbd "M-p") my-custom-keybindings-map)
 
 ;(evil-define-key 'insert evil-insert-state-map
 ;  (kbd "C-V") 'paste)
