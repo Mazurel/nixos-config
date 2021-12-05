@@ -51,6 +51,7 @@ in {
       nodePackages.pyright
       nodePackages.typescript
       # python38Packages.python-language-server
+      
       nixfmt
       swiProlog
 
