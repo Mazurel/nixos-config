@@ -57,6 +57,11 @@
   services.xserver.videoDrivers = [ "intel" "amdgpu" ];
 
   virtualisation.docker.enable = true;
+
+  # Needed for flatpak
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+  ];
   
   # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";

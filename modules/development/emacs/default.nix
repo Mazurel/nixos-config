@@ -35,6 +35,7 @@ rec {
       lsp-mode
       lsp-dart
       lsp-ui
+      # lsp-pyright
       racket-mode
       matlab-mode
       rust-mode

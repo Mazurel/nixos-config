@@ -72,6 +72,9 @@
 			     (matlab-shell)))
 			)))
 
+;; Emacs fitting keybindings
+(global-set-key (kbd "C-x C-a C-f") 'find-file-at-point)
+
 ;; Ivy keybindings
 (global-set-key (kbd "C-c C-f") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)

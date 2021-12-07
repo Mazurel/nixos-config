@@ -17,6 +17,26 @@
         imports = [
           ./modules/default.nix
           ./modules/user.nix
+          (import ./modules/programs.nix { nixos = true; })
+          home-manager.nixosModules.home-manager
+          { }
+          (
+            { ... }: {
+              nixpkgs.overlays = [ self.overlay nix-matlab.overlay ];
+              nix.registry.nixpkgs.flake = nixpkgs;
+              # nix.registry.configuration.flake = "/etc/nixos";
+            }
+          )
+        ];
+      };
+    };
+
+    homeManagerModules = {
+      # This module boundles modules that are required for
+      # my configurations to work
+      mazurel = { ... }: {
+        imports = [
+          (import ./modules/programs.nix { nixos = false; })
           home-manager.nixosModules.home-manager
           { }
           (
