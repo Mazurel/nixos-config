@@ -7,8 +7,9 @@
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
-  mazurel.wayland.wms.sway.enable = true;
-
+  # mazurel.wayland.wms.sway.enable = true;
+  mazurel.xorg.des.cinnamon.enable = true;
+  
   # services.flatpak.enable = lib.mkForce false;
   # xdg.portal.enable = lib.mkForce false;
   

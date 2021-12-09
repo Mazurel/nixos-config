@@ -16,11 +16,12 @@
     '';
   };
 
-  config = if nixos then
-    (lib.attrset.recursiveUpdate {
-    environment.systemPackages = config.mazurel.programs;
-    } config.mazurel.nixos) else ({
-    # Rest of the home-manager inheritance is in ./user.nix
-    mazurel.home-manager.packages = config.mazurel.programs;
-  });
+  # TODO: Fix this thing
+  #config = if nixos then
+  #  (lib.attrsets.recursiveUpdate {
+  #  environment.systemPackages = config.mazurel.programs;
+  #  } config.mazurel.nixos) else ({
+  #  # Rest of the home-manager inheritance is in ./user.nix
+  #  mazurel.home-manager.packages = config.mazurel.programs;
+  #});
 }

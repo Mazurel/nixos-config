@@ -23,6 +23,7 @@
     ./desktop/wms/common/xautolock.nix
     ./desktop/wms/common/packages.nix
     ./desktop/des/gnome.nix
+    ./desktop/des/cinammon.nix
   ];
 
   nix.useSandbox = true;

@@ -83,8 +83,8 @@ in
         });
 
         virtualisation.libvirtd.enable = true;
-        virtualisation.libvirtd.qemuOvmf = true;
-        virtualisation.libvirtd.qemuRunAsRoot = false;
+        virtualisation.libvirtd.qemu.ovmf.enable = true;
+        virtualisation.libvirtd.qemu.runAsRoot = false;
       })
     (lib.mkIf cfg.passthrough.enable (
       let
