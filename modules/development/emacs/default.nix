@@ -41,6 +41,7 @@ rec {
       matlab-mode
       rust-mode
       julia-mode
+      cuda-mode
 
       # Icons
       all-the-icons-dired

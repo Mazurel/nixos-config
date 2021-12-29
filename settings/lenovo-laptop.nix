@@ -9,8 +9,11 @@
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
-  mazurel.xorg.des.gnome.enable = true;
-  programs.qt5ct.enable = lib.mkForce false;
+  mazurel.xorg.des.cinnamon.enable = true;
+  services.tlp.enable = true;
+  powerManagement.enable = true;
+  # services.upower.enable = true;
+  # programs.qt5ct.enable = lib.mkForce false;
 
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;

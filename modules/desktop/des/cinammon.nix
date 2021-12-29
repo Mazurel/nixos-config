@@ -10,6 +10,7 @@ in {
       desktopManager.cinnamon.enable = true;
       displayManager.lightdm.enable = true;
     };
+    services.cinnamon.apps.enable = true;
 
     environment.systemPackages = with pkgs; [
       alacritty

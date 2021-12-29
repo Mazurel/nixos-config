@@ -153,6 +153,7 @@
 (require 'meow)
 (meow-setup)
 (meow-global-mode 1)
+(add-to-list 'meow-mode-state-list '(cuda-mode . normal))
 
 ; Enable which key
 (which-key-mode)
