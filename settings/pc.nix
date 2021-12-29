@@ -1,7 +1,7 @@
 # This is settings file that is specific to my PC machine
 #
 # It is propagated into nixos configuration
-{ pkgs, lib, modulesPath, ... }: {
+{ pkgs, lib, modulesPath, config, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   mazurel.username = "mateusz";
@@ -9,10 +9,10 @@
 
   # mazurel.wayland.wms.sway.enable = true;
   mazurel.xorg.des.cinnamon.enable = true;
-  
+
   # services.flatpak.enable = lib.mkForce false;
   # xdg.portal.enable = lib.mkForce false;
-  
+
   mazurel.development.emacs.enable = true;
   mazurel.development.emacs.defaultEditor = true;
 
@@ -22,7 +22,7 @@
     # Devices that will be disabled and ready for passthorugh
     # Remember to disable gpu in bios (change display)
     passthrough = {
-      enable = false;
+      enable = true;
       # Ids can be read from `lspci -nnk`
       gpu = {
         enable = true;
@@ -39,6 +39,20 @@
     # Needed if acs are not valid
     acs-override-patch = false;
   };
+
+  # Looking glass
+  environment.etc."tmpfiles.d/10-looking-glass.conf".text =
+    let
+      user =
+        if config.virtualisation.libvirtd.qemuRunAsRoot
+        then "root"
+        else "qemu-libvirtd";
+    in
+    ''
+      # Type Path              Mode UID     GID Age Argument
+
+      f /dev/shm/looking-glass 0660 ${user} kvm -
+    '';
 
   nix.maxJobs = 8;
 
@@ -63,14 +77,14 @@
   xdg.portal.extraPortals = with pkgs; [
     xdg-desktop-portal-gtk
   ];
-  
+
   # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  # boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-intel" ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -111,7 +125,7 @@
     device = "/dev/disk/by-label/NixStore";
     fsType = "ext4";
   };
- 
+
   fileSystems."/home" = {
     device = "/dev/disk/by-label/Home";
     fsType = "ext4";
@@ -122,11 +136,11 @@
     fsType = "ext4";
   };
 
-# I think by disk is dead
-#  fileSystems."/mnt/data" = {
-#    device = "/dev/disk/by-label/LinuxData";
-#    fsType = "ext4";
-#  };
+  # I think by disk is dead
+  #  fileSystems."/mnt/data" = {
+  #    device = "/dev/disk/by-label/LinuxData";
+  #    fsType = "ext4";
+  #  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";

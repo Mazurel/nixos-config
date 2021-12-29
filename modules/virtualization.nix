@@ -98,7 +98,6 @@ in
         };
       in
       {
-
         boot.initrd.preDeviceCommands = ''
           DEVS="${lib.concatStrings (lib.intersperse " " passthrough-devices.ids1)}"
           for DEV in $DEVS; do
@@ -108,7 +107,7 @@ in
         '';
 
         boot.extraModprobeConfig = "options vfio-pci ids=${
-        lib.concatStrings (lib.intersperse "," passthrough-devices.ids2)
+          lib.concatStrings (lib.intersperse "," (passthrough-devices.ids2 ++ passthrough-devices.ids1))
       }";
       }
     ))

@@ -30,6 +30,7 @@ rec {
       spacemacs-theme
       vterm
       meow
+      direnv
 
       # Language specific modes
       lsp-mode
@@ -39,6 +40,7 @@ rec {
       racket-mode
       matlab-mode
       rust-mode
+      julia-mode
 
       # Icons
       all-the-icons-dired
@@ -57,6 +59,7 @@ rec {
       nodePackages.eslint
       nodePackages.typescript
       clang-tools
+      ccls
       rnix-lsp
       dart
       flutter

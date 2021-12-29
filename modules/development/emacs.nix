@@ -47,10 +47,13 @@ in {
       my-emacs.emacs
 
       ccls
+      clang-tools
       rnix-lsp
       nodePackages.pyright
       nodePackages.typescript
       # python38Packages.python-language-server
+
+      nix-direnv
       
       nixfmt
       swiProlog
