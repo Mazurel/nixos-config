@@ -82,7 +82,8 @@
             (prev.callPackage ./packages/textext.nix { })
           ];
         };
-        megasync = prev.megasync.overrideAttrs (oldAttrs: {
+        /* Megasync for wayland: */
+        /*megasync = prev.megasync.overrideAttrs (oldAttrs: {
           src = prev.fetchFromGitHub {
             owner = "nullobsi/";
             repo = "MEGAsync";
@@ -90,7 +91,7 @@
             sha256 = "sha256-b9Cal3zd/b+NYFR8fAdFYWLLoCjvj1crjqxDra+oHFA=";
             fetchSubmodules = true;
           };
-        });
+        });*/
       };
   };
 }
