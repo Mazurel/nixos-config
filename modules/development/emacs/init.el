@@ -169,7 +169,8 @@
 (add-hook 'prog-mode-hook 'global-company-mode)
 (setq lsp-keymap-prefix "C-c l")
 (with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+  (add-to-list 'lsp-language-id-configuration '(cuda-mode . "cpp")))
 
 (setq gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024)

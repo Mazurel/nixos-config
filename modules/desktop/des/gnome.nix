@@ -27,6 +27,6 @@ in {
       gnomeExtensions.maximize-to-workspace-with-history
     ];
 
-    programs.qt5ct.enable = true;
+    # programs.qt5ct.enable = true;
   };
 }

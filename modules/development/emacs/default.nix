@@ -42,6 +42,7 @@ rec {
       rust-mode
       julia-mode
       cuda-mode
+      cmake-mode
 
       # Icons
       all-the-icons-dired

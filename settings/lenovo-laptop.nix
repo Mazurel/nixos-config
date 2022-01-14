@@ -9,8 +9,10 @@
   mazurel.username = "mateusz";
   mazurel.languages.polish.enable = true;
 
-  mazurel.xorg.des.cinnamon.enable = true;
-  services.tlp.enable = true;
+  mazurel.xorg.des.gnome.enable = true;
+  # mazurel.xorg.des.cinnamon.enable = true;
+
+  # services.tlp.enable = true;
   powerManagement.enable = true;
   # services.upower.enable = true;
   # programs.qt5ct.enable = lib.mkForce false;
@@ -32,6 +34,7 @@
   hardware.opengl.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+  hardware.nvidia.modesetting.enable = true;
 
   users.users.mateusz.extraGroups = [
     "video"
