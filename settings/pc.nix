@@ -72,7 +72,7 @@
   services.xserver.videoDrivers = [ "intel" "nvidia" "amdgpu" ];
   hardware.nvidia.modesetting.enable = true;
 
-  mazurel.development.cuda.enable = true;
+  mazurel.development.cuda.enable = false;
 
   virtualisation.docker.enable = true;
 

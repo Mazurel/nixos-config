@@ -93,7 +93,7 @@ in rec {
     jq # Json manipulation
     hardinfo # Hardware info
     ntfs3g
-    gnome3.librsvg # SVG parsing for LyX
+    librsvg # SVG parsing for LyX
     torrential
     brasero # For cd recording
     cdrkit # For cd recording
