@@ -1,6 +1,8 @@
 # This is top module of all modules
 { lib, config, pkgs, ... }: {
   imports = [
+    ../cachix.nix
+    
     ./configuration.nix
 
     ./user.nix
@@ -28,10 +30,10 @@
 
   nix.useSandbox = true;
 
-  # Automatically clean and optimize store
+  # Automatically clean (currently disabled) and optimize store
   nix.autoOptimiseStore = true;
   nix.gc = {
-    automatic = true;
+    automatic = false;
     dates = "weekly";
     options = "--delete-older-than 14d";
   };

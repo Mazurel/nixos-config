@@ -188,9 +188,12 @@
      (add-hook hook 'lsp)))
  '(c-mode-hook c++-mode-hook python-mode-hook nix-mode-hook js-mode-hook dart-mode-hook))
 
+;; LSP Pyright
+
+
 ; Timings for company
-(setq company-minimum-prefix-length 1
-      company-idle-delay 0.0)
+(setq company-minimum-prefix-length 2
+      company-idle-delay 0.1)
 
 ;; Enable Ivy
 (ivy-mode)

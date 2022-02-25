@@ -49,10 +49,8 @@ in {
       ccls
       clang-tools
       rnix-lsp
-      nodePackages.pyright
       nodePackages.typescript
-      # python38Packages.python-language-server
-
+      nodePackages.pyright
       nix-direnv
       
       nixfmt

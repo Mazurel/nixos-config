@@ -8,6 +8,8 @@ let
       jedi
       sympy
       numba
+      pandas
+      scipy
       ipython
       tkinter
       pygments
@@ -102,11 +104,12 @@ in
   # services.mullvad-vpn.enable = true;
   # programs.corectrl.enable = true;
 
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
+  services.flatpak.enable = false;
+  xdg.portal.enable = lib.mkForce false;
   xdg.portal.extraPortals = with pkgs; [
-    # xdg-desktop-portal-gtk
+    xdg-desktop-portal-gtk
   ];
+  xdg.portal.gtkUsePortal = true;
 
   programs.adb.enable = true;
 

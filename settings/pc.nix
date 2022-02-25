@@ -8,7 +8,7 @@
   mazurel.languages.polish.enable = true;
 
   # mazurel.wayland.wms.sway.enable = true;
-  mazurel.xorg.des.cinnamon.enable = true;
+  mazurel.xorg.des.gnome.enable = true;
 
   # services.flatpak.enable = lib.mkForce false;
   # xdg.portal.enable = lib.mkForce false;
@@ -22,7 +22,7 @@
     # Devices that will be disabled and ready for passthorugh
     # Remember to disable gpu in bios (change display)
     passthrough = {
-      enable = true;
+      enable = false;
       # Ids can be read from `lspci -nnk`
       gpu = {
         enable = true;
@@ -69,15 +69,16 @@
     wireless.enable = false; # Enables wpa_supplicant
   };
 
-  services.xserver.videoDrivers = [ "intel" "amdgpu" ];
+  services.xserver.videoDrivers = [ "intel" "nvidia" "amdgpu" ];
+  hardware.nvidia.modesetting.enable = true;
+
+  mazurel.development.cuda.enable = true;
 
   virtualisation.docker.enable = true;
 
-  # Needed for flatpak
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-gtk
-  ];
-
+  # hardware.opengl.enable = true;
+  # hardware.opengl.extraPackages = [ pkgs.rocm-opencl-icd ];
+  
   # Make CPU speed as fast as possible
   powerManagement.cpuFreqGovernor = "performance";
 

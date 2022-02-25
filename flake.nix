@@ -8,8 +8,12 @@
     url = "github:Shopify/comma";
     flake = false;
   };
+  inputs.nixos-rocm = {
+    url = "github:nixos-rocm/nixos-rocm";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, nix-matlab, comma }: {
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, nix-matlab, comma, nixos-rocm }: {
     nixosModules = {
       # This module boundles modules that are required for
       # my configurations to work
@@ -22,7 +26,7 @@
           { }
           (
             { ... }: {
-              nixpkgs.overlays = [ self.overlay nix-matlab.overlay ];
+              nixpkgs.overlays = [ self.overlay nix-matlab.overlay nixos-rocm.overlay ];
               nix.registry.nixpkgs.flake = nixpkgs;
               # nix.registry.configuration.flake = "/etc/nixos";
             }
@@ -82,16 +86,6 @@
             (prev.callPackage ./packages/textext.nix { })
           ];
         };
-        /* Megasync for wayland: */
-        /*megasync = prev.megasync.overrideAttrs (oldAttrs: {
-          src = prev.fetchFromGitHub {
-            owner = "nullobsi/";
-            repo = "MEGAsync";
-            rev = "ad1e46a94dada7f11418647c4e2db7ca5c559ba0";
-            sha256 = "sha256-b9Cal3zd/b+NYFR8fAdFYWLLoCjvj1crjqxDra+oHFA=";
-            fetchSubmodules = true;
-          };
-        });*/
       };
   };
 }

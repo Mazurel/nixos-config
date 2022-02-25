@@ -64,17 +64,18 @@ in rec {
     #    libsecret
     glib
     nix-index
+    cachix
     
     # Themes and more
-    capitaine-cursors
-    arc-theme
+    # capitaine-cursors
+    # arc-theme
     papirus-maia-icon-theme
-    hicolor-icon-theme
+    # hicolor-icon-theme
     adwaita-qt
-    pop-gtk-theme
-    qogir-theme
-    qogir-icon-theme
-    orchis-theme
+    # pop-gtk-theme
+    # qogir-theme
+    # qogir-icon-theme
+    # orchis-theme
 
     # Tools
     bash

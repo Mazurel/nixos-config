@@ -1,7 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
 let
   myEmacs = pkgs.emacs;
-
 in
 rec {
   emacs-packages = (epkgs:
@@ -36,6 +35,7 @@ rec {
       lsp-mode
       lsp-dart
       lsp-ui
+      lsp-pyright
       # lsp-pyright
       racket-mode
       matlab-mode
